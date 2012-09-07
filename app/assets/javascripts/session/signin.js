@@ -21,8 +21,8 @@ $(document).ready(function()
   formLogin.submit(function(event)
   {
     // Values
-    var login = $.trim($('#session_email').val()),
-      pass = $.trim($('#session_password').val());
+    var login = $.trim($('#email').val()),
+      pass = $.trim($('#password').val());
 
     // Check inputs
     if (login.length === 0)
