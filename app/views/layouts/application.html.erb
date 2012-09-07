@@ -1,14 +1,119 @@
 <!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
 <html>
 <head>
-  <title>ClubManager</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
 
-<%= yield %>
+  <%= render 'layouts/head' %>
 
-</body>
+  </head>
+  <body class="clearfix with-menu with-shortcuts">
+
+      <!-- Prompt IE 6 users to install Chrome Frame -->
+      <!--[if lt IE 7]><p class="message red-gradient simpler">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+
+      <!-- Title Bar -->
+      <header role="banner" id="title-bar">
+              <h2>Club Manager</h2>
+      </header>
+
+      <!-- Button to open/hide menu -->
+      <a href="#" id="open-menu"><span>Menu</span></a>
+
+      <!-- Button to open/hide shortcuts -->
+      <a href="#" id="open-shortcuts"><span class="icon-thumbs"></span></a>
+
+      <!-- Main content -->
+      <section role="main" id="main">
+
+              <!-- Visible only to browsers without javascript -->
+              <noscript class="message black-gradient simpler">Your browser does not support JavaScript! Some features won't work as expected...</noscript>
+
+              <!-- Main title -->
+              <hgroup id="main-title" class="thin">
+                      <h1>Club Manager</h1>
+                      <h2>nov <strong>10</strong></h2>
+              </hgroup>
+
+              <!-- The padding wrapper may be omitted -->
+              <div class="with-padding">
+
+
+                      <%= yield %>
+
+              </div>
+
+      </section>
+      <!-- End main content -->
+
+      <!-- Side tabs shortcuts -->
+      <ul id="shortcuts" role="complementary" class="children-tooltip tooltip-right">
+              <!-- Active shortcut -->
+              <li class="current"><a href="./" class="shortcut-dashboard" title="Dashboard">Dashboard</a></li>
+              <!-- Background shortcut -->
+              <li><a href="#" class="shortcut-messages" title="Messages">Messages</a></li>
+              <!-- Disabled shortcut -->
+              <li><span class="shortcut-notes" title="Notes">Notes</span></li>
+      </ul>
+
+      <!-- Sidebar/drop-down menu -->
+      <section id="menu" role="complementary">
+
+
+              <!-- This wrapper is used by several responsive layouts -->
+              <div id="menu-content">
+
+                      <header>
+                              Administrator
+                      </header>
+
+                      <div id="profile">
+                              <%= image_tag 'img/user.png', width: '64', height: '64', alt: 'User Name', class: 'user-icon' %>
+                              Hello
+                              <span class='name'>John <b>Doe</b></span>
+                      </div>
+
+                      <ul id="access" class="children-tooltip">
+                              <!-- Icon with count -->
+                              <li><a href="#" title="Messages">
+                                      <span class="icon-inbox"></span>
+                                      <span class="count">2</span>
+                              </a></li>
+                              <!-- Simple icon -->
+                              <li><a href="#" title="Calendar">
+                                      <span class="icon-calendar"></span></a>
+                              </li>
+                              <!-- Disabled icon -->
+                              <li class="disabled">
+                                      <span class="icon-gear"></span>
+                              </li>
+                      </ul>
+
+                      <!-- Navigation goes here -->
+
+              </div>
+              <!-- End content wrapper -->
+
+              <!-- This is optional -->
+              <footer id="menu-footer">
+                      <!-- Any content -->
+              </footer>
+
+      </section>
+
+
+      <!-- JavaScript at the bottom for fast page loading -->
+
+      <!-- Scripts -->
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'js/setup' %>
+
+      <!-- Template Functions -->
+      <%= yield :template_functions %>
+
+  </body>
+
 </html>
