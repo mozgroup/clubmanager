@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+<!--[if IEMobile 7]><html class="no-js iem7 oldie linen"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie linen" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie linen" lang="en"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]><html class="no-js ie9 linen" lang="en"><![endif]-->
+<!--[if (gt IE 9)|(gt IEMobile 7)]><!--><html class="no-js linen" lang="en"><!--<![endif]-->
 
 <html>
 <head>
@@ -13,7 +15,20 @@
 
   <body>
 
-          <%= yield %>
+    <%= yield %>
+
+      <!-- JavaScript at the bottom for fast page loading -->
+
+      <!-- Scripts -->
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'js/setup' %>
+      <%= javascript_include_tag 'js/developr.input' %>
+      <%= javascript_include_tag 'js/developr.message' %>
+      <%= javascript_include_tag 'js/developr.notify' %>
+      <%= javascript_include_tag 'js/developr.tooltip' %>
+
+      <!-- Template Functions -->
+      <%= yield :template_functions %>
 
   </body>
 

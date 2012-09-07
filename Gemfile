@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'thin', '~> 1.4.1'
+gem 'bcrypt-ruby', '~> 3.0.1'
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.5'
@@ -23,6 +24,7 @@ gem 'jquery-rails'
 
 group :test do
   gem 'factory_girl_rails', '~> 4.0.0'
+  gem 'shoulda-matchers', '~> 1.3.0'
   gem 'webrat', '~> 0.7.3'
   gem 'database_cleaner', '~> 0.8.0'
   gem 'capybara', '>= 1.1.2'

@@ -32,4 +32,9 @@ describe User do
   describe "Full Name method" do
     its(:full_name) { should == "#{@user.first_name} #{@user.last_name}" }
   end
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
 end

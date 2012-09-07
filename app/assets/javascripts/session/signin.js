@@ -21,14 +21,14 @@ $(document).ready(function()
   formLogin.submit(function(event)
   {
     // Values
-    var login = $.trim($('#user_email').val()),
-      pass = $.trim($('#user_password').val());
+    var login = $.trim($('#session_email').val()),
+      pass = $.trim($('#session_password').val());
 
     // Check inputs
     if (login.length === 0)
     {
       // Display message
-      displayError('Please fill in your login');
+      displayError('Please fill in your email');
       return false;
     }
     else if (pass.length === 0)
