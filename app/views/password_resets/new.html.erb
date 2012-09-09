@@ -1,0 +1,28 @@
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/form" %>
+  <%= stylesheet_link_tag "css/styles/switches" %>
+  <%= stylesheet_link_tag "css/login" %>
+<% end %>
+
+<div id="container">
+
+  <hgroup id="login-title" class="large-margin-bottom">
+    <h1 class="login-title-image">Club Manager - Forgotten Password?</h1>
+    <h5>&copy; Club Manager - Forgotten Password?</h5>
+  </hgroup>
+
+  <%= form_tag(password_resets_path, id: 'form-login' ) do %>
+    <ul class="inputs black-input large">
+      <li><span class="icon-user mid-margin-right"></span><%= email_field_tag :email, params[:email], class: 'input-unstyled', placeholder: 'Email', autocomplete: 'off' %></li>
+    </ul>
+
+    <button class="button glossy full-width huge" name="commit" type="submit">Reset Password</button>
+
+  <% end %>
+
+</div>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'session/resetpw' %>
+<% end %>
+
