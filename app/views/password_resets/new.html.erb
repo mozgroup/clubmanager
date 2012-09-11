@@ -11,6 +11,8 @@
     <h5>&copy; Club Manager - Forgotten Password?</h5>
   </hgroup>
 
+  <%= render 'shared/messages' %>
+
   <%= form_tag(password_resets_path, id: 'form-login' ) do %>
     <ul class="inputs black-input large">
       <li><span class="icon-user mid-margin-right"></span><%= email_field_tag :email, params[:email], class: 'input-unstyled', placeholder: 'Email', autocomplete: 'off' %></li>

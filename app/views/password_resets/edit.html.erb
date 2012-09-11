@@ -11,7 +11,9 @@
     <h5>&copy; Club Manager - Reset Password</h5>
   </hgroup>
 
-    <%= form_for @user, url: password_reset_path(params[:id]), html: { id: 'form-login' } do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <%= form_for @user, url: password_reset_path(params[:id]), html: { id: 'form-login' } do |f| %>
     <ul class="inputs black-input large">
       <li><span class="icon-user mid-margin-right"></span><%= f.password_field :password, class: 'input-unstyled', placeholder: 'New Password', autocomplete: 'off' %></li>
       <li><span class="icon-user mid-margin-right"></span><%= f.password_field :password_confirmation, class: 'input-unstyled', placeholder: 'Confirm Password', autocomplete: 'off' %></li>

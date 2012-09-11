@@ -1,0 +1,9 @@
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |msg| %>
+    <%= content_tag(:p, class: "message red-gradient") do %>
+      <span class="block-arrow"><span></span></span>
+      <a href="#" title="Hide message" class="close show-on-parent-hover">✕</a>
+      <%= msg %>
+    <% end %>
+  <% end %>
+<% end %>

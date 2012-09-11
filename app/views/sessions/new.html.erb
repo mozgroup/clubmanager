@@ -11,13 +11,7 @@
     <h5>&copy; Club Manager - Sign in</h5>
   </hgroup>
 
-  <% flash.each do |key, value| %>
-        <%= content_tag(:p, class: "message red-gradient") do %>
-          <span class="block-arrow"><span></span></span>
-          <a href="#" title="Hide message" class="close show-on-parent-hover">✕</a>
-          <%= value %>
-        <% end %>
-  <% end %>
+  <%= render 'shared/messages' %>
 
   <%= form_tag(sessions_path, id: 'form-login' ) do %>
     <ul class="inputs black-input large">
