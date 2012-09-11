@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :redirect_page
+  skip_before_filter :authenticate
 
   layout 'session'
 
