@@ -35,7 +35,7 @@
               <!-- Main title -->
               <hgroup id="main-title" class="thin">
                       <h1>Club Manager</h1>
-                      <h2>nov <strong>10</strong></h2>
+                      <h2><%= dashboard_date %></h2>
               </hgroup>
 
               <!-- The padding wrapper may be omitted -->
@@ -71,9 +71,10 @@
                       </header>
 
                       <div id="profile">
-                              <%= image_tag 'img/user.png', width: '64', height: '64', alt: 'User Name', class: 'user-icon' %>
+                        <%= gravatar_for(current_user, size: '64') %>
+
                               Hello
-                              <span class='name'>John <b>Doe</b></span>
+                              <%= dashboard_user(current_user) %>
                       </div>
 
                       <ul id="access" class="children-tooltip">
