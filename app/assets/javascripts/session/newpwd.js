@@ -22,12 +22,23 @@ $(document).ready(function()
   {
     // Values
     var pass = $.trim($('#user_password').val());
+    var pass_conf = $.trim($('#user_password_confirmation').val());
 
     // Check inputs
     if (pass.length === 0)
     {
       // Display message
       displayError('Please fill in your password');
+      return false;
+    }
+    else if (pass_conf.length == 0)
+    {
+      displayError('Please fill in your password confirmation');
+      return false;
+    }
+    else if (pass != pass_conf)
+    {
+      displayError('Password and Password Confirmation do not match');
       return false;
     }
     else

@@ -1,63 +1,63 @@
 $(document).ready(function()
 {
-  /*
-   * JS login effect
-   * This script will enable effects for the login page
-   */
-    // Elements
-  var doc = $('html').addClass('js-login'),
-    container = $('#container'),
-    formLogin = $('#form-login'),
+	/*
+	 * JS login effect
+	 * This script will enable effects for the login page
+	 */
+		// Elements
+	var doc = $('html').addClass('js-login'),
+		container = $('#container'),
+		formLogin = $('#form-login'),
 
-    // If layout is centered
-    centered;
+		// If layout is centered
+		centered;
 
-  /******* EDIT THIS SECTION *******/
+	/******* EDIT THIS SECTION *******/
 
-  /*
-   * AJAX login
-   * This function will handle the login process through AJAX
-   */
-  formLogin.submit(function(event)
-  {
-    // Values
-    var login = $.trim($('#email').val()),
-      pass = $.trim($('#password').val());
+	/*
+	 * AJAX login
+	 * This function will handle the login process through AJAX
+	 */
+	formLogin.submit(function(event)
+	{
+		// Values
+		var login = $.trim($('#user_email').val()),
+			pass = $.trim($('#user_password').val());
 
-    // Check inputs
-    if (login.length === 0)
-    {
-      // Display message
-      displayError('Please fill in your email');
-      return false;
-    }
-    else if (pass.length === 0)
-    {
-      // Remove empty login message if displayed
-      formLogin.clearMessages('Please fill in your email');
+		// Check inputs
+		if (login.length === 0)
+		{
+			// Display message
+			displayError('Please fill in your email');
+			return false;
+		}
+		else if (pass.length === 0)
+		{
+			// Remove empty login message if displayed
+			formLogin.clearMessages('Please fill in your email');
 
-      // Display message
-      displayError('Please fill in your password');
-      return false;
-    }
-    else
-    {
-      // Remove previous messages
-      formLogin.clearMessages();
+			// Display message
+			displayError('Please fill in your password');
+			return false;
+		}
+		else
+		{
+			// Remove previous messages
+			formLogin.clearMessages();
 
-      // Show progress
-      displayLoading('Checking credentials...');
+			// Show progress
+			displayLoading('Checking credentials...');
 
-    }
-  });
+		}
+	});
 
-  /******* END OF EDIT SECTION *******/
+	/******* END OF EDIT SECTION *******/
 
-  // Handle resizing (mostly for debugging)
-  function handleLoginResize()
-  {
-    // Detect mode
-    centered = (container.css('position') === 'absolute');
+	// Handle resizing (mostly for debugging)
+	function handleLoginResize()
+	{
+		// Detect mode
+		centered = (container.css('position') === 'absolute');
 
 		// Set min-height for mobile layout
 		if (!centered)

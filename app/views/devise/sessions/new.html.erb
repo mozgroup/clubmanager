@@ -1,17 +1,40 @@
-<h2>Sign in</h2>
-
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/form" %>
+  <%= stylesheet_link_tag "css/styles/switches" %>
+  <%= stylesheet_link_tag "css/login" %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<div id="container">
+
+  <hgroup id="login-title" class="large-margin-bottom">
+    <h1 class="login-title-image">Club Manager</h1>
+    <h5>&copy; Club Manager</h5>
+  </hgroup>
+
+  <% flash.each do |key, value| %>
+        <%= content_tag(:p, class: flash_message_class(key)) do %>
+          <span class="block-arrow"><span></span></span>
+          <a href="#" title="Hide message" class="close show-on-parent-hover">✕</a>
+          <%= value %>
+        <% end %>
+    <% end %>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { id: 'form-login' } ) do |f| %>
+    <ul class="inputs black-input large">
+      <li><span class="icon-user mid-margin-right"></span><%= f.email_field :email, class: 'input-unstyled', placeholder: 'Email', autocomplete: 'off' %></li>
+      <li><span class="icon-lock mid-margin-right"></span><%= f.password_field :password, class: 'input-unstyled', placeholder: 'Password', autocomplete: 'off' %></li>
+    </ul>
+
+    <button class="button glossy full-width huge" name="commit" type="submit">Sign In</button>
+
+  <% end %>
+
+  <div class="margin-top white">
+    <%= link_to "Forgot your password?", new_password_path(resource_name), class: "white" %><br />
+  </div>
+
+</div>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'session/signin' %>
+<% end %>

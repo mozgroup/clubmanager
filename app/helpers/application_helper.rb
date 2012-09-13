@@ -7,7 +7,7 @@ module ApplicationHelper
     when 'notice'
       message_class += " blue-gradient"
     when 'alert'
-      message_class += " orange-gradient"
+      message_class += " red-gradient"
     else
       message_class += " blue-gradient"
     end
