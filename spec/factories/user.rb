@@ -3,6 +3,7 @@ FactoryGirl.define do
     employee_number '123456'
     first_name 'John'
     last_name 'doe'
+    title 'manager'
     email
     password 'supersecret'
     password_confirmation 'supersecret'

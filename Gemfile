@@ -8,6 +8,7 @@ gem 'devise', '~> 2.1.2'
 group :development, :test do
   gem 'sqlite3', '~> 1.3.5'
   gem 'rspec-rails', '>= 2.10.1'
+  gem 'factory_girl_rails', '~> 4.0.0'
 end
 
 gem 'annotate', '~> 2.5.0', group: :development
@@ -24,11 +25,13 @@ end
 gem 'jquery-rails'
 
 group :test do
-  gem 'factory_girl_rails', '~> 4.0.0'
+  gem 'email_spec', '>= 1.2.1'
+  gem 'cucumber-rails', '>= 1.3.0', require: false
   gem 'shoulda-matchers', '~> 1.3.0'
   gem 'webrat', '~> 0.7.3'
   gem 'database_cleaner', '~> 0.8.0'
   gem 'capybara', '>= 1.1.2'
+  gem 'launchy', '>= 2.1.0'
 end
 
 group :production do
