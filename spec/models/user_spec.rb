@@ -32,9 +32,16 @@ describe User do
       :last_name => "User",
       :email => "user@example.com",
       :password => "foobar",
-      :password_confirmation => "foobar"
+      :password_confirmation => "foobar",
+      :employee_number => "1"
     }
   end
+
+  it { should have_many(:clubs).through(:club_users) }
+
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:employee_number) }
   
   it "should create a new instance given a valid attribute" do
     User.create!(@attr)
