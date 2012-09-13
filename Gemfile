@@ -4,6 +4,8 @@ gem 'rails', '3.2.8'
 gem 'thin', '~> 1.4.1'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'devise', '~> 2.1.2'
+gem 'activeadmin', '~> 0.5.0'
+gem "meta_search", "~> 1.1.3"
 
 group :development, :test do
   gem 'sqlite3', '~> 1.3.5'
