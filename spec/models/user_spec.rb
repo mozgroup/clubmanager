@@ -1,3 +1,27 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  sign_in_count          :integer          default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  failed_attempts        :integer          default(0)
+#  locked_at              :datetime
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  employee_number        :string(255)
+#  title                  :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
+#
+
 require 'spec_helper'
 
 describe User do
@@ -8,9 +32,16 @@ describe User do
       :last_name => "User",
       :email => "user@example.com",
       :password => "foobar",
-      :password_confirmation => "foobar"
+      :password_confirmation => "foobar",
+      :employee_number => "1"
     }
   end
+
+  it { should have_many(:clubs).through(:club_users) }
+
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:employee_number) }
   
   it "should create a new instance given a valid attribute" do
     User.create!(@attr)

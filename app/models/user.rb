@@ -31,6 +31,16 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :title, :employee_number, :first_name, :last_name
+  attr_accessible :club_ids
+
+  has_many :club_users, class_name: 'ClubUsers'
+  has_many :clubs, through: :club_users
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :employee_number, presence: true
+
+  accepts_nested_attributes_for :club_users
 
   def full_name
     "#{first_name} #{last_name}"

@@ -14,7 +14,7 @@ ActiveAdmin.register User do
   filter :title
 
   form do |f|
-    f.inputs "Employee Details" do
+    f.inputs "User Details" do
       f.input :first_name
       f.input :last_name
       f.input :email
@@ -22,7 +22,19 @@ ActiveAdmin.register User do
       f.input :title
       f.input :password
       f.input :password_confirmation
+      f.input :clubs
     end
     f.buttons
   end
+
+  controller do
+    def new
+      @user = User.new(club_ids: params[:club_id])
+    end
+  end
+
+  def scoped_collection
+    User.includes(:clubs)
+  end
+
 end

@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :club do
-    name "MyString"
-    region_id 1
-    address "MyText"
+    name "My Club"
+    address "1234 Main St."
+    region
   end
 end
