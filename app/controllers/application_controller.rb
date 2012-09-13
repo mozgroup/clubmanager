@@ -1,12 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  include SessionsHelper
 
-  before_filter :authenticate
+  before_filter :authenticate_user!
 
-  private
+  layout :layout_by_resource
 
-  def authenticate
-    redirect_to signin_path unless signed_in?
-  end
+  protected
+
+    def layout_by_resource
+      if devise_controller?
+        "session"
+      else
+        "application"
+      end
+    end
 end

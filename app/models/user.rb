@@ -3,46 +3,36 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  employee_number        :string(255)
-#  first_name             :string(255)
-#  last_name              :string(255)
-#  email                  :string(255)
-#  password_digest        :string(255)
-#  remember_token         :string(255)
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  sign_in_count          :integer          default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  failed_attempts        :integer          default(0)
+#  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  password_reset_token   :string(255)
-#  password_reset_sent_at :datetime
+#  employee_number        :string(255)
+#  title                  :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :employee_number, :first_name, :last_name, :password, :password_confirmation
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :recoverable, :trackable, :validatable, :lockable, :timeoutable
 
-  before_save { self.email.downcase! }
-  before_save { generate_token(:remember_token) }
-
-  ValidEmailRegex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: ValidEmailRegex }, uniqueness: { case_sensitive: false }
-  validates :first_name, presence: true
-  validates :employee_number, presence: true, numericality: true
-
-  has_secure_password
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :title, :employee_number, :first_name, :last_name
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
-  end
-
-  def generate_password_reset
-    generate_token(:password_reset_token)
-    self.password_reset_sent_at = Time.zone.now
-    save!
-  end
-
-  private
-
-  def generate_token(column)
-    begin
-      self[column] = SecureRandom.urlsafe_base64
-    end while User.exists?(column => self[column])
+    "#{first_name} #{last_name}"
   end
 end

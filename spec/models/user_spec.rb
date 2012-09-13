@@ -3,41 +3,27 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  employee_number        :string(255)
-#  first_name             :string(255)
-#  last_name              :string(255)
-#  email                  :string(255)
-#  password_digest        :string(255)
-#  remember_token         :string(255)
+#  email                  :string(255)      default(""), not null
+#  encrypted_password     :string(255)      default(""), not null
+#  reset_password_token   :string(255)
+#  reset_password_sent_at :datetime
+#  sign_in_count          :integer          default(0)
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string(255)
+#  last_sign_in_ip        :string(255)
+#  failed_attempts        :integer          default(0)
+#  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  password_reset_token   :string(255)
-#  password_reset_sent_at :datetime
+#  employee_number        :string(255)
+#  title                  :string(255)
+#  first_name             :string(255)
+#  last_name              :string(255)
 #
 
 require 'spec_helper'
 
 describe User do
-  before do
-    @user = FactoryGirl.create(:user)
-  end
-
-  subject { @user }
-
-  it { should validate_presence_of(:email) }
-  it { should validate_uniqueness_of(:email) }
-  it { should validate_presence_of(:first_name) }
-  it { should validate_format_of(:email).with(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i).with_message('Email has an invalid format') } 
-  it { should_not allow_mass_assignment_of(:password_digest) }
-  it { should validate_presence_of(:employee_number) }
-  it { should validate_numericality_of(:employee_number) }
-
-  describe "Full Name method" do
-    its(:full_name) { should == "#{@user.first_name} #{@user.last_name}" }
-  end
-
-  describe "remember token" do
-    before { @user.save }
-    its(:remember_token) { should_not be_blank }
-  end
+  pending "add some examples to (or delete) #{__FILE__}"
 end

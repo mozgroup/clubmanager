@@ -1,11 +1,16 @@
 ClubManager::Application.routes.draw do
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  devise_for :users
+
+  devise_scope :user do
+    get "sign_in", :to => "devise/sessions#new"
+  end
 
   root to: 'home#index'
 
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :password_resets
+#  match '/signin', to: 'sessions#new'
+#  match '/signout', to: 'sessions#destroy', via: :delete
+#  resources :sessions, only: [:new, :create, :destroy]
+#  resources :password_resets
 
 
   # The priority is based upon order of creation:
