@@ -22,4 +22,10 @@ class Message < ActiveRecord::Base
 
   belongs_to :author, class_name: 'User', foreign_key: :author_id
   has_many :envelopes
+
+  delegate :full_name, to: :author, prefix: true
+
+  def deliver
+    raise Exceptions::NoRecipients if self.send_to.blank? && self.copy_to.blank?
+  end
 end
