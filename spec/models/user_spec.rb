@@ -38,6 +38,8 @@ describe User do
   end
 
   it { should have_many(:clubs).through(:club_users) }
+  it { should have_many(:messages).through(:envelopes) }
+  it { should have_many(:authored_messages) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }

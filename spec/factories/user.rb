@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :user do
+  factory :user, aliases: [:author, :recipient] do
     employee_number '123456'
     first_name 'John'
     last_name 'doe'

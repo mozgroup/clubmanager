@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120913200816) do
+ActiveRecord::Schema.define(:version => 20120914161125) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -65,6 +65,38 @@ ActiveRecord::Schema.define(:version => 20120913200816) do
 
   add_index "clubs", ["name"], :name => "index_clubs_on_name"
   add_index "clubs", ["region_id"], :name => "index_clubs_on_region_id"
+
+  create_table "envelopes", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "recipient_id"
+    t.boolean  "read_flag"
+    t.boolean  "trash_flag"
+    t.boolean  "delete_flag"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"
+  add_index "envelopes", ["recipient_id"], :name => "index_envelopes_on_recipient_id"
+
+  create_table "messages", :force => true do |t|
+    t.integer  "author_id"
+    t.string   "send_to"
+    t.string   "copy_to"
+    t.string   "blind_copy_to"
+    t.string   "subject"
+    t.text     "body"
+    t.string   "status",               :default => "draft"
+    t.string   "importance",           :default => "normal"
+    t.datetime "sent_at"
+    t.boolean  "read_receipt_request", :default => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "messages", ["author_id"], :name => "index_messages_on_author_id"
+  add_index "messages", ["sent_at"], :name => "index_messages_on_sent_at"
+  add_index "messages", ["subject"], :name => "index_messages_on_subject"
 
   create_table "regions", :force => true do |t|
     t.string   "name"

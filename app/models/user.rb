@@ -35,6 +35,9 @@ class User < ActiveRecord::Base
 
   has_many :club_users, class_name: 'ClubUsers'
   has_many :clubs, through: :club_users
+  has_many :envelopes, foreign_key: :recipient_id
+  has_many :messages, through: :envelopes
+  has_many :authored_messages, class_name: 'Message', foreign_key: :author_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true
