@@ -25,19 +25,25 @@ class Message < ActiveRecord::Base
 
   delegate :full_name, to: :author, prefix: true
 
+  StatusSent = 'sent'
+
   def deliver
     @recipients = recipients
     raise Exceptions::NoRecipients if @recipients.empty?
 
-#   @recipients.each do |recipient|
-#     user = User.find_by_first_name_and_last_name(recipient.split(' ',2))
-#     if user
-#       self.envelopes.create(recipient_id: user.id)
-#     end
-#   end
+    self.save! if self.new_record?
 
+    @recipients.each do |recipient|
+      recip_name = recipient.split(' ', 2)
+      user = User.find_by_first_name_and_last_name(recip_name[0], recip_name[1])
+      if user
+        self.envelopes.create(recipient_id: user.id)
+      end
+    end
+
+    self.status = StatusSent
+    self.sent_at = Time.zone.now
     self.save!
-
   end
 
   protected

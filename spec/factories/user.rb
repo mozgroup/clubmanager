@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :user, aliases: [:author, :recipient] do
     employee_number
-    first_name 'John'
-    last_name 'doe'
-    title 'manager'
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    title { Faker::Name.title }
     email
     password 'supersecret'
     password_confirmation 'supersecret'

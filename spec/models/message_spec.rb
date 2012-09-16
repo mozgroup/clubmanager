@@ -76,30 +76,37 @@ describe Message do
 
     describe "with one or more recipients" do
 
-      before(:each) do
-        @recip1 = FactoryGirl.create(:user, first_name: "Jane", last_name: "Doe")
-        @recip2 = FactoryGirl.create(:user, first_name: "Bob", last_name: "Jones")
-        @recip3 = FactoryGirl.create
-        @message.send_to = "Jane Doe"
+      let!(:recip1) do
+        FactoryGirl.create(:user)
+      end
+      let!(:recip2) do
+        FactoryGirl.create(:user)
+      end
+      let!(:recip3) do
+        FactoryGirl.create(:user)
+      end
+
+      before do
+        @message.send_to = recip1.full_name
+        @message.copy_to = recip2.full_name
+        @message.blind_copy_to = recip3.full_name
         @message.deliver
       end
 
-      describe "send the message without first saving" do
-        before do
-          @message.send_to = "Jane Doe"
-           @message.deliver
+      it { should_not be_new_record } 
+      it "should have envelopes for all recipients" do
+        env_recips = []
+        @message.envelopes.each do |envelope|
+          env_recips << envelope.recipient
         end
-        it { should_not be_new_record } 
+        [recip1, recip2, recip3].each do |recip|
+          env_recips.should include(recip)
+        end
       end
 
-      describe "with one send_to recipient" do
-        before do
-        end
-
-        its(:envelopes) { should_not be_empty }
-  #     @message.envelopes.size.should == 1
-  #     @message.envelopes[0].recipient.should == @user
-      end
+      its(:envelopes) { should_not be_empty }
+      its(:status) { should == Message::StatusSent }
+      its(:sent_at) { should_not be_nil }
     end
   end
 
