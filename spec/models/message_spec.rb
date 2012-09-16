@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe Message do
-  before do 
+  before(:each) do 
     @message = FactoryGirl.build(:message)
   end
 
@@ -64,9 +64,6 @@ describe Message do
 
     describe "with no recipients" do
       before do
-        @message.send_to = ""
-        @message.copy_to = ""
-        @message.blind_copy_to = ""
         @message.save
       end
 
@@ -76,5 +73,34 @@ describe Message do
       its(:sent_at) { should be_nil }
       its(:envelopes) { should be_empty }
     end
+
+    describe "with one or more recipients" do
+
+      before(:each) do
+        @recip1 = FactoryGirl.create(:user, first_name: "Jane", last_name: "Doe")
+        @recip2 = FactoryGirl.create(:user, first_name: "Bob", last_name: "Jones")
+        @recip3 = FactoryGirl.create
+        @message.send_to = "Jane Doe"
+        @message.deliver
+      end
+
+      describe "send the message without first saving" do
+        before do
+          @message.send_to = "Jane Doe"
+           @message.deliver
+        end
+        it { should_not be_new_record } 
+      end
+
+      describe "with one send_to recipient" do
+        before do
+        end
+
+        its(:envelopes) { should_not be_empty }
+  #     @message.envelopes.size.should == 1
+  #     @message.envelopes[0].recipient.should == @user
+      end
+    end
   end
+
 end

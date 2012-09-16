@@ -26,6 +26,23 @@ class Message < ActiveRecord::Base
   delegate :full_name, to: :author, prefix: true
 
   def deliver
-    raise Exceptions::NoRecipients if self.send_to.blank? && self.copy_to.blank?
+    @recipients = recipients
+    raise Exceptions::NoRecipients if @recipients.empty?
+
+#   @recipients.each do |recipient|
+#     user = User.find_by_first_name_and_last_name(recipient.split(' ',2))
+#     if user
+#       self.envelopes.create(recipient_id: user.id)
+#     end
+#   end
+
+    self.save!
+
   end
+
+  protected
+
+    def recipients
+      self.send_to.split(/,\s*/) + self.copy_to.split(/,\s*/) + self.blind_copy_to.split(/,\s*/)
+    end
 end

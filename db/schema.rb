@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(:version => 20120914161125) do
 
   create_table "messages", :force => true do |t|
     t.integer  "author_id"
-    t.string   "send_to"
-    t.string   "copy_to"
-    t.string   "blind_copy_to"
+    t.string   "send_to",              :default => ""
+    t.string   "copy_to",              :default => ""
+    t.string   "blind_copy_to",        :default => ""
     t.string   "subject"
     t.text     "body"
     t.string   "status",               :default => "draft"
