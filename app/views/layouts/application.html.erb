@@ -54,7 +54,7 @@
               <!-- Active shortcut -->
               <li class="current"><a href="./" class="shortcut-dashboard" title="Dashboard">Dashboard</a></li>
               <!-- Background shortcut -->
-              <li><a href="#" class="shortcut-messages" title="Messages">Messages</a></li>
+              <li><%= link_to "Messages", inbox_path, class: "shortcut-messages", title: "Messages" %></li>
               <!-- Disabled shortcut -->
               <li><span class="shortcut-notes" title="Notes">Notes</span></li>
       </ul>

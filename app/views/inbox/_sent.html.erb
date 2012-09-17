@@ -1,0 +1,11 @@
+<li>
+        <span class="message-status">
+        </span>
+        <span class="message-info">
+                <span class="blue"><%= date_format(sent.sent_at) %></span>
+        </span>
+        <%= link_to message_path(sent), title: 'view sent', remote: true do %>
+          <strong class="blue"><%= send_tos(sent) %></strong><br>
+                <%= subject(sent) %>
+        <% end %>
+</li>

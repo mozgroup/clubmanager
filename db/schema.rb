@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20120914161125) do
     t.boolean  "read_flag",    :default => false
     t.boolean  "trash_flag",   :default => false
     t.boolean  "delete_flag",  :default => false
+    t.datetime "delivered_at"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end

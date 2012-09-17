@@ -1,0 +1,11 @@
+<li>
+        <span class="message-status">
+        </span>
+        <span class="message-info">
+                <span class="blue"><%= date_format(draft.updated_at) %></span>
+        </span>
+        <%= link_to edit_message_path(draft), title: 'edit draft', remote: true do %>
+          <strong class="blue"><%= send_tos(draft) %></strong><br>
+                <%= subject(draft) %>
+        <% end %>
+</li>

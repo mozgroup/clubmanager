@@ -6,6 +6,7 @@ class CreateEnvelopes < ActiveRecord::Migration
       t.boolean :read_flag, default: false
       t.boolean :trash_flag, default: false
       t.boolean :delete_flag, default: false
+      t.datetime :delivered_at
 
       t.timestamps
     end

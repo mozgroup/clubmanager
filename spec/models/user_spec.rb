@@ -134,4 +134,58 @@ describe User do
 
   end
 
+  describe "envelope association" do
+
+    before { @user = User.create!(@attr) }
+    let!(:older_envelope) do
+      FactoryGirl.create(:week_ago_envelope, recipient: @user)
+    end
+    let!(:newer_envelope) do
+      FactoryGirl.create(:hour_ago_envelope, recipient: @user)
+    end
+    let!(:trashed_envelope) do
+      FactoryGirl.create(:day_ago_trashed_envelope, recipient: @user)
+    end
+
+    it "should have right envelopes in the right order" do
+      @user.envelopes.should == [newer_envelope, trashed_envelope, older_envelope]
+    end
+
+    it "should only have non trashed envelopes" do
+      @user.envelopes.inbox.should == [newer_envelope, older_envelope]
+    end
+
+    it "should get the count of the unread envelopes" do
+      @user.envelopes.unread_count.should == 2
+    end
+
+    it "should return the trashed envelopes" do
+      @user.envelopes.trash.should == [trashed_envelope]
+    end
+  end
+
+  describe "authored_message association" do
+
+    before { @user = User.create!(@attr) }
+    let!(:older_sent_message) do
+      FactoryGirl.create(:sent_a_week_ago, author: @user)
+    end
+    let!(:older_draft_message) do
+      FactoryGirl.create(:message, author: @user, created_at: 1.day.ago)
+    end
+    let!(:sent_message) do
+      FactoryGirl.create(:sent_an_hour_ago, author: @user)
+    end
+    let!(:draft_message) do
+      FactoryGirl.create(:message, author: @user)
+    end
+
+    it "should return the sent messages in the right order" do
+      @user.authored_messages.sent.should == [sent_message, older_sent_message]
+    end
+
+    it "should return the draft messages in the right order" do
+      @user.authored_messages.drafts.should == [draft_message, older_draft_message]
+    end
+  end
 end

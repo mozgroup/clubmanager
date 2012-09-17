@@ -1,0 +1,61 @@
+<% content_for :main_title do %>
+  <h1>Messages</h1>
+<% end %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/progress-slider" %>
+  <%= stylesheet_link_tag "css/styles/switches" %>
+  <%= stylesheet_link_tag "css/styles/files" %>
+  <%= stylesheet_link_tag "css/styles/form" %>
+  <%= stylesheet_link_tag "css/styles/form" %>
+  <%= stylesheet_link_tag "js/libs/CLEditor/jquery.cleditor.css" %>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css">
+<% end %>
+
+<div class="with-padding">
+
+<div class="content-panel margin-bottom">
+
+<div class="panel-navigation silver-gradient">
+
+    <div class="panel-control">
+            <%= link_to "Refresh", inbox_refresh_path, class: 'button icon-undo', remote: true %>
+    </div>
+
+    <div id="inbox-navigation" class="panel-load-target scrollable" style="height:490px">
+
+       <%= render 'navigation' %>
+
+    </div>
+
+</div>
+
+<div class="panel-content linen">
+
+    <div class="panel-control align-right">
+            <%= link_to 'New message', new_message_path, class: 'button icon-star margin-left', remote: true %>
+    </div>
+
+    <div id="message-panel" class="panel-load-target scrollable with-padding" style="height:600px">
+      <!-- This is where the messages should be displayed -->
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/developr.input.js' %>
+  <%= javascript_include_tag 'js/developr.navigable.js' %>
+  <%= javascript_include_tag 'js/developr.notify.js' %>
+  <%= javascript_include_tag 'js/developr.scroll.js' %>
+  <%= javascript_include_tag 'js/developr.progress-slider.js' %>
+  <%= javascript_include_tag 'js/developr.tooltip.js' %>
+  <%= javascript_include_tag 'js/developr.confirm.js' %>
+  <%= javascript_include_tag 'js/developr.content-panel.js' %>
+  <%= javascript_include_tag 'js/libs/CLEditor/jquery.cleditor.min.js' %>
+<% end %>

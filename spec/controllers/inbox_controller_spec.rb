@@ -13,14 +13,33 @@ describe InboxController do
 
     before do
       @user = FactoryGirl.create(:user)
+      FactoryGirl.create_list(:envelope, 5, recipient: @user)
       sign_in @user
+      get 'index'
     end
 
     it "should be successful" do
-      get 'index'
       response.should be_success
     end
 
-#   it { assigns(:inbox).should Envelope.inbox.belongs_to_user(@user).order(:sent_at) }
+    it " should have proper inbox items" do
+      assigns(:inbox).should_not be_nil
+    end
+
+    it "should have the number of unread envelopes" do
+      assigns(:unread_count).should_not be_nil
+    end
+
+    it "should have the proper trashed envelopes" do
+      assigns(:trash).should_not be_nil
+    end
+
+    it "should have the proper sent messages" do
+      assigns(:sent).should_not be_nil
+    end
+
+    it "should have the proper drafts" do
+      assigns(:drafts).should_not be_nil
+    end
   end
 end

@@ -10,6 +10,9 @@ ClubManager::Application.routes.draw do
   end
 
   get 'inbox', to: 'inbox#index', as: 'inbox'
+  get 'inbox/refresh', to: 'inbox#refresh', as: 'inbox_refresh'
+
+  resources :messages
 
   root to: 'home#index'
 

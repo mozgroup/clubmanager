@@ -1,0 +1,15 @@
+<li class="message-menu">
+        <span class="message-status">
+              <%= starred(envelope) %>
+              <% if !envelope.is_read? %>
+                  <a href="#" class="new-message" title="Mark as read">New</a>
+              <% end %>
+        </span>
+        <span class="message-info">
+                <span class="blue"><%= date_format(envelope.delivered_at) %></span>
+        </span>
+        <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
+                <strong class="blue"><%= envelope.sender_full_name %></strong><br>
+                <%= subject(envelope) %>
+        <% end %>
+</li>

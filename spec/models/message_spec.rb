@@ -4,9 +4,9 @@
 #
 #  id                   :integer          not null, primary key
 #  author_id            :integer
-#  send_to              :string(255)
-#  copy_to              :string(255)
-#  blind_copy_to        :string(255)
+#  send_to              :string(255)      default("")
+#  copy_to              :string(255)      default("")
+#  blind_copy_to        :string(255)      default("")
 #  subject              :string(255)
 #  body                 :text
 #  status               :string(255)      default("draft")
@@ -109,5 +109,33 @@ describe Message do
       its(:sent_at) { should_not be_nil }
     end
   end
+
+  describe "current_envelope" do
+    let!(:send_to) { FactoryGirl.create(:user) }
+ 
+    before do
+      @message.send_to = send_to.full_name
+      @message.deliver
+    end
+
+    it "should return the current users envelope for this message" do
+      envelope = @message.envelopes.current_envelope(send_to)[0]
+      envelope.recipient.should == send_to
+    end
+  end
+
+#  describe "mark_as_read method" do
+#    let!(:send_to) { FactoryGirl.create(:user) }
+#
+#    before do
+#      @message.send_to = send_to.full_name
+#      @message.deliver
+#    end
+#
+#    it "should return the users envelope and mark it as read" do
+#
+#    end
+#
+#  end
 
 end

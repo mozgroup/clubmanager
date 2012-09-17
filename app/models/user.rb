@@ -35,9 +35,29 @@ class User < ActiveRecord::Base
 
   has_many :club_users, class_name: 'ClubUsers'
   has_many :clubs, through: :club_users
-  has_many :envelopes, foreign_key: :recipient_id
+  has_many :envelopes, foreign_key: :recipient_id, order: "delivered_at DESC" do
+    def inbox
+      where("trash_flag = ?", false)
+    end
+
+    def unread_count
+      where("trash_flag = ? and read_flag = ?", false, false).count
+    end
+
+    def trash
+      where("trash_flag = ?", true)
+    end
+  end
   has_many :messages, through: :envelopes
-  has_many :authored_messages, class_name: 'Message', foreign_key: :author_id
+  has_many :authored_messages, class_name: 'Message', foreign_key: :author_id do
+    def sent
+      where("status = ?", Message::StatusSent).order("sent_at DESC")
+    end
+
+    def drafts
+      where("status = ?", Message::StatusDraft).order("created_at DESC")
+    end
+  end
 
   validates :first_name, presence: true
   validates :last_name, presence: true
