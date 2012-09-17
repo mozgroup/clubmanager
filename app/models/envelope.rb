@@ -17,4 +17,7 @@ class Envelope < ActiveRecord::Base
 
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
+
+  scope :belongs_to_user, lambda { |user| where(recipient_id: user.id) }
+  scope :inbox, where(trash_flag: false)
 end

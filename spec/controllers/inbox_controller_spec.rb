@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HomeController do
+describe InboxController do
 
   describe "GET 'index' with no authentication" do
     it "should redirect to login" do
@@ -9,7 +9,8 @@ describe HomeController do
     end
   end
 
-  describe "GET 'index' authenticated" do
+  describe "GET 'index' with authentication" do
+
     before do
       @user = FactoryGirl.create(:user)
       sign_in @user
@@ -19,6 +20,7 @@ describe HomeController do
       get 'index'
       response.should be_success
     end
-  end
 
+#   it { assigns(:inbox).should Envelope.inbox.belongs_to_user(@user).order(:sent_at) }
+  end
 end

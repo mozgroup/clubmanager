@@ -3,9 +3,9 @@ class CreateEnvelopes < ActiveRecord::Migration
     create_table :envelopes do |t|
       t.integer :message_id
       t.integer :recipient_id
-      t.boolean :read_flag
-      t.boolean :trash_flag
-      t.boolean :delete_flag
+      t.boolean :read_flag, default: false
+      t.boolean :trash_flag, default: false
+      t.boolean :delete_flag, default: false
 
       t.timestamps
     end

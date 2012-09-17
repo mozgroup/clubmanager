@@ -9,6 +9,8 @@ ClubManager::Application.routes.draw do
     get "sign_in", :to => "devise/sessions#new"
   end
 
+  get 'inbox', to: 'inbox#index', as: 'inbox'
+
   root to: 'home#index'
 
 #  match '/signin', to: 'sessions#new'

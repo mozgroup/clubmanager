@@ -69,11 +69,11 @@ ActiveRecord::Schema.define(:version => 20120914161125) do
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
     t.integer  "recipient_id"
-    t.boolean  "read_flag"
-    t.boolean  "trash_flag"
-    t.boolean  "delete_flag"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.boolean  "read_flag",    :default => false
+    t.boolean  "trash_flag",   :default => false
+    t.boolean  "delete_flag",  :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"
