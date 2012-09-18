@@ -188,4 +188,16 @@ describe User do
       @user.authored_messages.drafts.should == [draft_message, older_draft_message]
     end
   end
+
+  describe "name_search class method" do
+
+    let!(:user1) { FactoryGirl.create(:user, first_name: 'Marvin', last_name: 'Wilson') }
+    let!(:user2) { FactoryGirl.create(:user, first_name: 'George', last_name: 'Washington') }
+    let!(:user3) { FactoryGirl.create(:user, first_name: 'Gracie', last_name: 'Martin') }
+
+    it "should return 2 users" do
+      users = User.name_search('ar')
+      users.should == [user1, user3]
+    end
+  end
 end

@@ -35,6 +35,22 @@ class Envelope < ActiveRecord::Base
     message_importance == Message::Important
   end
 
+  def is_trash?
+    self.trash_flag
+  end
+
+  def trash
+    self.toggle!(:trash_flag)
+  end
+
+  def delete_it
+    self.toggle!(:delete_flag)
+  end
+
+  def mark_important
+    self.toggle!(:important_flag)
+  end
+
   protected
 
     def update_delivered_at

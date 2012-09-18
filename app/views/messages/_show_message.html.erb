@@ -1,0 +1,55 @@
+<h2 class="thin mid-margin-bottom"><%= @message.subject %></h2>
+<h4 class="no-margin-top no-margin-bottom">From: <%= @message.author_full_name %></h4>
+<h5 class="no-margin-bottom no-margin-top">To: <%= @message.send_to %></h5>
+<h5 class="no-margin-top">
+<% unless @message.copy_to.blank? %>
+  Cc: <%= @message.copy_to %>
+<% end %>
+</h5>
+
+<div id="message-main" class="large-box-shadow white-gradient with-border">
+
+        <div class="button-height with-mid-padding silver-gradient no-margin-top">
+          <span class="button-group children-tooltip">
+            <%= link_to 'Reply', message_reply_path(@message), class: 'button blue-gradient icon-reply', title: 'Reply to this message', remote: true %>
+            <%= link_to message_reply_path(@message, reply_type: 'all'), class: 'button', title: 'Reply to all', remote: true do %>
+              <span class="icon-replay-all"></span>
+            <% end %>
+
+            <%= link_to message_forward_path(@message), class: 'button', title: 'Forward', remote: true do %>
+              <span class="icon-extract"></span>
+            <% end %>
+          </span>
+          <span class="button-group children-tooltip">
+            <% unless @envelope.is_trash? %>
+              <%= link_to envelope_trash_path(@envelope), class: 'button', title: 'Move to trash', remote: true, method: :put do %>
+                <span class="icon-trash"></span>
+              <% end %>
+            <% end %>
+             <%= link_to envelope_mark_important_path(@envelope), class: 'button', title: 'Mark as important', remote: true, method: :put do %>
+               <span class="icon-flag"></span>
+             <% end %>
+          </span>
+          <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
+            <span class="icon-cross-round"></span>
+          <% end %>
+          <% if @envelope.is_trash? %>
+                  <%= link_to 'Delete', envelope_delete_path(@envelope), class: 'button red-gradient icon-trash', title: 'Delete message', confirm: 'Are you sure?', method: :put, remote: true %>
+          <% end %>
+        </div>
+
+        <div class="with-padding">
+          <%= simple_format @message.body %>
+        </div>
+
+</div>
+
+<script>
+  $(function() {
+    $("#close-message").bind( 'click', function(event) {
+      $('#message-main').fadeAndRemove('fast', function() {
+        $('#message-panel').html('');
+      });
+    });
+  });
+</script>

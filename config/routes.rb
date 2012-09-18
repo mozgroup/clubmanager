@@ -11,8 +11,17 @@ ClubManager::Application.routes.draw do
 
   get 'inbox', to: 'inbox#index', as: 'inbox'
   get 'inbox/refresh', to: 'inbox#refresh', as: 'inbox_refresh'
+  put 'envelopes/:envelope_id/trash', to: 'envelopes#trash', as: 'envelope_trash'
+  put 'envelopes/:envelope_id/delete', to: 'envelopes#delete', as: 'envelope_delete'
+  put 'envelopes/:envelope_id/mark_important', to: 'envelopes#mark_important', as: 'envelope_mark_important'
+  get 'users/search', to: 'users#search', as: 'search_users'
 
-  resources :messages
+  resources :messages do
+    get 'reply'
+    get 'forward'
+    put 'trash'
+    put 'delete'
+  end
 
   root to: 'home#index'
 

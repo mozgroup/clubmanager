@@ -91,17 +91,21 @@ describe Message do
         @message.copy_to = recip2.full_name
         @message.blind_copy_to = recip3.full_name
         @message.deliver
+        @env_recips = []
+        @message.envelopes.each do |envelope|
+          @env_recips << envelope.recipient
+        end
       end
 
       it { should_not be_new_record } 
       it "should have envelopes for all recipients" do
-        env_recips = []
-        @message.envelopes.each do |envelope|
-          env_recips << envelope.recipient
-        end
         [recip1, recip2, recip3].each do |recip|
-          env_recips.should include(recip)
+          @env_recips.should include(recip)
         end
+      end
+
+      it "should have an envelope for the author" do
+        @env_recips.should include(@message.author)
       end
 
       its(:envelopes) { should_not be_empty }
@@ -110,32 +114,18 @@ describe Message do
     end
   end
 
-  describe "current_envelope" do
-    let!(:send_to) { FactoryGirl.create(:user) }
- 
-    before do
-      @message.send_to = send_to.full_name
+  describe "envelopes association" do
+    before(:each) do
+      @send_to = FactoryGirl.create(:user)
+      @message.send_to = @send_to.full_name
       @message.deliver
     end
 
-    it "should return the current users envelope for this message" do
-      envelope = @message.envelopes.current_envelope(send_to)[0]
-      envelope.recipient.should == send_to
+    it "should return the current users envelope and mark it read" do
+      envelope = @message.envelopes.current_envelope(@send_to)
+      envelope.recipient.should == @send_to
+      envelope.is_read?.should be_true
     end
   end
-
-#  describe "mark_as_read method" do
-#    let!(:send_to) { FactoryGirl.create(:user) }
-#
-#    before do
-#      @message.send_to = send_to.full_name
-#      @message.deliver
-#    end
-#
-#    it "should return the users envelope and mark it as read" do
-#
-#    end
-#
-#  end
 
 end

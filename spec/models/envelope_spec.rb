@@ -47,4 +47,32 @@ describe Envelope do
       @envelope.is_important?.should be_true
     end
   end
+
+  describe "is_trash? method" do
+    before { @envelope.toggle!(:trash_flag) }
+    it "should return true" do
+      @envelope.is_trash?.should be_true
+    end
+  end
+
+  describe "trash method" do
+    before { @envelope.trash }
+    it "should make the trash flag true" do
+      @envelope.trash_flag.should be_true
+    end
+  end
+
+  describe "delete method" do
+    before { @envelope.delete_it }
+    it "should make the delete flag true" do
+      @envelope.delete_flag.should be_true
+    end
+  end
+
+  describe "mark_important method" do
+    before { @envelope.mark_important }
+    it "should make the infortant_flag true" do
+      @envelope.important_flag.should be_true
+    end
+  end
 end
