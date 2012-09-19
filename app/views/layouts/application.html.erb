@@ -17,7 +17,7 @@
 
       <!-- Title Bar -->
       <header role="banner" id="title-bar">
-              <h2>Club Manager</h2>
+        <h2><%= full_title(yield(:title)) %></h2>
       </header>
 
       <!-- Button to open/hide menu -->
@@ -34,8 +34,8 @@
 
               <!-- Main title -->
               <hgroup id="main-title" class="thin">
-                      <h1>Club Manager</h1>
-                      <h2><%= dashboard_date %></h2>
+                <h1><%= main_title(yield(:title)) %></h1>
+                <h2><%= dashboard_date %></h2>
               </hgroup>
 
               <!-- The padding wrapper may be omitted -->

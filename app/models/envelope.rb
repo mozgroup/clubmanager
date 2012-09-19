@@ -23,7 +23,7 @@ class Envelope < ActiveRecord::Base
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
 
-  delegate :importance, to: :message, prefix: true
+  delegate :importance, :subject, to: :message, prefix: true
 
   def sender_full_name
     self.message.author_full_name

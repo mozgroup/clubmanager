@@ -1,8 +1,5 @@
 <% provide(:current_messages, " class='current'".html_safe) %>
-
-<% content_for :main_title do %>
-  <h1>Messages</h1>
-<% end %>
+<% provide(:title, "Messages") %>
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag "css/styles/progress-slider" %>
@@ -35,7 +32,7 @@
 <div class="panel-content linen">
 
     <div class="panel-control align-right">
-            <%= link_to 'New message', new_message_path, class: 'button icon-star margin-left', remote: true %>
+            <%= link_to 'New message', new_message_path, id: 'new-message-link', class: 'button icon-star margin-left', remote: true %>
     </div>
 
     <div id="message-panel" class="panel-load-target scrollable with-padding" style="height:600px">

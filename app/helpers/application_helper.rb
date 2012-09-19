@@ -35,4 +35,22 @@ module ApplicationHelper
   def unread_count
     current_user.envelopes.unread_count
   end
+
+  def full_title(page_title)
+    base_title = "Club Manager"
+    if page_title.empty?
+      base_title
+    else
+      "#{base_title} | #{page_title}"
+    end
+  end
+
+  def main_title(page_title)
+    base_title = "Club Manager"
+    if page_title.empty?
+      base_title
+    else
+      page_title
+    end
+  end
 end
