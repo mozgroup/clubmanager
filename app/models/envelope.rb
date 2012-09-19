@@ -2,19 +2,21 @@
 #
 # Table name: envelopes
 #
-#  id           :integer          not null, primary key
-#  message_id   :integer
-#  recipient_id :integer
-#  read_flag    :boolean          default(FALSE)
-#  trash_flag   :boolean          default(FALSE)
-#  delete_flag  :boolean          default(FALSE)
-#  delivered_at :datetime
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id             :integer          not null, primary key
+#  message_id     :integer
+#  recipient_id   :integer
+#  read_flag      :boolean          default(FALSE)
+#  important_flag :boolean          default(FALSE)
+#  trash_flag     :boolean          default(FALSE)
+#  delete_flag    :boolean          default(FALSE)
+#  delivered_at   :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  author_flag    :boolean          default(FALSE)
 #
 
 class Envelope < ActiveRecord::Base
-  attr_accessible :delete_flag, :message_id, :read_flag, :recipient_id, :trash_flag, :delivered_at
+  attr_accessible :delete_flag, :message_id, :read_flag, :recipient_id, :trash_flag, :delivered_at, :author_flag
 
 # before_create :update_delivered_at
 

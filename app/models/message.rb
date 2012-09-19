@@ -41,7 +41,7 @@ class Message < ActiveRecord::Base
 
     self.save! if self.new_record?
 
-    self.envelopes.create(recipient_id: self.author_id, delivered_at: Time.zone.now)
+    self.envelopes.create(recipient_id: self.author_id, delivered_at: Time.zone.now, author_flag: true)
 
     @recipients.each do |recipient|
       recip_name = recipient.split(' ', 2)

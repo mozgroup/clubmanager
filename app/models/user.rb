@@ -37,11 +37,11 @@ class User < ActiveRecord::Base
   has_many :clubs, through: :club_users
   has_many :envelopes, foreign_key: :recipient_id, order: "delivered_at DESC" do
     def inbox
-      where("trash_flag = ?", false)
+      where("trash_flag = ? and author_flag = ?", false, false)
     end
 
     def unread_count
-      where("trash_flag = ? and read_flag = ?", false, false).count
+      where("trash_flag = ? and read_flag = ? and author_flag = ?", false, false, false).count
     end
 
     def trash
