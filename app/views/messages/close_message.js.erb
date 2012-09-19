@@ -1,3 +1,17 @@
 $('#message-main').fadeAndRemove('fast', function() {
   $('#message-panel').html('');
+
+  <% if action_type == 'send' %>
+    var aType = 'sent';
+  <% else %>
+    var aType = 'saved';
+  <% end %>
+
+  var msgTitle = 'Message ' + aType;
+  var msgBody = 'Your message has been sucessfully ' + aType + '!';
+
+  notify(msgTitle, msgBody, {
+      hPos: 'center',
+      icon: '<%= image_path 'img/demo/icon.png' %>',
+  });
 });

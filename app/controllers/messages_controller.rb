@@ -71,7 +71,7 @@ class MessagesController < ApplicationController
         @message.deliver
       end
       respond_to do |format|
-        format.js { render 'close_message', layout: false }
+        format.js { render 'close_message', locals: { action_type: params[:action_type] },  layout: false }
       end
     end
 
