@@ -21,7 +21,7 @@ class Message < ActiveRecord::Base
   attr_accessible :blind_copy_to, :body, :copy_to, :importance, :send_to, :sent_at, :status, :subject
 
   belongs_to :author, class_name: 'User', foreign_key: :author_id
-  has_many :envelopes do
+  has_many :envelopes, dependent: :destroy do
     def current_envelope(user)
       envelope = self.detect { |e| e.recipient_id == user.id }
       envelope.toggle!(:read_flag) unless envelope.nil? || envelope.is_read?
