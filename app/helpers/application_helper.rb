@@ -31,4 +31,8 @@ module ApplicationHelper
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
     image_tag(gravatar_url, alt: user.full_name, class: 'user-icon')
   end
+
+  def unread_count
+    current_user.envelopes.unread_count
+  end
 end

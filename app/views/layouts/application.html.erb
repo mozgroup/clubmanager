@@ -50,63 +50,10 @@
       <!-- End main content -->
 
       <!-- Side tabs shortcuts -->
-      <ul id="shortcuts" role="complementary" class="children-tooltip tooltip-right">
-              <!-- Active shortcut -->
-              <li class="current"><a href="./" class="shortcut-dashboard" title="Dashboard">Dashboard</a></li>
-              <!-- Background shortcut -->
-              <li><%= link_to "Messages", inbox_path, class: "shortcut-messages", title: "Messages" %></li>
-              <!-- Disabled shortcut -->
-              <li><span class="shortcut-notes" title="Notes">Notes</span></li>
-      </ul>
+      <%= render 'shared/side_tabs' %>
 
       <!-- Sidebar/drop-down menu -->
-      <section id="menu" role="complementary">
-
-
-              <!-- This wrapper is used by several responsive layouts -->
-              <div id="menu-content">
-
-                      <header>
-                              Administrator
-                      </header>
-
-                      <div id="profile">
-                        <%= gravatar_for(current_user, size: '64') %>
-
-                              Hello
-                              <%= dashboard_user(current_user) %>
-                      </div>
-
-                      <ul id="access" class="children-tooltip">
-                              <!-- Icon with count -->
-                              <li><a href="#" title="Messages">
-                                      <span class="icon-inbox"></span>
-                                      <span class="count">2</span>
-                              </a></li>
-                              <!-- Simple icon -->
-                              <li><a href="#" title="Calendar">
-                                      <span class="icon-calendar"></span></a>
-                              </li>
-                              <!-- Disabled icon -->
-                              <li class="disabled">
-                                      <span class="icon-gear"></span>
-                              </li>
-                              <li><%= link_to destroy_user_session_path, title: 'Signout', method: :delete do %>
-                                  <span class="icon-extract"></span>
-                                <% end %></li>
-                      </ul>
-
-                      <!-- Navigation goes here -->
-
-              </div>
-              <!-- End content wrapper -->
-
-              <!-- This is optional -->
-              <footer id="menu-footer">
-                      <!-- Any content -->
-              </footer>
-
-      </section>
+      <%= render 'shared/sidebar_menu' %>
 
 
       <!-- JavaScript at the bottom for fast page loading -->
