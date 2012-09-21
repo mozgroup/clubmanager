@@ -1,6 +1,6 @@
 <ul id="shortcuts" role="complementary" class="children-tooltip tooltip-right">
         <!-- Active shortcut -->
-        <li<%= yield(:current_dashboard) %>><a href="./" class="shortcut-dashboard" title="Dashboard">Dashboard</a></li>
+        <li<%= yield(:current_dashboard) %>><%= link_to "Dashboard", root_url, class: "shortcut-dashboard", title: "Dashboard" %></li>
         <!-- Background shortcut -->
         <li<%= yield(:current_messages) %>><%= link_to "Messages", inbox_path, class: "shortcut-messages", title: "Messages" %></li>
         <!-- Disabled shortcut -->
