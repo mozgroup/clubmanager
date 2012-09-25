@@ -200,4 +200,15 @@ describe User do
       users.should == [user1, user3]
     end
   end
+
+  # Make sure the logging mixin has been added
+  it { should have_many(:sys_logs).dependent(:destroy) }
+  it "should add a log item" do
+    user = User.create!(@attr)
+    log = user.log_created("This is a test", "Tester")
+    log.message_type.should eq("CREATED")
+    log.message.should eq("This is a test")
+    log.actioned_by.should eq("Tester")
+  end
+
 end

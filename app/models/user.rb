@@ -65,6 +65,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :club_users
 
+  include SysLogger
+
   def self.name_search(query)
     if query.present?
       User.where('first_name like :q or last_name like :q', q: "%#{query}%") 
