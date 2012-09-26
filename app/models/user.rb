@@ -78,4 +78,10 @@ class User < ActiveRecord::Base
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def update_tracked_fields!(request)
+    self.log_signin("#{full_name} has been signed in", full_name)
+
+    super(request)
+  end
 end
