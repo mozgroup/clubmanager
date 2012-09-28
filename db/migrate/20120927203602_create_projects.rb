@@ -4,8 +4,12 @@ class CreateProjects < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.integer :user_id
+      t.integer :position
 
       t.timestamps
     end
+
+    add_index :projects, [:user_id]
+    add_index :projects, [:user_id, :name]
   end
 end

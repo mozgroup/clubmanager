@@ -105,9 +105,13 @@ ActiveRecord::Schema.define(:version => 20120927203602) do
     t.string   "name"
     t.text     "description"
     t.integer  "user_id"
+    t.integer  "position"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "projects", ["user_id", "name"], :name => "index_projects_on_user_id_and_name"
+  add_index "projects", ["user_id"], :name => "index_projects_on_user_id"
 
   create_table "regions", :force => true do |t|
     t.string   "name"
