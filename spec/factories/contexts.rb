@@ -1,10 +1,10 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :project do
-    name "A Project"
-    description "A description"
+  factory :context do
+    name "A context"
+    position 1
+
     user
-    context
   end
 end

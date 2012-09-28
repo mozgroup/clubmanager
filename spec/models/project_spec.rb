@@ -6,6 +6,8 @@
 #  name        :string(255)
 #  description :text
 #  user_id     :integer
+#  position    :integer
+#  context_id  :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -20,6 +22,7 @@ describe Project do
   subject { @project }
 
   it { should belong_to(:user) }
+  it { should belong_to(:context) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
 

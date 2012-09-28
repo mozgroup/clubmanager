@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927203602) do
+ActiveRecord::Schema.define(:version => 20120928211322) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20120927203602) do
   add_index "clubs", ["name"], :name => "index_clubs_on_name"
   add_index "clubs", ["region_id"], :name => "index_clubs_on_region_id"
 
+  create_table "contexts", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "contexts", ["user_id", "name"], :name => "index_contexts_on_user_id_and_name"
+  add_index "contexts", ["user_id"], :name => "index_contexts_on_user_id"
+
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
     t.integer  "recipient_id"
@@ -106,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20120927203602) do
     t.text     "description"
     t.integer  "user_id"
     t.integer  "position"
+    t.integer  "context_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

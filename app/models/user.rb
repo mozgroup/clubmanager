@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
       where("status = ?", Message::StatusDraft).order("created_at DESC")
     end
   end
+  has_many :projects
+  has_many :contexts
 
   validates :first_name, presence: true
   validates :last_name, presence: true
