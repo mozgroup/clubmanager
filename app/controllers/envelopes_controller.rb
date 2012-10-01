@@ -1,4 +1,6 @@
 class EnvelopesController < ApplicationController
+  before_filter :authenticate_user!
+
   def trash
     envelope = Envelope.find(params[:envelope_id])
     envelope.trash

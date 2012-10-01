@@ -1,4 +1,6 @@
 class InboxController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @inbox = current_user.envelopes.inbox
     @unread_count = current_user.envelopes.unread_count
