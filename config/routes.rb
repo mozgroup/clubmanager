@@ -1,4 +1,6 @@
 ClubManager::Application.routes.draw do
+  get "agenda/index"
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
