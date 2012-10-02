@@ -1,2 +1,125 @@
-<h1>Agenda#index</h1>
-<p>Find me in app/views/agenda/index.html.erb</p>
+<% provide(:current_agenda, " class='current'".html_safe) %>
+<% provide(:title, "Agenda") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/agenda" %>
+<% end %>
+
+<div class="standard-tabs">
+
+  <!-- Tabs -->
+  <ul class="tabs">
+    <li class="active"><a href="#tab-1">Daily</a></li>
+    <li><a href="#tab-2">Weekly</a></li>
+    <li><a href="#tab-3">Monthly</a></li>
+  </ul>
+
+  <!-- Content -->
+  <div class="tabs-content">
+
+    <div id="tab-1" class="with-padding">
+      <div class="agenda with-header">
+
+        <!-- Time markers -->
+        <ul class="agenda-time">
+          <li class="from-7 to-8"><span>7 AM</span></li>
+          <li class="from-8 to-9"><span>8 AM</span></li>
+          <li class="from-9 to-10"><span>9 AM</span></li>
+          <li class="from-10 to-11"><span>10 AM</span></li>
+          <li class="from-11 to-12"><span>11 AM</span></li>
+          <li class="from-12 to-13"><span>12 PM</span></li>
+          <li class="from-13 to-14"><span>1 PM</span></li>
+          <li class="from-14 to-15"><span>2 PM</span></li>
+          <li class="from-15 to-16"><span>3 PM</span></li>
+          <li class="from-16 to-17"><span>4 PM</span></li>
+          <li class="from-17 to-18"><span>5 PM</span></li>
+          <li class="from-18 to-19"><span>6 PM</span></li>
+          <li class="from-19 to-20"><span>7 PM</span></li>
+          <li class="at-20"><span>8 PM</span></li>
+        </ul>
+
+        <div class="agenda-header">
+          Today
+        </div>
+
+        <!-- Events list -->
+        <div class="agenda-events">
+
+          <!-- Events go here -->
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="tab-2" class="with-padding">
+
+      <div class="agenda with-header">
+        <!-- Time markers -->
+        <ul class="agenda-time">
+          <li class="from-7 to-8"><span>7 AM</span></li>
+          <li class="from-8 to-9"><span>8 AM</span></li>
+          <li class="from-9 to-10"><span>9 AM</span></li>
+          <li class="from-10 to-11"><span>10 AM</span></li>
+          <li class="from-11 to-12"><span>11 AM</span></li>
+          <li class="from-12 to-13"><span>12 PM</span></li>
+          <li class="from-13 to-14"><span>1 PM</span></li>
+          <li class="from-14 to-15"><span>2 PM</span></li>
+          <li class="from-15 to-16"><span>3 PM</span></li>
+          <li class="from-16 to-17"><span>4 PM</span></li>
+          <li class="from-17 to-18"><span>5 PM</span></li>
+          <li class="from-18 to-19"><span>6 PM</span></li>
+          <li class="from-19 to-20"><span>7 PM</span></li>
+          <li class="at-20"><span>8 PM</span></li>
+        </ul>
+
+        <div class="agenda-wrapper">
+          <div class="agenda-events agenda-day1">
+            <div class="agenda-header"> Sunday </div>
+            <div class="agenda-events agenda-day1"></div>
+          </div>
+          <div class="agenda-events agenda-day2">
+            <div class="agenda-header"> Monday </div>
+            <div class="agenda-events agenda-day2"></div>
+          </div>
+          <div class="agenda-events agenda-day3">
+            <div class="agenda-header"> Tuesday </div>
+            <div class="agenda-events agenda-day3"></div>
+          </div>
+          <div class="agenda-events agenda-day4">
+            <div class="agenda-header"> Wednesday </div>
+            <div class="agenda-events agenda-day4"></div>
+          </div>
+          <div class="agenda-events agenda-day5">
+            <div class="agenda-header"> Thursday </div>
+            <div class="agenda-events agenda-day5"></div>
+          </div>
+          <div class="agenda-events agenda-day6">
+            <div class="agenda-header"> Friday </div>
+            <div class="agenda-events agenda-day6"></div>
+          </div>
+          <div class="agenda-events agenda-day7">
+            <div class="agenda-header"> Saturday </div>
+            <div class="agenda-events agenda-day7"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="tab-3" class="with-padding">
+
+      Monthly
+
+    </div>
+
+  </div>
+
+</div>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/developr.tabs.js' %>
+<% end %>
