@@ -21,7 +21,7 @@ describe Project do
 
   subject { @project }
 
-  it { should belong_to(:user) }
+  it { should belong_to(:owner) }
   it { should belong_to(:context) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }

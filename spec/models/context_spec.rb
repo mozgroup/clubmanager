@@ -19,7 +19,7 @@ describe Context do
 
   subject { @context }
 
-  it { should belong_to(:user) }
+  it { should belong_to(:owner) }
   it { should have_many(:projects) }
   it { should validate_presence_of(:name) }
 end

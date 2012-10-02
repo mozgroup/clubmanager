@@ -5,6 +5,6 @@ FactoryGirl.define do
     name "A context"
     position 1
 
-    user
+    owner
   end
 end

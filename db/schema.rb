@@ -69,13 +69,13 @@ ActiveRecord::Schema.define(:version => 20120928211322) do
   create_table "contexts", :force => true do |t|
     t.string   "name"
     t.integer  "position"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "contexts", ["user_id", "name"], :name => "index_contexts_on_user_id_and_name"
-  add_index "contexts", ["user_id"], :name => "index_contexts_on_user_id"
+  add_index "contexts", ["owner_id", "name"], :name => "index_contexts_on_owner_id_and_name"
+  add_index "contexts", ["owner_id"], :name => "index_contexts_on_owner_id"
 
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
@@ -115,15 +115,15 @@ ActiveRecord::Schema.define(:version => 20120928211322) do
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.integer  "position"
     t.integer  "context_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "projects", ["user_id", "name"], :name => "index_projects_on_user_id_and_name"
-  add_index "projects", ["user_id"], :name => "index_projects_on_user_id"
+  add_index "projects", ["owner_id", "name"], :name => "index_projects_on_owner_id_and_name"
+  add_index "projects", ["owner_id"], :name => "index_projects_on_owner_id"
 
   create_table "regions", :force => true do |t|
     t.string   "name"

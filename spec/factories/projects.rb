@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :project do
     name "A Project"
     description "A description"
-    user
+    owner
     context
   end
 end

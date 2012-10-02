@@ -11,9 +11,9 @@
 #
 
 class Context < ActiveRecord::Base
-  attr_accessible :name, :position, :user_id
+  attr_accessible :name, :position, :owner_id
 
-  belongs_to :user
+  belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   has_many :projects
 
   validates :name, presence: true
