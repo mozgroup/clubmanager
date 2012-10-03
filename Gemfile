@@ -9,7 +9,7 @@ gem "meta_search", "~> 1.1.3"
 gem 'faker', '~> 1.0.1'
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.3.5'
+# gem 'sqlite3', '~> 1.3.5'
   gem 'rspec-rails', '>= 2.10.1'
   gem 'factory_girl_rails', '~> 4.0.0'
 end
@@ -38,6 +38,4 @@ group :test do
   gem 'launchy', '>= 2.1.0'
 end
 
-group :production do
-  gem 'pg', '~> 0.12.2'
-end
+gem 'pg', '~> 0.12.2'
