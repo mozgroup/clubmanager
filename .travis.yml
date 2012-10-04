@@ -8,5 +8,7 @@ env:
 
 before_script: 
   - psql -c 'create database club_manager_test;' -U postgres
+  - bundle exec rake db:migrate
+  - bundle exec rake db:test:prepare
 
 script: bundle exec rspec spec
