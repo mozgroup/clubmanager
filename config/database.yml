@@ -12,6 +12,4 @@ test:
   encoding: unicode
   database: club_manager_test
   pool: 5
-  username: tadpreston
-  password: nov8ordie
-  host: localhost
+  username: postgres

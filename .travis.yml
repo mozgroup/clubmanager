@@ -4,10 +4,9 @@ rvm:
   - 1.9.3
 
 env:
-  - DB=sqlite3
+  - DB=postgresql
 
 before_script: 
-  - bundle exec rake db:migrate RAILS_ENV=test
-  - bundle exec rake db:test:prepare
+  - psql -c 'create database club_manager_test;' -U postgres
 
 script: bundle exec rspec spec
