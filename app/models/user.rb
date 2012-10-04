@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 
   def self.name_search(query)
     if query.present?
-      User.where('first_name like :q or last_name like :q', q: "%#{query}%") 
+      User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%") 
     else
       scoped
     end
