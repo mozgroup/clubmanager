@@ -37,4 +37,10 @@ ClubManager::Application.configure do
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { host: 'example.com' }
+
+  # Speed up tests by lowering BCrypt's cose function
+  require 'bcrypt'
+  silence_warnings do
+    BCrypt::Engine::DEFAULT_COST = BCrypt::Engine::MIN_COST
+  end
 end

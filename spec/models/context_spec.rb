@@ -13,13 +13,22 @@
 require 'spec_helper'
 
 describe Context do
-  before(:each) do
-    @context = FactoryGirl.create(:context)
-  end
-
-  subject { @context }
-
   it { should belong_to(:owner) }
   it { should have_many(:projects) }
   it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name) }
+
+  describe 'by_name scope' do
+    it "should return an ordered list" do
+      names = %w[ZZZ AAA GGG]
+      names.each do |name|
+        FactoryGirl.create(:context, name: name)
+      end
+      names.sort!
+      contexts = Context.by_name
+      contexts.each_index do |i|
+        contexts[i].name.should eq(names[i])
+      end
+    end
+  end
 end

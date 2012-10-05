@@ -16,5 +16,7 @@ class Context < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   has_many :projects
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+
+  scope :by_name, order(:name)
 end

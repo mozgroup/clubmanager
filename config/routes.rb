@@ -1,4 +1,6 @@
 ClubManager::Application.routes.draw do
+  get "tasks/index"
+
   get "agenda/index"
 
   ActiveAdmin.routes(self)

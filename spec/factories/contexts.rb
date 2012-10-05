@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :context do
-    name "A context"
+    name { Faker::Company.bs }
     position 1
 
     owner
