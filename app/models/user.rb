@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
   end
   has_many :projects, foreign_key: :owner_id
   has_many :contexts, foreign_key: :owner_id
+  has_many :tasks, foreign_key: :owner_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true

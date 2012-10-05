@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928211322) do
+ActiveRecord::Schema.define(:version => 20121005143230) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -142,6 +142,24 @@ ActiveRecord::Schema.define(:version => 20120928211322) do
   end
 
   add_index "sys_logs", ["loggable_id", "loggable_type"], :name => "index_sys_logs_on_loggable_id_and_loggable_type"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "name"
+    t.datetime "due_at"
+    t.datetime "completed_at"
+    t.integer  "context_id"
+    t.integer  "project_id"
+    t.integer  "owner_id"
+    t.text     "notes"
+    t.string   "state"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "tasks", ["context_id"], :name => "index_tasks_on_context_id"
+  add_index "tasks", ["owner_id"], :name => "index_tasks_on_owner_id"
+  add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
+  add_index "tasks", ["state"], :name => "index_tasks_on_state"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

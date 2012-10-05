@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)
 #  position   :integer
-#  user_id    :integer
+#  owner_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,6 +15,7 @@ class Context < ActiveRecord::Base
 
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   has_many :projects
+  has_many :tasks
 
   validates :name, presence: true, uniqueness: true
 

@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)
 #  position   :integer
-#  user_id    :integer
+#  owner_id   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -15,6 +15,7 @@ require 'spec_helper'
 describe Context do
   it { should belong_to(:owner) }
   it { should have_many(:projects) }
+  it { should have_many(:tasks) }
   it { should validate_presence_of(:name) }
   it { should validate_uniqueness_of(:name) }
 

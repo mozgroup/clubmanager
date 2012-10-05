@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  name        :string(255)
 #  description :text
-#  user_id     :integer
+#  owner_id    :integer
 #  position    :integer
 #  context_id  :integer
 #  created_at  :datetime         not null
@@ -17,6 +17,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   belongs_to :context
+  has_many :tasks
 
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
