@@ -18,6 +18,10 @@ class Project < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   belongs_to :context
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :description, presence: true
+
+  delegate :name, to: :context, prefix: true, allow_nil: true
+  delegate :full_name, to: :owner, prefix: true
+
 end

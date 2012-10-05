@@ -31,4 +31,13 @@ describe Context do
       end
     end
   end
+
+  describe 'Owner name' do
+    before do
+      @context = FactoryGirl.create(:context)
+      @owner = @context.owner
+    end
+    subject { @context }
+    its(:owner_full_name) { should == @owner.full_name }
+  end
 end

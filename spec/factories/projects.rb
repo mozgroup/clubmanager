@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :project do
-    name "A Project"
+    name { Faker::Company.bs }
     description "A description"
     owner
     context

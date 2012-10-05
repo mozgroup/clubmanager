@@ -19,4 +19,6 @@ class Context < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
 
   scope :by_name, order(:name)
+
+  delegate :full_name, to: :owner, prefix: true
 end

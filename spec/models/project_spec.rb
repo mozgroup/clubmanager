@@ -25,6 +25,31 @@ describe Project do
   it { should belong_to(:context) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
+  it { should validate_uniqueness_of(:name) }
 
   it { should be_valid }
+
+  describe "Context name" do
+    before do
+      @project.save!
+      @context = @project.context
+    end
+    its(:context_name) { should == @context.name }
+  end
+
+  describe "Context name without a context" do
+    before do
+      @project.context = nil
+      @project.save!
+    end
+    its(:context_name) { should be_nil }
+  end
+
+  describe "Owner name" do
+    before do
+      @project.save!
+      @owner = @project.owner
+    end
+    its(:owner_full_name) { should == @owner.full_name }
+  end
 end

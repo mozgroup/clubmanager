@@ -1,2 +1,17 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<% provide(:title, "Tasks") %>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/table' %>
+<% end %>
+
+<% @contexts.each do |context| %>
+  <div class="table-header">
+    <%= context.name %>
+  </div>
+
+  <table class="table">
+  </table>
+
+  <div class="table-footer">
+    &nbsp;
+  </div>
+<% end %>
