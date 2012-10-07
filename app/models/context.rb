@@ -22,4 +22,12 @@ class Context < ActiveRecord::Base
   scope :by_name, order(:name)
 
   delegate :full_name, to: :owner, prefix: true
+
+  def self.name_search(query)
+    if query.present?
+      Context.where('name ilike :q', q: "%#{query}%")
+    else
+      scoped
+    end
+  end
 end

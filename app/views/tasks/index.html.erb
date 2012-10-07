@@ -3,15 +3,15 @@
   <%= stylesheet_link_tag 'css/styles/table' %>
 <% end %>
 
-<% @contexts.each do |context| %>
-  <div class="table-header">
-    <%= context.name %>
-  </div>
+<div class="margin-bottom">
+  <%= link_to new_task_path, class: 'button' do %>
+    <span class="button-icon"><span class="icon-star"></span></span>
+    Create Task
+  <% end %>
+</div>
 
-  <table class="table">
-  </table>
+<%= render :partial => 'context', :collection => @contexts %>
 
-  <div class="table-footer">
-    &nbsp;
-  </div>
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/developr.table' %>
 <% end %>

@@ -15,9 +15,11 @@ ClubManager::Application.routes.draw do
   put 'envelopes/:envelope_id/delete', to: 'envelopes#delete', as: 'envelope_delete'
   put 'envelopes/:envelope_id/mark_important', to: 'envelopes#mark_important', as: 'envelope_mark_important'
   get 'users/search', to: 'users#search', as: 'search_users'
-  get 'tasks', to: 'tasks#index', as: 'tasks'
   get 'agenda', to: 'agenda#index', as: 'agenda'
+  get 'contexts/search', to: 'contexts#search', as: 'search_contexts'
+  get 'projects/search', to: 'projects#search', as: 'search_projects'
 
+  resources :tasks
   resources :messages do
     get 'reply'
     get 'forward'

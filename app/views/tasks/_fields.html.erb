@@ -1,0 +1,60 @@
+<%= render 'shared/form_error_messages', object: f.object %>
+
+<fieldset class="fieldset fields-list">
+
+  <legend class="legend">Task Information</legend>
+
+  <div class="field-block button-height">
+    <%= f.label :context_name, class: 'label' do %>
+      <b>Context</b>
+    <% end %>
+    <%= f.text_field :context_name, class: 'input', 'search_path'=> "#{search_contexts_path}" %>
+    <small class="input-info">Required</small>
+  </div>
+
+  <div class="field-block button-height">
+    <%= f.label :project_name, class: 'label' do %>
+      <b>Project</b>
+    <% end %>
+    <%= f.text_field :project_name, class: 'input autosuggest' %>
+  </div>
+
+  <div class="field-block button-height">
+    <%= f.label :name, class: 'label' do %>
+      <b>Task Name</b>
+    <% end %>
+    <%= f.text_field :name, class: 'input' %>
+    <small class="input-info">Required</small>
+  </div>
+
+  <div class="field-block button-height">
+    <%= f.label :due_at, class: 'label' do %>
+      <b>Due On</b>
+    <% end %>
+    <span class="input">
+      <span class="icon-calendar"></span>
+      <%= f.text_field :due_at, class: 'input-unstyled datepicker' %>
+    </span>
+    <small class="input-info">Required</small>
+  </div>
+
+  <div class="field-block button-height">
+    <%= f.label :notes, class: 'label' do %>
+      <b>Notes</b>
+    <% end %>
+    <%= f.text_area :notes, rows: 10, class: 'input full-width' %>
+  </div>
+
+  <div class="field-block button-height">
+    <button class="button glossy mid-margin-right" type="submit">
+      <span class="button-icon"><span class="icon-tick"></span></span>
+      Save
+    </button>
+    <%= link_to tasks_path, class: 'button' do %>
+      <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
+      Cancel
+    <% end %>
+  </div>
+</fieldset>
+
+<%= f.hidden_field :owner_id %>

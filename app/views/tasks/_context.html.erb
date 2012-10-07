@@ -1,0 +1,29 @@
+<div class="table-header">
+  <%= context.name %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Task</th>
+      <th scope="col">Project</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Assigned To</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% context.tasks.each do |task| %>
+      <tr>
+        <th scope="row"><%= link_to task.name, task %></th>
+        <td><%= task.project_name %></td>
+        <td><%= task.due_at %></td>
+        <td><%= task.owner_full_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="table-footer small-margin-bottom">
+  &nbsp;
+</div>

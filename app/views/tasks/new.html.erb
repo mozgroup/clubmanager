@@ -1,0 +1,19 @@
+<% provide(:title, "New Task") %>
+<% content_for :additional_styles do %>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css">
+  <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+<% end %>
+
+<%= form_for @task do |f| %>
+
+<%= render 'fields', f: f %>
+
+<% end %>
+
+<% content_for :template_functions do %>
+  <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
+  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
+  <%= javascript_include_tag 'tasks' %>
+<% end %>

@@ -20,9 +20,15 @@ class Project < ActiveRecord::Base
   has_many :tasks
 
   validates :name, presence: true, uniqueness: true
-  validates :description, presence: true
 
   delegate :name, to: :context, prefix: true, allow_nil: true
   delegate :full_name, to: :owner, prefix: true
 
+  def self.name_search(query)
+    if query.present?
+      Project.where('name ilike :q', q: "%#{query}%")
+    else
+      scoped
+    end
+  end
 end
