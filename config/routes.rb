@@ -19,7 +19,9 @@ ClubManager::Application.routes.draw do
   get 'contexts/search', to: 'contexts#search', as: 'search_contexts'
   get 'projects/search', to: 'projects#search', as: 'search_projects'
 
-  resources :tasks
+  resources :tasks do
+    get 'my_tasks', on: :collection
+  end
   resources :messages do
     get 'reply'
     get 'forward'

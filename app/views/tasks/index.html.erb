@@ -3,14 +3,16 @@
   <%= stylesheet_link_tag 'css/styles/table' %>
 <% end %>
 
-<div class="margin-bottom">
+<% content_for :panel_control do %>
   <%= link_to new_task_path, class: 'button' do %>
     <span class="button-icon"><span class="icon-star"></span></span>
     Create Task
   <% end %>
-</div>
+<% end %>
 
-<%= render :partial => 'context', :collection => @contexts %>
+  <dl class="accordion same-height">
+  <%= render :partial => 'context', :collection => @contexts %>
+  </dl>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'js/developr.table' %>

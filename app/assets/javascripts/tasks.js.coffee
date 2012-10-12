@@ -15,3 +15,11 @@ jQuery ->
     source: '/projects/search'
     minLength: 2
     }
+
+  $('#task_assigned_to').autocomplete {
+    source: '/users/search'
+    minLength: 2
+    select: (event, ui) ->
+      this.value = ui.item.label
+      return false
+    }

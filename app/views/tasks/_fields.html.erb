@@ -1,49 +1,54 @@
 <%= render 'shared/form_error_messages', object: f.object %>
 
-<fieldset class="fieldset fields-list">
-
-  <legend class="legend">Task Information</legend>
-
-  <div class="field-block button-height">
+<div class="with-padding">
+  <p class="button-height inline-medium-label">
     <%= f.label :context_name, class: 'label' do %>
-      <b>Context</b>
+      Context
     <% end %>
-    <%= f.text_field :context_name, class: 'input', 'search_path'=> "#{search_contexts_path}" %>
+    <%= f.text_field :context_name, class: 'input' %>
     <small class="input-info">Required</small>
-  </div>
+  </p>
 
-  <div class="field-block button-height">
+  <p class="button-height inline-medium-label">
     <%= f.label :project_name, class: 'label' do %>
-      <b>Project</b>
+      Project
     <% end %>
-    <%= f.text_field :project_name, class: 'input autosuggest' %>
-  </div>
+    <%= f.text_field :project_name, class: 'input' %>
+  </p>
 
-  <div class="field-block button-height">
+  <p class="button-height inline-medium-label">
     <%= f.label :name, class: 'label' do %>
-      <b>Task Name</b>
+      Task Name
     <% end %>
     <%= f.text_field :name, class: 'input' %>
     <small class="input-info">Required</small>
-  </div>
+  </p>
 
-  <div class="field-block button-height">
+  <p class="button-height inline-medium-label">
+    <%= f.label :assigned_to, class: 'label' do %>
+      Assigned To
+    <% end %>
+    <%= f.text_field :assigned_to, class: 'input' %>
+    <small class="input-info">Required</small>
+  </p>
+
+  <p class="button-height inline-medium-label">
     <%= f.label :due_at, class: 'label' do %>
-      <b>Due On</b>
+      Due On
     <% end %>
     <span class="input">
       <span class="icon-calendar"></span>
       <%= f.text_field :due_at, class: 'input-unstyled datepicker' %>
     </span>
     <small class="input-info">Required</small>
-  </div>
+  </p>
 
-  <div class="field-block button-height">
+  <p class="button-height inline-medium-label">
     <%= f.label :notes, class: 'label' do %>
-      <b>Notes</b>
+      Notes
     <% end %>
-    <%= f.text_area :notes, rows: 10, class: 'input full-width' %>
-  </div>
+    <%= f.text_area :notes, rows: 5, class: 'input' %>
+  </p>
 
   <div class="field-block button-height">
     <button class="button glossy mid-margin-right" type="submit">
@@ -55,6 +60,4 @@
       Cancel
     <% end %>
   </div>
-</fieldset>
-
-<%= f.hidden_field :owner_id %>
+</div>

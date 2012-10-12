@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: club_manager_development
   pool: 5
-  username: tadpreston
+  username: tpreston
   password: nov8ordie
   host: localhost
 

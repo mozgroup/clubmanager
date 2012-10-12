@@ -34,40 +34,8 @@
         <section class="navigable">
 
           <ul class="big-menu">
-            <li class="with-right-arrow">
-              <span>Tasks</span>
-              <ul class="big-menu grey-gradient">
-                <li class="title-menu">Tasks</li>
-                  <li class="calendar-menu">
-                    <%= link_to '#', title: 'See task' do %>
-                      <time datetime="2011-10-06"><b>6</b> Oct</time>
-                      <small class="red">10:30</small>
-                      <span class="red">Fix broken window</span>
-                    <% end %>
-                  </li>
-                  <li class="calendar-menu">
-                    <%= link_to '#', title: 'See task' do %>
-                      <time datetime="2011-10-11"><b>11</b> Oct</time>
-                      <small class="green">10:30</small>
-                      Wash the dog
-                    <% end %>
-                  </li>
-                  <li class="calendar-menu">
-                    <%= link_to '#', title: 'See task' do %>
-                      <time datetime="2011-10-12"><b>12</b> Oct</time>
-                      <small class="green">11:30</small>
-                      Take out the trash
-                    <% end %>
-                  </li>
-                <li>
-                  <%= link_to '#' do %>
-                    My Tasks<span><span class="list-count">11</span></span>
-                  <% end %>
-                </li>
-                <li><%= link_to 'All Tasks', tasks_path %></li>
-                <li><%= link_to 'Projects', '#' %></li>
-              </ul>
-            </li>
+            <li>
+              <%= link_to "Tasks", tasks_path %>
           </ul>
 
         </section>

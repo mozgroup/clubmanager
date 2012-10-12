@@ -16,7 +16,7 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name
+  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to
 
   belongs_to :context
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
@@ -37,6 +37,14 @@ class Task < ActiveRecord::Base
     add_project({ name: name, owner_id: self.owner_id, context_id: self.context_id })
   end
 
+  def assigned_to=(name)
+    add_assignment name
+  end
+
+  def assigned_to
+    self.owner_full_name
+  end
+
   def method_missing(method, *args)
     if method.to_s == "add_context" || method.to_s == "add_project"
       class_name = method.slice(/_(.+)/,1)
@@ -51,5 +59,10 @@ class Task < ActiveRecord::Base
     def find_or_create_by_name(class_name, params)
       klass = class_name.to_s.camelize.constantize
       obj = klass.find_by_name(params[:name]) || klass.create(params)
+    end
+
+    def add_assignment(name)
+      user = User.find_by_full_name(name)
+      self.owner_id = user.id
     end
 end
