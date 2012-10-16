@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   has_many :projects, foreign_key: :owner_id
   has_many :contexts, foreign_key: :owner_id
   has_many :tasks, foreign_key: :owner_id
-  has_many :top_tasks, class_name: 'Task', foreign_key: :owner_id, order: :due_at, limit: 3
+  has_many :top_tasks, class_name: 'Task', foreign_key: :owner_id, order: 'due_at ASC', limit: 3
 
   validates :first_name, presence: true
   validates :last_name, presence: true

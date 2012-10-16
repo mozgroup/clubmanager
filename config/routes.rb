@@ -16,11 +16,15 @@ ClubManager::Application.routes.draw do
   put 'envelopes/:envelope_id/mark_important', to: 'envelopes#mark_important', as: 'envelope_mark_important'
   get 'users/search', to: 'users#search', as: 'search_users'
   get 'agenda', to: 'agenda#index', as: 'agenda'
-  get 'contexts/search', to: 'contexts#search', as: 'search_contexts'
-  get 'projects/search', to: 'projects#search', as: 'search_projects'
 
   resources :tasks do
     get 'my_tasks', on: :collection
+  end
+  resources :projects do
+    get 'search', on: :collection
+  end
+  resources :contexts do
+    get 'search', on: :collection
   end
   resources :messages do
     get 'reply'

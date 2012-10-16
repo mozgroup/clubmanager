@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   end
 
   def my_tasks
-    @tasks = current_user.tasks
+    @tasks = current_user.top_tasks
   end
 
   def create

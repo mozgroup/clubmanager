@@ -24,6 +24,8 @@ class Project < ActiveRecord::Base
   delegate :name, to: :context, prefix: true, allow_nil: true
   delegate :full_name, to: :owner, prefix: true
 
+  scope :by_name, order: :name
+
   def self.name_search(query)
     if query.present?
       Project.where('name ilike :q', q: "%#{query}%")
