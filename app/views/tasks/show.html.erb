@@ -1,0 +1,43 @@
+<% provide(:title, "Tasks") %>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+<% end %>
+
+<% content_for :panel_control do %>
+  <%= link_to edit_task_path(@task), class: 'button' do %>
+    <span class="button-icon"><span class="icon-star"></span></span>
+    Edit Task
+  <% end %>
+<% end %>
+
+<div class="with-padding">
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'name', 'Task', class: 'label' %>
+    <%= @task.name %>
+  </p>
+
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'context_name', 'Context', class: 'label' %>
+    <%= @task.context_name %>
+  </p>
+
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'project_name', 'Project', class: 'label' %>
+    <%= @task.project_name %>
+  </p>
+
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'assigned_to', 'Assigned To', class: 'label' %>
+    <%= @task.assigned_to %>
+  </p>
+
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'due_at', 'Date Due', class: 'label' %>
+    <%= date_format(@task.due_at) %>
+  </p>
+
+  <p class="button-height inline-medium-label">
+    <%= label_tag 'notes', 'Notes', class: 'label' %>
+    <%= @task.notes %>
+  </p>
+</div>

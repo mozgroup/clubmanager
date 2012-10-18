@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   layout 'tasks'
 
   def index
-    @contexts = Context.by_name
+    @tasks = current_user.top_tasks
   end
 
   def new
@@ -26,10 +26,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def my_tasks
-    @tasks = current_user.top_tasks
-  end
-
   def create
     @task = Task.new(params[:task])
     if @task.save
@@ -38,6 +34,10 @@ class TasksController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def show
+    @task = Task.find params[:id]
   end
 
   private

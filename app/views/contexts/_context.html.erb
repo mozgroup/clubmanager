@@ -14,7 +14,7 @@
       <tbody>
         <% context.tasks.each do |task| %>
           <tr>
-            <th scope="row"><%= link_to task.name, edit_task_path(task) %></th>
+            <th scope="row"><%= link_to task.name, task_path(task) %></th>
             <td><%= task.project_name %></td>
             <td><%= date_format(task.due_at) %></td>
             <td><%= task.owner_full_name %></td>

@@ -10,9 +10,28 @@
   <% end %>
 <% end %>
 
-  <dl class="accordion same-height">
-  <%= render :partial => 'context', :collection => @contexts %>
-  </dl>
+<table class="simple-table">
+
+  <thead>
+    <tr>
+      <th scope="col">Task</th>
+      <th scope="col">Context</th>
+      <th scope="col">Project</th>
+      <th scope="col">Due By</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <th scope="row"><%= link_to task.name, task_path(task) %></th>
+        <td><%= task.project_name %></td>
+        <td><%= task.context_name %></td>
+        <td><%= date_format(task.due_at) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'js/developr.table' %>

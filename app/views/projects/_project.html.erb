@@ -1,4 +1,26 @@
-<tr>
-  <th scope="row"><%= link_to project.name, edit_project_path(project) %></th>
-  <td><%= project.tasks.count %></td>
-</tr>
+<dt><%= project.name %></dt>
+<dd>
+  <div class="with-padding">
+    <table class="simple-table">
+      <thead>
+        <tr>
+          <th scope="col">Task</th>
+          <th scope="col">Context</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Assigned To</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% project.tasks.each do |task| %>
+          <tr>
+            <th scope="row"><%= link_to task.name, task_path(task) %></th>
+            <td><%= task.context_name %></td>
+            <td><%= date_format(task.due_at) %></td>
+            <td><%= task.owner_full_name %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</dd>
