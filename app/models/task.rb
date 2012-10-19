@@ -29,6 +29,24 @@ class Task < ActiveRecord::Base
   delegate :name, to: :project, prefix: true, allow_nil: true
   delegate :full_name, to: :owner, prefix: true
 
+  state_machine initial: :new do
+    event :assign do
+      transition :new => :assigned
+    end
+
+    event :claim do
+      transition [:new, :assigned] => :claimed
+    end
+
+    event :start do
+      transition [:new, :claimed] => :started
+    end
+
+    event :complete do
+      transition [:started] => :complete
+    end
+  end
+
   def context_name=(name)
     add_context({ name: name, owner_id: self.owner_id })
   end
