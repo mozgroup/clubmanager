@@ -7,6 +7,7 @@ gem 'devise', '~> 2.1.2'
 gem 'activeadmin', '~> 0.5.0'
 gem "meta_search", "~> 1.1.3"
 gem 'faker', '~> 1.0.1'
+gem "state_machine", "~> 1.1.2"
 
 group :development, :test do
 # gem 'sqlite3', '~> 1.3.5'
