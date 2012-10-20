@@ -27,6 +27,11 @@
   </p>
 
   <p class="button-height inline-medium-label">
+    <%= label_tag 'owned_by', 'Owned By', class: 'label' %>
+    <%= @task.owner_full_name %>
+  </p>
+
+  <p class="button-height inline-medium-label">
     <%= label_tag 'assigned_to', 'Assigned To', class: 'label' %>
     <%= @task.assigned_to %>
   </p>

@@ -13,13 +13,15 @@
 #  state        :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  assignee_id  :integer
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to
+  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id
 
   belongs_to :context
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
+  belongs_to :assignee, class_name: 'User', foreign_key: :assignee_id
   belongs_to :project
 
   validates :name, presence: true
@@ -27,6 +29,7 @@ class Task < ActiveRecord::Base
 
   delegate :name, to: :context, prefix: true, allow_nil: true
   delegate :name, to: :project, prefix: true, allow_nil: true
+  delegate :full_name, to: :assignee, prefix: true
   delegate :full_name, to: :owner, prefix: true
 
   state_machine initial: :new do
@@ -60,7 +63,7 @@ class Task < ActiveRecord::Base
   end
 
   def assigned_to
-    self.owner_full_name
+    self.assignee_full_name
   end
 
   def method_missing(method, *args)
@@ -81,6 +84,6 @@ class Task < ActiveRecord::Base
 
     def add_assignment(name)
       user = User.find_by_full_name(name)
-      self.owner_id = user.id
+      self.assignee_id = user.id
     end
 end
