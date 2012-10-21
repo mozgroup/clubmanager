@@ -1,9 +1,14 @@
 <% provide(:title, "Tasks") %>
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/styles/modal' %>
 <% end %>
 
 <% content_for :panel_control do %>
+  <%= link_to assign_task_path(@task), id: 'task-assign', class: 'button' do %>
+    <span class="button-icon"><span class="icon-lightning"></span></span>
+    Assign Task
+  <% end %>
   <%= link_to edit_task_path(@task), class: 'button' do %>
     <span class="button-icon"><span class="icon-star"></span></span>
     Edit Task
@@ -27,6 +32,11 @@
   </p>
 
   <p class="button-height inline-medium-label">
+    <%= label_tag 'state', 'Status', class: 'label' %>
+    <%= @task.state %>
+  </p>
+
+  <p class="button-height inline-medium-label">
     <%= label_tag 'owned_by', 'Owned By', class: 'label' %>
     <%= @task.owner_full_name %>
   </p>
@@ -46,3 +56,10 @@
     <%= @task.notes %>
   </p>
 </div>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'js/setup' %>
+  <%= javascript_include_tag 'js/developr.modal' %>
+  <%= javascript_include_tag 'tasks' %>
+<% end %>

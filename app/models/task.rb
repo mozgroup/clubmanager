@@ -29,20 +29,22 @@ class Task < ActiveRecord::Base
 
   delegate :name, to: :context, prefix: true, allow_nil: true
   delegate :name, to: :project, prefix: true, allow_nil: true
-  delegate :full_name, to: :assignee, prefix: true
-  delegate :full_name, to: :owner, prefix: true
+  delegate :full_name, to: :assignee, prefix: true, allow_nil: true
+  delegate :full_name, to: :owner, prefix: true, allow_nil: true
+
+  include SysLogger
 
   state_machine initial: :new do
     event :assign do
-      transition :new => :assigned
+      transition [:new, :claimed, :assigned] => :assigned
     end
 
     event :claim do
-      transition [:new, :assigned] => :claimed
+      transition [:assigned] => :claimed
     end
 
     event :start do
-      transition [:new, :claimed] => :started
+      transition [:assigned, :claimed] => :started
     end
 
     event :complete do
@@ -59,13 +61,21 @@ class Task < ActiveRecord::Base
   end
 
   def assigned_to=(name)
-    add_assignment name
+    add_assignment name unless name.blank?
   end
 
   def assigned_to
     self.assignee_full_name
   end
 
+  def has_assignee?
+    ! self.assignee.nil?
+  end
+
+  def update_assigned_to(name)
+    self.assigned_to = name
+    self.assign
+  end
   def method_missing(method, *args)
     if method.to_s == "add_context" || method.to_s == "add_project"
       class_name = method.slice(/_(.+)/,1)
@@ -84,6 +94,6 @@ class Task < ActiveRecord::Base
 
     def add_assignment(name)
       user = User.find_by_full_name(name)
-      self.assignee_id = user.id
+      self.assignee_id = user.id unless user.nil?
     end
 end

@@ -16,7 +16,7 @@ class TasksController < TasksBaseController
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
       flash[:sucess] = "Task successfully updated!"
-      redirect_to tasks_path
+      redirect_to @task
     else
       render 'edit'
     end
@@ -36,4 +36,14 @@ class TasksController < TasksBaseController
     @task = Task.find params[:id]
   end
 
+  def assign
+    @task = Task.find params[:id]
+    render layout: nil
+  end
+
+  def update_assigned_to
+    @task = Task.find params[:id]
+    @task.update_assigned_to params[:task][:assigned_to]
+    redirect_to @task
+  end
 end

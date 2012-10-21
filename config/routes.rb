@@ -19,6 +19,8 @@ ClubManager::Application.routes.draw do
 
   resources :tasks do
     get 'my_tasks', on: :collection
+    get 'assign', on: :member
+    put 'update_assigned_to', on: :member
   end
   resources :projects do
     get 'search', on: :collection

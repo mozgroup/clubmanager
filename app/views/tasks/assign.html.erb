@@ -1,0 +1,39 @@
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+<% end %>
+
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+
+<html>
+<head>
+
+  <%= render 'layouts/head' %>
+  <%= stylesheet_link_tag 'css/jquery-ui' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+
+  </head>
+  <body class="clearfix with-menu with-shortcuts">
+
+    <%= form_for @task, :url => update_assigned_to_task_path(@task), method: :put  do |f| %>
+
+      <p class="button-height inline-medium-label">
+        <%= f.label :assigned_to, class: 'label' do %>
+          Assigned To
+        <% end %>
+        <%= f.text_field :assigned_to, class: 'input' %>
+      </p>
+
+    <% end %>
+
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'js/jquery-ui.min' %>
+      <%= javascript_include_tag 'js/setup' %>
+      <%= javascript_include_tag 'tasks' %>
+
+  </body>
+
+</html>

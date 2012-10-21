@@ -11,7 +11,7 @@ module SysLogger
 
   def method_missing(method, *args)
     if method.to_s =~ /^log_/  # if the method called is a log method
-      sys_logs.add_log(method.slice(/[^_]+$/).upcase, args[0], args[1])
+      sys_logs.add_log(method.slice(/(log_)(.+)/,2).upcase, args[0], args[1])
     else
       super
     end
