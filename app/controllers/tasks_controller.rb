@@ -1,7 +1,7 @@
 class TasksController < TasksBaseController
 
   def index
-    @tasks = current_user.top_tasks
+    @tasks = current_user.tasks
   end
 
   def new

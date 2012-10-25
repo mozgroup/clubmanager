@@ -10,11 +10,13 @@ describe TasksController do
   end
 
   describe "GET 'index' authenticated" do
-    let!(:c1) { FactoryGirl.create(:context, name: 'ZZZ') }
-    let!(:c2) { FactoryGirl.create(:context, name: 'AAA') }
-    let!(:c3) { FactoryGirl.create(:context, name: 'GGG') }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:t1) { FactoryGirl.create(:task, assignee: user) }
+    let!(:t2) { FactoryGirl.create(:task, assignee: user) }
+    let!(:t3) { FactoryGirl.create(:task) }
+
     before do
-      sign_in FactoryGirl.create(:user)
+      sign_in user
       get 'index'
     end
 
@@ -22,13 +24,16 @@ describe TasksController do
       response.should be_success
     end
 
-    it "should display all contexts" do
-      assigns(:contexts).should eq(Context.by_name)
+    it "should display all of the users tasks" do
+      assigns(:tasks).size.should eq(2)
     end
-
-    it "should have the contexts ordered by name" do
-      assigns(:contexts).should eq([c2, c3, c1])
-    end
+#    it "should display all contexts" do
+#      assigns(:contexts).should eq(Context.by_name)
+#    end
+#
+#    it "should have the contexts ordered by name" do
+#      assigns(:contexts).should eq([c2, c3, c1])
+#    end
   end
 
 end

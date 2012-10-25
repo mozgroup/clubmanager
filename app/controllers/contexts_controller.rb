@@ -1,5 +1,7 @@
 class ContextsController < TasksBaseController
 
+  layout 'tasks'
+
   def index
     @contexts = Context.by_name
   end

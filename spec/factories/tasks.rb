@@ -7,5 +7,6 @@ FactoryGirl.define do
     context
     project
     owner
+    assignee
   end
 end

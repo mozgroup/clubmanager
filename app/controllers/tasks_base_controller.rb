@@ -2,8 +2,6 @@ class TasksBaseController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_counts, except: [:update, :create]
 
-  layout 'tasks'
-
   private
 
     def get_counts

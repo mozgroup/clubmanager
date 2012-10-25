@@ -1,5 +1,7 @@
 class ProjectsController < TasksBaseController
 
+  layout 'tasks'
+
   def index
     @projects = Project.by_name
   end
