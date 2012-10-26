@@ -13,6 +13,10 @@ group :development, :test do
 # gem 'sqlite3', '~> 1.3.5'
   gem 'rspec-rails', '>= 2.10.1'
   gem 'factory_girl_rails', '~> 4.0.0'
+  gem 'guard-rspec', '~> 2.1.0'
+  gem 'guard-spork', '~> 1.2.1'
+  gem 'spork', '~> 0.9.2'
+  gem "minitest", "~> 4.1.0"
 end
 
 gem 'annotate', '~> 2.5.0', group: :development
@@ -37,6 +41,8 @@ group :test do
   gem 'database_cleaner', '~> 0.8.0'
   gem 'capybara', '>= 1.1.2'
   gem 'launchy', '>= 2.1.0'
+  gem 'rb-inotify', '~> 0.8.8'
+  gem 'libnotify', '~> 0.8.0'
 end
 
 gem 'pg', '~> 0.12.2'
