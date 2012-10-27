@@ -105,4 +105,38 @@ describe Task do
       end
     end
   end
+
+  describe "assigned_to=" do
+    it "should add user to the assignee" do
+      user = FactoryGirl.create(:user)
+      @task.save!
+      @task.assigned_to = user.full_name
+      @task.assignee_id.should eq(user.id)
+    end
+
+    it "should not error if a blank name is supplied" do
+      @task.save!
+      @task.assigned_to = ''
+      @task.assignee_id.should be_nil
+    end
+  end
+
+  describe "assigned_to" do
+    it "should return the name of the person the task is assinged to" do
+      user = FactoryGirl.create(:user)
+      @task.save!
+      @task.assigned_to = user.full_name
+      @task.assigned_to.should eq(user.full_name)
+    end
+  end
+
+  describe "update_assigned_to" do
+    it "should assign the task and trigger the assign event" do
+      user = FactoryGirl.create(:user)
+      @task.save!
+      @task.update_assigned_to user.full_name
+      @task.assigned_to.should eq(user.full_name)
+      @task.state.should eq("assigned")
+    end
+  end
 end

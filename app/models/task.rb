@@ -76,6 +76,7 @@ class Task < ActiveRecord::Base
     self.assigned_to = name
     self.assign
   end
+
   def method_missing(method, *args)
     if method.to_s == "add_context" || method.to_s == "add_project"
       class_name = method.slice(/_(.+)/,1)

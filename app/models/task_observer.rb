@@ -1,5 +1,7 @@
 class TaskObserver < ActiveRecord::Observer
   def after_assign(task, transition)
+    task.log_task_asigned("Task #{task.name} has been assigned to #{task.assignee_full_name}", task.owner_full_name)
+    send_assigned_message task
     # log transition
     # send email to assignee
   end
@@ -19,7 +21,6 @@ class TaskObserver < ActiveRecord::Observer
 
   def before_save(task)
     if task.assignee_id_changed?
-     task.log_task_asigned("Task #{task.name} has been assigned to #{task.assignee_full_name}", task.owner_full_name)
     end
   end
 
@@ -29,6 +30,8 @@ class TaskObserver < ActiveRecord::Observer
     subject = 'You have been assigned a task'
     body = 'You have been assigned a task'
 
+    message = Message.create(author_id: author_id, send_to: send_to, subject: subject, body: body)
+    message.deliver
 
   end
 
