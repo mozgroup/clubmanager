@@ -16,15 +16,15 @@ describe 'HomePage' do
       visit root_path
     end
 
-    it { should have_selector('h1', text: 'Club Manager') }
-    it { should have_selector('div#profile span.name', text: user.full_name) }
-    it { should have_selector('header', text: user.title) }
-    it { should have_selector('li.current a.shortcut-dashboard') }
-    it { should_not have_selector('li.current a.shortcut-messages') }
-    it { should have_link('Dashboard', href: root_url) }
-    it { should have_link('Messages', href: inbox_path) }
-
-    it { should have_selector('section#menu') }
-    it { should have_selector('span.count', text: user.envelopes.unread_count.to_s) }
+#    it { should have_selector('h1', text: 'Club Manager') }
+#    it { should have_selector('div#profile span.name', text: user.full_name) }
+#    it { should have_selector('header', text: user.title) }
+#    it { should have_selector('li.current a.shortcut-dashboard') }
+#    it { should_not have_selector('li.current a.shortcut-messages') }
+#    it { should have_link('Dashboard', href: root_url) }
+#    it { should have_link('Messages', href: inbox_path) }
+#
+#    it { should have_selector('section#menu') }
+#    it { should have_selector('span.count', text: user.envelopes.unread_count.to_s) }
   end
 end

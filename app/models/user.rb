@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   attr_accessible :title, :employee_number, :first_name, :last_name
   attr_accessible :club_ids
 
+
   has_many :club_users, class_name: 'ClubUsers'
   has_many :clubs, through: :club_users
   has_many :envelopes, foreign_key: :recipient_id, order: "delivered_at DESC" do
