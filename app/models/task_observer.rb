@@ -23,4 +23,13 @@ class TaskObserver < ActiveRecord::Observer
     end
   end
 
+  def send_assigned_message(task)
+    author_id = task.owner_id
+    send_to = task.assigned_to
+    subject = 'You have been assigned a task'
+    body = 'You have been assigned a task'
+
+
+  end
+
 end
