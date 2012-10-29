@@ -7,6 +7,18 @@ module Notifier
         @config ||= load_msg_params["tasks"]
       end
 
+      def deliver_claim_task_message(task)
+        msg_config = config['claim_task_message']
+        message = Message.create(author_id: task.assignee_id, send_to: task.owner_full_name, subject: msg_config['subject'], body: msg_config['body'])
+        message.deliver
+      end
+
+      def deliver_completed_task_message(task)
+        msg_config = config['completed_task_message']
+        message = Message.create(author_id: task.assignee_id, send_to: task.owner_full_name, subject: msg_config['subject'], body: msg_config['body'])
+        message.deliver
+      end
+
       def method_missing(method, *args)
         split_method = method.to_s.split('_',2)
         if split_method[0] == 'deliver' && !config[split_method[1]].blank?

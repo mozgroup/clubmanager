@@ -7,6 +7,10 @@ tasks:
     subject: A task has been assigned to you
     body: A task has been assigned to you, please visit your task to see what it is
 
-  accept_task_message:
+  claim_task_message:
+    subject: The task has been accepted
+    body: The task has been accepted
+
+  completed_task_message:
     subject: The task has been accepted
     body: The task has been accepted

@@ -7,7 +7,21 @@ FactoryGirl.define do
     context
     project
     owner
+  end
 
+  factory :assigned_task, parent: :task do
+    assignee
+    state 'assigned'
+  end
+
+  factory :claimed_task, parent: :task do
+    assignee
+    state 'claimed'
+  end
+
+  factory :started_task, parent: :task do
+    assignee
+    state 'started'
   end
 
 end

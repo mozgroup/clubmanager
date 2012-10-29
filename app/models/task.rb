@@ -48,7 +48,7 @@ class Task < ActiveRecord::Base
     end
 
     event :complete do
-      transition [:started] => :complete
+      transition [:started] => :completed
     end
   end
 
@@ -75,6 +75,18 @@ class Task < ActiveRecord::Base
   def update_assigned_to(name)
     self.assigned_to = name
     self.assign
+  end
+
+  def claim_task
+    self.claim
+  end
+
+  def start_task
+    self.start
+  end
+
+  def complete_task
+    self.complete
   end
 
   def method_missing(method, *args)

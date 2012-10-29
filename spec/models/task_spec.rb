@@ -44,10 +44,7 @@ describe Task do
   end
 
   describe "Project name" do
-    it "should return the name" do
-      @task.save!
-      @task.project_name.should eq(@task.project.name)
-    end
+    its(:project_name) { should == @task.project.name }
 
     it "should return nil if new" do
       task = FactoryGirl.build(:task, project: nil)
@@ -56,10 +53,7 @@ describe Task do
   end
 
   describe "Context name" do
-    it "should return the name" do
-      @task.save!
-      @task.context_name.should eq(@task.context.name)
-    end
+    its(:context_name) { should eq(@task.context.name) }
 
     it "should return nil if new" do
       task = FactoryGirl.build(:task, context: nil)
@@ -72,7 +66,6 @@ describe Task do
       it "should assign it to the task" do
         context = FactoryGirl.create(:context)
         @task.context_name = context.name
-        @task.save!
         @task.context.should eq(context)
       end
     end
@@ -80,7 +73,6 @@ describe Task do
     describe "when the context does not exist" do
       it "should create a new context" do
         @task.context_name = "foo"
-        @task.save!
         @task.context.name.should eq("foo")
       end
     end
@@ -91,15 +83,13 @@ describe Task do
       it "should assign it to the task" do
         project = FactoryGirl.create(:project)
         @task.project_name = project.name
-        @task.save!
         @task.project.should eq(project)
       end
     end
 
     describe "when the project does not exist" do
-      it "should create a new context" do
+      it "should create a new project" do
         @task.project_name = "foo"
-        @task.save!
         @task.project.name.should eq("foo")
         @task.context.should eq(@task.project.context)
       end
@@ -109,13 +99,11 @@ describe Task do
   describe "assigned_to=" do
     it "should add user to the assignee" do
       user = FactoryGirl.create(:user)
-      @task.save!
       @task.assigned_to = user.full_name
       @task.assignee_id.should eq(user.id)
     end
 
     it "should not error if a blank name is supplied" do
-      @task.save!
       @task.assigned_to = ''
       @task.assignee_id.should be_nil
     end
@@ -124,19 +112,66 @@ describe Task do
   describe "assigned_to" do
     it "should return the name of the person the task is assinged to" do
       user = FactoryGirl.create(:user)
-      @task.save!
-      @task.assigned_to = user.full_name
-      @task.assigned_to.should eq(user.full_name)
+      assigned_to = user.full_name
+      assigned_to.should eq(user.full_name)
     end
   end
 
   describe "update_assigned_to" do
-    it "should assign the task and trigger the assign event" do
-      user = FactoryGirl.create(:user)
-      @task.save!
-      @task.update_assigned_to user.full_name
-      @task.assigned_to.should eq(user.full_name)
-      @task.state.should eq("assigned")
+    before do
+      @user =  FactoryGirl.create(:user)
+      @task.update_assigned_to @user.full_name
+    end
+
+    its(:assigned_to) { should eq(@user.full_name) }
+    its(:state) { should eq("assigned") }
+    it { @task.assignee.messages.should_not be_empty }
+  end
+
+  describe "has_assignee? method" do
+    it { should_not have_assignee }
+
+    it "should return true" do
+      assigned_task = FactoryGirl.create(:assigned_task)
+      assigned_task.should have_assignee
     end
   end
+
+  describe "claim_task method" do
+    before do
+      @task = FactoryGirl.create(:assigned_task)
+      @task.claim_task
+    end
+
+    its(:state) { should == 'claimed' }
+
+    it "should send a message to the owner" do
+      @task.owner.messages.should_not be_empty
+      @task.owner.messages[0].send_to.should eq(@task.owner_full_name)
+    end
+  end
+
+  describe "start_task method" do
+    before do
+      @task = FactoryGirl.create(:claimed_task)
+      @task.start_task
+    end
+
+    its(:state) { should == 'started' }
+  end
+
+  describe "complete_task method" do
+    before do
+      @task = FactoryGirl.create(:started_task)
+      @task.complete_task
+    end
+
+    its(:state) { should == 'completed' }
+
+    it "should send a message to the owner" do
+      @task.owner.messages.should_not be_empty
+      @task.owner.messages[0].send_to.should eq(@task.owner_full_name)
+    end
+  end
+
 end

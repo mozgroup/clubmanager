@@ -5,16 +5,17 @@ class TaskObserver < ActiveRecord::Observer
   end
 
   def after_claim(task, transition)
-    # log transition
+    task.log_task_claimed("Task #{task.name} has been claimed by #{task.assigned_to}", task.owner_full_name)
+    Notifier::Tasks.deliver_claim_task_message(task)
   end
 
   def after_start(task, transition)
-    # log transition
+    task.log_task_started("Task #{task.name} has been started by #{task.assigned_to}", task.owner_full_name)
   end
 
   def after_complete(task, transition)
-    # log transition
-    # send email to task owner
+    task.log_task_completed("Task #{task.name} has been complete by #{task.assigned_to}", task.owner_full_name)
+    Notifier::Tasks.deliver_completed_task_message(task)
   end
 
   def before_save(task)
