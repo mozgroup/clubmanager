@@ -4,40 +4,62 @@ module Notifier
     class << self
 
       def config
-        @config ||= load_msg_params["tasks"]
+        @@config ||= load_msg_params["tasks"]
       end
 
-      def deliver_claim_task_message(task)
-        msg_config = config['claim_task_message']
-        message = Message.create(author_id: task.assignee_id, send_to: task.owner_full_name, subject: msg_config['subject'], body: msg_config['body'])
-        message.deliver
+      def assigned_task_message(task)
+        @task = task
+        @send_to = task.owner
+        @author = task.assignee
+        @subject = "A task has been assigned to you"
+
+        body = ERB.new(load_template('assigned_task_message')).result(binding)
+
+        deliver_message(@author, @send_to, @subject, body)
+
       end
 
-      def deliver_completed_task_message(task)
-        msg_config = config['completed_task_message']
-        message = Message.create(author_id: task.assignee_id, send_to: task.owner_full_name, subject: msg_config['subject'], body: msg_config['body'])
-        message.deliver
+      def claim_task_message(task)
+        @task = task
+        @send_to = task.owner
+        @author = task.assignee
+        @subject = "Task has been claimed"
+
+        body = ERB.new(load_template('claim_task_message')).result(binding)
+
+        deliver_message(@author, @send_to, @subject, body)
+
       end
 
-      def method_missing(method, *args)
-        split_method = method.to_s.split('_',2)
-        if split_method[0] == 'deliver' && !config[split_method[1]].blank?
-          deliver_notification(config[split_method[1]], *args)
-        else
-          super(method, *args)
-        end
+      def completed_task_message(task)
+        @task = task
+        @send_to = task.owner
+        @author = task.assignee
+        @subject = "Task has been completed"
+
+        body = ERB.new(load_template('completed_task_message')).result(binding)
+
+        deliver_message(@author, @send_to, @subject, body)
+
       end
+
+       def method_missing(method, *args)
+         split_method = method.to_s.split('_',2)
+         if split_method[0] == 'deliver'
+           self.send(split_method[1].to_sym, args[0])
+         else
+           super(method, *args)
+         end
+       end
 
       private
 
-        def load_msg_params
-          filepath = File.expand_path("../../../config/notifiers/#{Rails.env}/", __FILE__)
-          YAML.load(IO.read("#{filepath}/notifier.yml"))
+        def load_template(template_name)
+          IO.read("#{Rails.root}/app/views/notifiers/tasks/#{template_name}.erb")
         end
 
-        def deliver_notification(msg_config, *args)
-          task = args[0]
-          message = Message.create(author_id: task.owner_id, send_to: task.assigned_to, subject: msg_config['subject'], body: msg_config['body'])
+        def deliver_message(from, send_to, subject, body)
+          message = Message.create(author_id: from.id, send_to: send_to.full_name, subject: subject, body: body)
           message.deliver
         end
 

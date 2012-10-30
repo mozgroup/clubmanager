@@ -172,6 +172,11 @@ describe Task do
       @task.owner.messages.should_not be_empty
       @task.owner.messages[0].send_to.should eq(@task.owner_full_name)
     end
+
+    it "should contain the task name in the body" do
+      message = @task.owner.messages[0]
+      message.body.should include(@task.name)
+    end
   end
 
 end
