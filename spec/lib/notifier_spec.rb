@@ -2,44 +2,46 @@ require 'spec_helper'
 
 describe Notifier::Tasks do
 
-  describe "reading the config file" do
-    describe "the filepath" do
-      it "should generate the path to the task notifier config file" do
-        Notifier::Tasks.config.should_not be_blank
-      end
-    end
-  end
-
-  context "Invalid methods are invoked" do
-    describe "when method is called without deliver_" do
-      it "shoud raise a NoMethodError" do
-        expect do
-          Notifier::Tasks.some_notifier
-        end.to raise_error(NoMethodError)
-      end
-    end
-  end
-
-  context "Valid methods are invoked" do
-
+  context "class methods" do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:assignee) { FactoryGirl.create(:user) }
     let!(:task) { FactoryGirl.create(:task, owner: user) }
 
-    before { task.update_column('assignee_id', assignee.id) }
+    before(:each) { task.update_column('assignee_id', assignee.id) }
 
-    describe "when a method is called with deliver_" do
-      it "should not raise NoMethodError" do
-        expect do
-          Notifier::Tasks.deliver_some_valid_notifier(task)
-        end.to_not raise_error(NoMethodError)
+    describe "when assigned_task_message is invoked" do
+      before { Notifier::Tasks.deliver_assigned_task_message(task) }
+
+      it "should send a message to the assignee" do
+        task.assignee.messages.should_not be_empty
+      end
+
+      it "should have the owner as the author of the message" do
+        task.owner.authored_messages.should_not be_empty
       end
     end
 
-    describe "when deliver_some_valid_notifier is called" do
-      it "should send a message to the task assignee" do
-        Notifier::Tasks.deliver_some_valid_notifier(task)
-        user.messages.should_not be_empty
+    describe "when claim_task_message is invoked" do
+      before { Notifier::Tasks.deliver_claim_task_message(task) }
+
+      it "should send a message to the owner" do
+        task.owner.messages.should_not be_empty
+      end
+
+      it "should have the assignee as the author of the message" do
+        task.assignee.authored_messages.should_not be_empty
+      end
+    end
+
+    describe "when completed_task_message is invoked" do
+      before { Notifier::Tasks.deliver_completed_task_message(task) }
+
+      it "should send a message to the owner" do
+        task.owner.messages.should_not be_empty
+      end
+
+      it "should have the assignee as the author of the message" do
+        task.assignee.authored_messages.should_not be_empty
       end
     end
   end
