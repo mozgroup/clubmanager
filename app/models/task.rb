@@ -78,14 +78,17 @@ class Task < ActiveRecord::Base
   end
 
   def claim_task
+    self.claimed_at = Time.zone.now
     self.claim
   end
 
   def start_task
+    self.started_at = Time.zone.now
     self.start
   end
 
   def complete_task
+    self.completed_at = Time.zone.now
     self.complete
   end
 
