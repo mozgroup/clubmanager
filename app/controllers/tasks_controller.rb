@@ -46,4 +46,22 @@ class TasksController < TasksBaseController
     @task.update_assigned_to params[:task][:assigned_to]
     redirect_to @task
   end
+
+  def update_claimed
+    @task = Task.find params[:id]
+    @task.claim_task
+    redirect_to @task
+  end
+
+  def start
+    @task = Task.find params[:id]
+    @task.start_task
+    redirect_to @task
+  end
+
+  def complete
+    @task = Task.find params[:id]
+    @task.complete_task
+    redirect_to @task
+  end
 end
