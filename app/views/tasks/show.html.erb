@@ -37,42 +37,57 @@
 <% end %>
 
 <div class="with-padding">
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'name', 'Task', class: 'label' %>
     <%= @task.name %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'context_name', 'Context', class: 'label' %>
     <%= @task.context_name %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'project_name', 'Project', class: 'label' %>
     <%= @task.project_name %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'state', 'Status', class: 'label' %>
     <%= @task.state %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'owned_by', 'Owned By', class: 'label' %>
     <%= @task.owner_full_name %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'assigned_to', 'Assigned To', class: 'label' %>
     <%= @task.assigned_to %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
     <%= label_tag 'due_at', 'Date Due', class: 'label' %>
     <%= date_format(@task.due_at) %>
   </p>
 
-  <p class="button-height inline-medium-label">
+  <p class="inline-medium-label">
+    <%= label_tag 'claimed_at', 'Date claimed', class: 'label' %>
+    <%= date_format(@task.claimed_at) %>
+  </p>
+
+  <p class="inline-medium-label">
+    <%= label_tag 'started_at', 'Date started', class: 'label' %>
+    <%= date_format(@task.started_at) %>
+  </p>
+
+  <p class="inline-medium-label">
+    <%= label_tag 'completed_at', 'Date completed', class: 'label' %>
+    <%= date_format(@task.completed_at) %>
+  </p>
+
+  <p class="inline-medium-label">
     <%= label_tag 'notes', 'Notes', class: 'label' %>
     <%= @task.notes %>
   </p>

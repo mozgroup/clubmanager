@@ -14,6 +14,8 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  assignee_id  :integer
+#  started_at   :datetime
+#  claimed_at   :datetime
 #
 
 require 'spec_helper'
