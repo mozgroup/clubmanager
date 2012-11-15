@@ -1,0 +1,6 @@
+<tr>
+  <th scope="row"><%= link_to task.name, task_path(task), class: "open-on-panel-content" %></th>
+  <td><%= task.project_name %></td>
+  <td><%= task.context_name %></td>
+  <td><%= date_format(task.due_at) %></td>
+</tr>

@@ -1,0 +1,24 @@
+<div class="panel-control align-right">
+
+  <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
+    <span class="button-icon"><span class="icon-star"></span></span>
+    Create Task
+  <% end %>
+
+</div>
+
+<table class="simple-table">
+
+  <thead>
+    <tr>
+      <th scope="col">Task</th>
+      <th scope="col">Context</th>
+      <th scope="col">Project</th>
+      <th scope="col">Due By</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render :partial => 'task', :collection => @tasks %>
+  </tbody>
+</table>

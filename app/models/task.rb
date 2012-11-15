@@ -74,6 +74,10 @@ class Task < ActiveRecord::Base
     ! self.assignee.nil?
   end
 
+  def is_not_complete?
+    ! self.completed?
+  end
+
   def update_assigned_to(name)
     self.assigned_to = name
     self.assign

@@ -1,0 +1,6 @@
+$('.panel-load-target').html("<%= escape_javascript(render(:partial => "show_data")) %>");
+jQuery(function() {
+  $('#show-data').message('You have started this task', {
+    classes: ['green-gradient']
+  });
+});

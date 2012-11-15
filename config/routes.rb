@@ -19,6 +19,9 @@ ClubManager::Application.routes.draw do
 
   resources :tasks do
     get 'my_tasks', on: :collection
+    get 'assigned', on: :collection
+    get 'in_progress', on: :collection
+    get 'completed', on: :collection
     get 'assign', on: :member
     put 'update_assigned_to', on: :member
     put 'update_claimed', on: :member

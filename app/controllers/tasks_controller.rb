@@ -1,5 +1,7 @@
 class TasksController < TasksBaseController
 
+  layout false
+
   def index
     @tasks = current_user.tasks
   end
@@ -38,30 +40,53 @@ class TasksController < TasksBaseController
 
   def assign
     @task = Task.find params[:id]
-    render layout: nil
   end
 
   def update_assigned_to
     @task = Task.find params[:id]
     @task.update_assigned_to params[:task][:assigned_to]
-    redirect_to @task
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def update_claimed
     @task = Task.find params[:id]
     @task.claim_task
-    redirect_to @task
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def start
     @task = Task.find params[:id]
     @task.start_task
-    redirect_to @task
+    respond_to do |format|
+      format.js { render layout: false }
+    end
   end
 
   def complete
     @task = Task.find params[:id]
     @task.complete_task
-    redirect_to @task
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
+  def my_tasks
+    @tasks = current_user.tasks
+  end
+
+  def assigned
+    @tasks = current_user.tasks.assigned
+  end
+
+  def in_progress
+    @tasks = current_user.tasks.started
+  end
+
+  def completed
+    @tasks = current_user.tasks.completed
   end
 end

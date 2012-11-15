@@ -61,7 +61,17 @@ class User < ActiveRecord::Base
   end
   has_many :projects, foreign_key: :owner_id
   has_many :contexts, foreign_key: :owner_id
-  has_many :tasks, foreign_key: :assignee_id
+  has_many :tasks, foreign_key: :assignee_id do
+    def assigned
+      where("state IN (?)", ["new", "assigned", "claimed"])
+    end
+    def started
+      where("state = ?", "started")
+    end
+    def completed
+      where("state = ?", "completed")
+    end
+  end
   has_many :top_tasks, class_name: 'Task', foreign_key: :assignee_id, order: 'due_at ASC', limit: 3
 
   validates :first_name, presence: true

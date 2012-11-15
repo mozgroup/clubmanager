@@ -1,6 +1,6 @@
 <div class="panel-control align-right">
 
-  <% if current_user == @task.owner %>
+  <% if current_user == @task.owner && @task.is_not_complete? %>
     <%= link_to assign_task_path(@task), id: 'task-assign', class: 'button open-on-panel-content' do %>
       <span class="button-icon"><span class="icon-lightning"></span></span>
       Assign Task
@@ -13,13 +13,13 @@
     <% end %>
   <% end %>
   <% if current_user == @task.assignee && (@task.assigned? || @task.claimed?) %>
-    <%= link_to start_task_path(@task), class: 'button open-on-panel-content', method: :put do %>
+    <%= link_to start_task_path(@task), class: 'button', method: :put, remote: true do %>
       <span class="button-icon"><span class="icon-play"></span></span>
       Start Task
     <% end %>
   <% end %>
   <% if current_user == @task.assignee && @task.started? %>
-    <%= link_to complete_task_path(@task), class: 'button open-on-panel-content', method: :put do %>
+    <%= link_to complete_task_path(@task), class: 'button', method: :put, remote: true do %>
       <span class="button-icon"><span class="icon-play"></span></span>
       Complete Task
     <% end %>
@@ -30,7 +30,7 @@
   <% end %>
 </div>
 
-<div class="with-padding">
+<div id="show-data" class="with-padding">
   <p class="inline-medium-label">
     <%= label_tag 'name', 'Task', class: 'label' %>
     <%= @task.name %>
@@ -56,20 +56,10 @@
     <%= @task.owner_full_name %>
   </p>
 
-  <%= form_for @task, :url => update_assigned_to_task_path(@task), remote: true, method: :put  do |f| %>
-
-    <p class="button-height inline-medium-label">
-      <%= f.label :assigned_to, class: 'label' do %>
-        Assigned To
-      <% end %>
-      <%= f.text_field :assigned_to, class: 'input' %>
-      <button class="button glossy mid-margin-right" type="submit">
-        <span class="button-icon"><span class="icon-tick"></span></span>
-        Update
-      </button>
-    </p>
-
-  <% end %>
+  <p class="inline-medium-label">
+    <%= label_tag 'assigned_to', 'Assigned To', class: 'label' %>
+    <%= @task.assigned_to %>
+  </p>
 
   <p class="inline-medium-label">
     <%= label_tag 'due_at', 'Date Due', class: 'label' %>
@@ -96,5 +86,3 @@
     <%= @task.notes %>
   </p>
 </div>
-
-<%= javascript_include_tag 'tasks' %>

@@ -67,10 +67,14 @@
 
                       <li class="title-menu">Task Menu</li>
 
-                      <li class="big-menu grey-gradient">
-                        <%= link_to tasks_path do %>
-                          My Tasks<span><span class="list-count"><%= @my_count %></span></span>
-                        <% end %>
+                      <li class="big-menu grey-gradient with-right-arrow">
+                        <span><span class="list-count"><%= @my_count %></span>My Tasks</span>
+                        <ul class="big-menu open-on-panel-content">
+                          <li class="grey-gradient"> <%= link_to "All My Tasks", my_tasks_tasks_path %> </li>
+                          <li class="grey-gradient"> <%= link_to "Assigned", assigned_tasks_path %> </li>
+                          <li class="grey-gradient"> <%= link_to "In Progress", in_progress_tasks_path %> </li>
+                          <li class="grey-gradient"> <%= link_to "Completed", completed_tasks_path %> </li>
+                        </ul>
                       </li>
                       <li class="big-menu grey-gradient">
                         <%= link_to contexts_path do %>
