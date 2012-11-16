@@ -85,10 +85,14 @@
                           <li class="grey-gradient"> <%= link_to "Completed", completed_tasks_path %> </li>
                         </ul>
                       </li>
-                      <li class="big-menu grey-gradient">
-                        <%= link_to contexts_path do %>
-                          Contexts<span><span class="list-count"><%= @all_count %></span></span>
-                        <% end %>
+                      <li class="big-menu grey-gradient with-right-arrow">
+                        <span><span class="list-count"><%= @context_count %></span>Contexts</span>
+                        <ul class="big-menu">
+                          <li class="title-menu">Contexts</li>
+                          <% @contexts.each do |context| %>
+                            <li class="grey-gradient with-right-arrow"> <%= link_to context.name, context_tasks_path(context) %> </li>
+                          <% end %>
+                        </ul>
                       </li>
                       <li class="big-menu grey-gradient">
                         <%= link_to projects_path do %>

@@ -89,4 +89,8 @@ class TasksController < TasksBaseController
   def completed
     @tasks = current_user.tasks.completed
   end
+
+  def context
+    @tasks = Task.by_context(params[:context_id])
+  end
 end

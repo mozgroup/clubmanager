@@ -1,0 +1,32 @@
+<div class="panel-control align-right">
+
+  <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
+    <span class="button-icon"><span class="icon-star"></span></span>
+    Create Task
+  <% end %>
+
+</div>
+
+<div class="with-padding">
+  <table class="simple-table">
+    <thead>
+      <tr>
+        <th scope="col">Task</th>
+        <th scope="col">Project</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Assigned To</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <th scope="row"><%= link_to task.name, task_path(task) %></th>
+          <td><%= task.project_name %></td>
+          <td><%= date_format(task.due_at) %></td>
+          <td><%= task.assignee_full_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

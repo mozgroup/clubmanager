@@ -16,6 +16,7 @@ ClubManager::Application.routes.draw do
   put 'envelopes/:envelope_id/mark_important', to: 'envelopes#mark_important', as: 'envelope_mark_important'
   get 'users/search', to: 'users#search', as: 'search_users'
   get 'agenda', to: 'agenda#index', as: 'agenda'
+  get 'tasks/context/:context_id', to: 'tasks#context', as: 'context_tasks'
 
   resources :tasks do
     get 'my_tasks', on: :collection

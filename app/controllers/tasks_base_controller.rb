@@ -8,7 +8,8 @@ class TasksBaseController < ApplicationController
       @my_count = current_user.tasks.count
       @all_count = Task.count
       @project_count = Project.count
-      @context_count = Context.count
+      @contexts = Context.by_name
+      @context_count = @contexts.size
       @top_tasks = current_user.top_tasks
     end
 end

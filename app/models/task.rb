@@ -54,6 +54,10 @@ class Task < ActiveRecord::Base
     end
   end
 
+  def self.by_context(context_id)
+    where('context_id = ?', context_id)
+  end
+
   def context_name=(name)
     add_context({ name: name, owner_id: self.owner_id })
   end
