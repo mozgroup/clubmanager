@@ -94,10 +94,14 @@
                           <% end %>
                         </ul>
                       </li>
-                      <li class="big-menu grey-gradient">
-                        <%= link_to projects_path do %>
-                          Project<span><span class="list-count"><%= @project_count %></span></span>
-                        <% end %>
+                      <li class="big-menu grey-gradient with-right-arrow">
+                        <span><span class="list-count"><%= @project_count %></span>Projects</span>
+                        <ul class="big-menu">
+                          <li class="title-menu">Projects</li>
+                          <% @projects.each do |project| %>
+                            <li class="grey-gradient with-right-arrow"> <%= link_to project.name, project_tasks_path(project) %> </li>
+                          <% end %>
+                        </ul>
                       </li>
 
                     </ul>

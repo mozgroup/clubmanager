@@ -93,4 +93,8 @@ class TasksController < TasksBaseController
   def context
     @tasks = Task.by_context(params[:context_id])
   end
+
+  def project
+    @tasks = Task.by_project(params[:project_id])
+  end
 end

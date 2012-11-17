@@ -17,6 +17,7 @@ ClubManager::Application.routes.draw do
   get 'users/search', to: 'users#search', as: 'search_users'
   get 'agenda', to: 'agenda#index', as: 'agenda'
   get 'tasks/context/:context_id', to: 'tasks#context', as: 'context_tasks'
+  get 'tasks/project/:project_id', to: 'tasks#project', as: 'project_tasks'
 
   resources :tasks do
     get 'my_tasks', on: :collection

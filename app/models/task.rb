@@ -58,6 +58,10 @@ class Task < ActiveRecord::Base
     where('context_id = ?', context_id)
   end
 
+  def self.by_project(project_id)
+    where('project_id = ?', project_id)
+  end
+
   def context_name=(name)
     add_context({ name: name, owner_id: self.owner_id })
   end
