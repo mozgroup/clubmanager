@@ -52,10 +52,10 @@
   </p>
 
   <div class="field-block button-height">
-    <button class="button glossy mid-margin-right" type="submit">
+    <%= button_tag(class: 'button glossy mid-margin-right') do %>
       <span class="button-icon"><span class="icon-tick"></span></span>
       Save
-    </button>
+    <% end %>
     <%= link_to tasks_path, class: 'button' do %>
       <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
       Cancel

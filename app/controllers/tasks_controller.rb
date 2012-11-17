@@ -18,7 +18,9 @@ class TasksController < TasksBaseController
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
       flash[:sucess] = "Task successfully updated!"
-      redirect_to @task
+      respond_to do |format|
+        format.js
+      end
     else
       render 'edit'
     end
@@ -28,7 +30,9 @@ class TasksController < TasksBaseController
     @task = Task.new(params[:task])
     if @task.save
       flash[:success] = "Task created!"
-      redirect_to tasks_path
+      respond_to do |format|
+        format.js
+      end
     else
       render 'new'
     end
