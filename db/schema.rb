@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101020923) do
+ActiveRecord::Schema.define(:version => 20121119002609) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -93,6 +93,22 @@ ActiveRecord::Schema.define(:version => 20121101020923) do
 
   add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"
   add_index "envelopes", ["recipient_id"], :name => "index_envelopes_on_recipient_id"
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "invitee_list"
+    t.string   "subject"
+    t.string   "location"
+    t.text     "description"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "events", ["end_at"], :name => "index_events_on_end_at"
+  add_index "events", ["start_at"], :name => "index_events_on_start_at"
+  add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "messages", :force => true do |t|
     t.integer  "author_id"

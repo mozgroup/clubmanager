@@ -43,6 +43,8 @@ ClubManager::Application.routes.draw do
     put 'delete'
   end
 
+  resources :events
+
   root to: 'home#index'
 
 #  match '/signin', to: 'sessions#new'
