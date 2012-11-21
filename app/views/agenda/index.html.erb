@@ -3,6 +3,7 @@
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag "css/styles/agenda" %>
+  <%= stylesheet_link_tag "css/styles/calendars" %>
 <% end %>
 
 <div class="standard-tabs">
@@ -18,6 +19,7 @@
   <div class="tabs-content">
 
     <div id="tab-1" class="with-padding">
+
       <div class="agenda with-header">
 
         <!-- Time markers -->
@@ -112,7 +114,43 @@
 
     <div id="tab-3" class="with-padding">
 
-      Monthly
+      <table class="calendar largest">
+
+        <!-- Month and scroll arrows -->
+        <caption>
+          <a href="#" class="cal-prev">◄</a>
+          <a href="#" class="cal-next">►</a>
+          <%= Time.now.strftime('%B %Y') %>
+        </caption>
+
+        <!-- Day Names -->
+        <thead>
+          <tr>
+            <th scope="col">Sun</th>
+            <th scope="col">Mon</th>
+            <th scope="col">Tue</th>
+            <th scope="col">Wed</th>
+            <th scope="col">Thu</th>
+            <th scope="col">Fri</th>
+            <th scope="col">Sat</th>
+          </tr>
+        </thead>
+
+        <!-- Dates -->
+        <tbody>
+          <tr>
+            <td class="week-end prev-month"><span class="cal-day">30</span></td>
+            <td><span class="cal-day">1</span></td>
+            <td><span class="cal-day">2</span></td>
+            <td><span class="cal-day">3</span></td>
+            <td><span class="cal-day">4</span></td>
+            <td><span class="cal-day">5</span></td>
+            <td class="week-end"><span class="cal-day">6</span></td>
+          </td>
+        </tbody>
+
+      </table>
+      <!-- End dates -->
 
     </div>
 
@@ -122,4 +160,5 @@
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'js/developr.tabs.js' %>
+  <%= javascript_include_tag 'js/developr.calendars.js' %>
 <% end %>

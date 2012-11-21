@@ -1,6 +1,6 @@
 <ul id="shortcuts" role="complementary" class="children-tooltip tooltip-right">
         <li<%= yield(:current_dashboard) %>><%= link_to "Dashboard", root_url, class: "shortcut-dashboard", title: "Dashboard" %></li>
         <li<%= yield(:current_messages) %>><%= link_to "Messages", inbox_path, class: "shortcut-messages", title: "Messages" %></li>
-        <li<%= yield(:current_agenda) %>><%= link_to "Agenda", agenda_path, class: "shortcut-agenda", title: "Agenda" %></li>
+        <li<%= yield(:current_calendar) %>><%= link_to "Agenda", calendar_path, class: "shortcut-agenda", title: "Calendar" %></li>
         <li><span class="shortcut-notes" title="Notes">Notes</span></li>
 </ul>
