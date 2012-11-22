@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :event do
-    user_id 1
+    user
     invitee_list "MyString"
     subject "MyString"
     location "MyString"

@@ -73,6 +73,11 @@ class User < ActiveRecord::Base
     end
   end
   has_many :top_tasks, class_name: 'Task', foreign_key: :assignee_id, order: 'due_at ASC', limit: 3
+  has_many :events do
+    def for_month(current_date)
+      where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
+    end
+  end
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -84,7 +89,7 @@ class User < ActiveRecord::Base
 
   def self.name_search(query)
     if query.present?
-      User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%") 
+      User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%")
     else
       scoped
     end

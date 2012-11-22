@@ -20,7 +20,7 @@
 require 'spec_helper'
 
 describe Message do
-  before(:each) do 
+  before(:each) do
     @message = FactoryGirl.build(:message)
   end
 
@@ -97,7 +97,7 @@ describe Message do
         end
       end
 
-      it { should_not be_new_record } 
+      it { should_not be_new_record }
       it "should have envelopes for all recipients" do
         [recip1, recip2, recip3].each do |recip|
           @env_recips.should include(recip)

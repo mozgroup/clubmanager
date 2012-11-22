@@ -25,9 +25,9 @@
 require 'spec_helper'
 
 describe User do
-  
+
   before(:each) do
-    @attr = { 
+    @attr = {
       :first_name => "Example",
       :last_name => "User",
       :email => "user@example.com",
@@ -43,20 +43,21 @@ describe User do
   it { should have_many(:projects) }
   it { should have_many(:contexts) }
   it { should have_many(:tasks) }
+  it { should have_many(:events) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:employee_number) }
-  
+
   it "should create a new instance given a valid attribute" do
     User.create!(@attr)
   end
-  
+
   it "should require an email address" do
     no_email_user = User.new(@attr.merge(:email => ""))
     no_email_user.should_not be_valid
   end
-  
+
   it "should accept valid email addresses" do
     addresses = %w[user@foo.com THE_USER@foo.bar.org first.last@foo.jp]
     addresses.each do |address|
@@ -64,7 +65,7 @@ describe User do
       valid_email_user.should be_valid
     end
   end
-  
+
   it "should reject invalid email addresses" do
     addresses = %w[user@foo,com user_at_foo.org example.user@foo.]
     addresses.each do |address|
@@ -72,20 +73,20 @@ describe User do
       invalid_email_user.should_not be_valid
     end
   end
-  
+
   it "should reject duplicate email addresses" do
     User.create!(@attr)
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
   end
-  
+
   it "should reject email addresses identical up to case" do
     upcased_email = @attr[:email].upcase
     User.create!(@attr.merge(:email => upcased_email))
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
   end
-  
+
   describe "passwords" do
 
     before(:each) do
@@ -100,7 +101,7 @@ describe User do
       @user.should respond_to(:password_confirmation)
     end
   end
-  
+
   describe "password validations" do
 
     it "should require a password" do
@@ -112,21 +113,21 @@ describe User do
       User.new(@attr.merge(:password_confirmation => "invalid")).
         should_not be_valid
     end
-    
+
     it "should reject short passwords" do
       short = "a" * 5
       hash = @attr.merge(:password => short, :password_confirmation => short)
       User.new(hash).should_not be_valid
     end
-    
+
   end
-  
+
   describe "password encryption" do
-    
+
     before(:each) do
       @user = User.create!(@attr)
     end
-    
+
     it "should have an encrypted password attribute" do
       @user.should respond_to(:encrypted_password)
     end
@@ -214,4 +215,26 @@ describe User do
     log.actioned_by.should eq("Tester")
   end
 
+  describe "events association" do
+
+    describe "events_for extension" do
+
+      let!(:user) { FactoryGirl.create(:user) }
+      let!(:current_date) { Time.parse('20121115') }
+      let!(:prev_month) { FactoryGirl.create(:event, user: user, start_at: current_date - 1.month, end_at: current_date - 1.month) }
+      let!(:next_month) { FactoryGirl.create(:event, user: user, start_at: current_date + 1.month, end_at: current_date + 1.month) }
+      let!(:event1) { FactoryGirl.create(:event, user: user, start_at: current_date.at_beginning_of_month, end_at: current_date.at_beginning_of_month) }
+      let!(:event2) { FactoryGirl.create(:event, user: user, start_at: current_date - 1.days, end_at: current_date - 1.days) }
+      let!(:event3) { FactoryGirl.create(:event, user: user, start_at: current_date + 1.days, end_at: current_date + 1.days) }
+      let!(:event4) { FactoryGirl.create(:event, user: user, start_at: current_date.at_end_of_month, end_at: current_date.at_end_of_month) }
+
+      it "should return only the current months events" do
+        events =  user.events.for_month(current_date)
+        events.size.should eq(4)
+        events.each do |event|
+          [event1, event2, event3, event4].should include(event)
+        end
+      end
+    end
+  end
 end
