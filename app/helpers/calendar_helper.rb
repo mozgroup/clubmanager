@@ -24,18 +24,18 @@ module CalendarHelper
       if current_day.sunday?
         week_markup << '<td class="week-end'
         week_markup << ' prev-month' if current_day < at_beginning_of_month
-        week_markup << ' today' if current_day.mday == today.mday
+        week_markup << ' today' if current_day.strftime('%Y%m%d') == today.strftime('%Y%m%d')
         week_markup << '">'
       elsif current_day.saturday?
         week_markup << '<td class="week-end'
         week_markup << ' next-month' if current_day > at_end_of_month
-        week_markup << ' today' if current_day.mday == today.mday
+        week_markup << ' today' if current_day.strftime('%Y%m%d') == today.strftime('%Y%m%d')
         week_markup << '">'
       else
         week_markup << '<td'
         week_markup << ' class="prev-month"' if current_day < at_beginning_of_month
         week_markup << ' class="next-month"' if current_day > at_end_of_month
-        week_markup << ' class="today"' if current_day.mday == today.mday
+        week_markup << ' class="today"' if current_day.strftime('%Y%m%d') == today.strftime('%Y%m%d')
         week_markup << '>'
       end
       week_markup << "<span class=\"cal-day\">#{current_day.mday}</span>"
