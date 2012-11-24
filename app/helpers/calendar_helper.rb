@@ -50,7 +50,11 @@ module CalendarHelper
 
   def daily_events(current_day, events)
     daily_markup = ['<ul class="cal-events">']
-    events.each { |event| daily_markup << "<li>#{event.subject}</li>" if event.start_at.mday == current_day.mday }
+    events.each do |event|
+      if event.start_at.mday == current_day.mday && event.start_at.month == current_day.month
+        daily_markup << "<li>#{link_to(event.subject, event, :class => 'white event-link')}</li>"
+      end
+    end
     daily_markup << '</ul>'
     daily_markup.join
   end

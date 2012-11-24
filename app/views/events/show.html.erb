@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>User:</b>
-  <%= @event.user_id %>
-</p>
-
-<p>
   <b>Invitee list:</b>
   <%= @event.invitee_list %>
 </p>
@@ -27,14 +22,10 @@
 
 <p>
   <b>Start at:</b>
-  <%= @event.start_at %>
+  <%= format_event_date @event.start_at %>
 </p>
 
 <p>
   <b>End at:</b>
-  <%= @event.end_at %>
+  <%= format_event_date @event.end_at %>
 </p>
-
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
