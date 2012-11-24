@@ -1,5 +1,8 @@
 jQuery ->
-  initBindings()
+  $.template.addSetupFunction (self, children) ->
+    initBindings()
+  , false
+  $('#calendar-body').applySetup()
 
 initBindings = ->
   $('#new-event-btn').click (event) ->
@@ -28,3 +31,4 @@ initBindings = ->
       loadingMessage: 'Loading event form...'
     }
     event.preventDefault()
+
