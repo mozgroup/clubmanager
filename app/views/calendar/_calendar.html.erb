@@ -1,0 +1,29 @@
+<table class="calendar fluid with-events">
+
+  <!-- Month and scroll arrows -->
+  <caption>
+    <%= link_to '◄', calendar_path(current_date: @previous_month), class: 'cal-prev' %>
+    <%= link_to '►', calendar_path(current_date: @next_month), class: 'cal-next' %>
+    <%= @current_date.strftime('%B %Y') %>
+  </caption>
+
+  <!-- Day Names -->
+  <thead>
+    <tr>
+      <th scope="col">Sun</th>
+      <th scope="col">Mon</th>
+      <th scope="col">Tue</th>
+      <th scope="col">Wed</th>
+      <th scope="col">Thu</th>
+      <th scope="col">Fri</th>
+      <th scope="col">Sat</th>
+    </tr>
+  </thead>
+
+  <!-- Dates -->
+  <tbody>
+    <%= calendar(@current_date, @events).html_safe %>
+  </tbody>
+
+</table>
+<!-- End dates -->

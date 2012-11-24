@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ->
+  $('#new-event-btn').click (event) ->
+    $.modal {
+      title: 'New Event',
+      url: $(@).attr('href'),
+      height: 500,
+      resizeOnLoad: true,
+      buttons: {
+        'Submit': (modal) -> $('.new_event').submit(),
+        'Close': (modal) -> modal.closeModal(),
+      },
+      loadingMessage: 'Loading event form...'
+    }
+    event.preventDefault()
