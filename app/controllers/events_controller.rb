@@ -14,9 +14,7 @@ class EventsController < ApplicationController
       flash[:success] = "Event created!"
       calendar_dates
       @events = current_user.events.for_month @current_date
-      respond_to do |format|
-        format.js
-      end
+      render 'ifshow'
     else
       render 'new'
     end

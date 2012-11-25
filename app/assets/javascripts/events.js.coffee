@@ -6,13 +6,15 @@ jQuery ->
         useIframe: true,
         title: 'New Event',
         url: $(@).attr('href'),
-        height: 500,
-        width: 400,
+        height: 510,
+        width: 500,
         resizeOnLoad: true,
         scrolling: false,
         buttons: {
-          'Submit': (modal) -> $('.new_event').submit(),
-          'Close': (modal) -> modal.closeModal(),
+          'Close': {
+            classes: 'blue-gradient glossy big full-width'
+            click: (modal) -> location.reload(); modal.closeModal()
+          }
         },
         loadingMessage: 'Loading event form...'
       }
@@ -32,11 +34,33 @@ jQuery ->
       }
       event.preventDefault()
 
-  if $('#event_invitee_list').length > 0
-    $('#event_invitee_list').autocomplete {
-      source: '/users/search',
-      minLength: 2,
+  if $("#event_invitee_list").length > 0
+    $("#event_invitee_list").bind "keydown", (event) ->
+      if event.keyCode == $.ui.keyCode.TAB && $(@).data("autocomplete").menu.active
+        event.preventDefault()
+    .autocomplete {
+      minLength: 2
+      source: (request, response) ->
+        $.getJSON '/users/search.json', {
+          term: extractLast request.term
+        }, response
+      search: ->
+        term = extractLast @.value
+        if term.length > 2
+          return false
+      focus: ->
+        return false
       select: (event, ui) ->
-        @.value = ui.item.label
+        terms = split @.value
+        terms.pop()
+        terms.push ui.item.label
+        terms.push ""
+        @.value = terms.join ", "
         return false
     }
+
+split = (val) ->
+  return val.split /,\s*/
+
+extractLast = (term) ->
+  return split(term).pop()
