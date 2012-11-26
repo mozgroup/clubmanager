@@ -24,4 +24,7 @@ class Event < ActiveRecord::Base
   validates :end_at, presence: true
 
   delegate :full_name, to: :user, prefix: true
+
+  scope :for_user, lambda { |user_id| where(user_id: user_id) }
+  scope :on, lambda { |start_at, end_at| where('start_at >= ? AND start_at <= ?', start_at, end_at).order(:start_at) }
 end

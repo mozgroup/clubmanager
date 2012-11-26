@@ -1,3 +1,21 @@
 <%= render 'calendar/calendar' %>
 
-<%= javascript_include_tag 'events' %>
+<script>
+  $(document).ready(function() {
+    $('.event-link').click(function(event) {
+      $.modal({
+        title: 'Event',
+        url: $(this).attr('href'),
+        height: 500,
+        resizeOnLoad: true,
+        buttons: {
+          'Close': function(modal) {
+            return modal.closeModal();
+          }
+        },
+        loadingMessage: 'Loading event form...'
+      });
+      return event.preventDefault();
+    });
+  });
+</script>
