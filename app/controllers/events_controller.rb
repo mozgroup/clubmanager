@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     if @event.save
       flash[:success] = "Event created!"
       calendar_dates
-      @events = current_user.events.for_month @current_date
+      @events = Event.for_user(current_user.id).on(@current_date.at_beginning_of_month, @current_date.at_end_of_month)
       render 'ifshow'
     else
       render 'new'
