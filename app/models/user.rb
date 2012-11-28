@@ -80,6 +80,7 @@ class User < ActiveRecord::Base
       where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
     end
   end
+  has_many :organized_events, class_name: 'Event', foreign_key: :user_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true
