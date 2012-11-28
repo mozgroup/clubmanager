@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121119002609) do
+ActiveRecord::Schema.define(:version => 20121128024406) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20121119002609) do
     t.datetime "end_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "state"
   end
 
   add_index "events", ["end_at"], :name => "index_events_on_end_at"
@@ -183,6 +184,16 @@ ActiveRecord::Schema.define(:version => 20121119002609) do
   add_index "tasks", ["owner_id"], :name => "index_tasks_on_owner_id"
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
   add_index "tasks", ["state"], :name => "index_tasks_on_state"
+
+  create_table "user_events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_events", ["event_id"], :name => "index_user_events_on_event_id"
+  add_index "user_events", ["user_id"], :name => "index_user_events_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

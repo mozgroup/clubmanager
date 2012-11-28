@@ -5,7 +5,7 @@ module Notifier
       def method_missing(method, *args)
         split_method = method.to_s.split('_',2)
         if split_method[0] == 'deliver'
-          self.send(split_method[1].to_sym, args[0])
+          self.send(split_method[1].to_sym, args[0], args[1])
         else
           super(method, *args)
         end
@@ -13,10 +13,10 @@ module Notifier
 
       protected
 
-        def invitation(event)
+        def invitation(event, user)
           @event = event
-          @send_to = event.invitee_list
-          @author = event.user
+          @send_to = user.full_name
+          @author = event.organizer
           @subject = "[Calendar Event] #{event.subject}"
 
           deliver
