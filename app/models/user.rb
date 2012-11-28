@@ -73,7 +73,9 @@ class User < ActiveRecord::Base
     end
   end
   has_many :top_tasks, class_name: 'Task', foreign_key: :assignee_id, order: 'due_at ASC', limit: 3
-  has_many :events do
+
+  has_many :user_events
+  has_many :events, through: :user_events do
     def for_month(current_date)
       where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
     end
