@@ -5,26 +5,27 @@
 <% content_for :template_functions do %>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
-    google.load('visualization', '1.0', {'packages':['corechart']});
+    google.load('visualization', '1', {'packages':['gauge']});
 
     google.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      alert('1');
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1],
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
+      var data = new google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['PT', 80],
+          ['Memberships', 55],
+          ['Snack Bar', 68]
       ]);
 
-      var options = {'title':'How Much Pizza I Ate Last Night', 'width':400, 'height':300};
+      var options = {
+        width: 800, height: 240,
+        redFrom: 90, redTo: 100,
+        yellowFrom: 75, yellowTo: 90,
+        minorTicks: 5
+      };
 
-      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
+  </script>
 <% end %>
