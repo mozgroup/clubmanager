@@ -47,4 +47,5 @@ group :test do
   gem 'growl', '1.0.3'
 end
 
-gem 'pg', '~> 0.12.2'
+#gem 'pg', '~> 0.12.2'
+gem 'mysql2'
