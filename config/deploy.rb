@@ -1,6 +1,6 @@
 default_run_options[:pty] = true
 set :rvm_type, :system
-set :rvm_ruby_string, ENV['GEM_HOME'].gsub(/.*\//,"")
+set :rvm_ruby_string, 'ruby-1.9.3-p327'
 
 set :application, "club_manager"
 set :repository,  "git@github.com:tadpreston/club_manager.git"
@@ -9,9 +9,9 @@ set :user, "club_manager"
 set :branch, "master"
 set :deploy_via, :remote_cache
 set :deploy_env, 'production'
-set :deploy_to, '~/club_manager'
+set :deploy_to, '/home/club_manager/club_manager'
 
-set :use_sudo, false
+set :use_sudo, true
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
