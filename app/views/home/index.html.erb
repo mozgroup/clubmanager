@@ -1,31 +1,106 @@
 <% provide(:current_dashboard, " class='current'".html_safe) %>
 
-<div id="chart_div"></div>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/agenda" %>
+  <%= stylesheet_link_tag "css/styles/dashboard" %>
+<% end %>
+
+<div class="dashboard">
+
+  <div class="columns">
+
+    <%= render :partial => 'chart' %>
+
+  </div>
+
+</div>
+
+<div class="with-padding">
+
+  <div class="agenda with-header auto-scroll">
+
+    <ul class="agenda-time">
+      <li class="from-7 to-8"><span>7 AM</span></li>
+      <li class="from-8 to-9"><span>8 AM</span></li>
+      <li class="from-9 to-10"><span>9 AM</span></li>
+      <li class="from-10 to-11"><span>10 AM</span></li>
+      <li class="from-11 to-12"><span>11 AM</span></li>
+      <li class="from-12 to-13 blue"><span>NOON</span></li>
+      <li class="from-13 to-14"><span>1 PM</span></li>
+      <li class="from-14 to-15"><span>2 PM</span></li>
+      <li class="from-15 to-16"><span>3 PM</span></li>
+      <li class="from-16 to-17"><span>4 PM</span></li>
+      <li class="from-17 to-18"><span>5 PM</span></li>
+      <li class="from-18 to-19"><span>6 PM</span></li>
+      <li class="from-19 to-20"><span>7 PM</span></li>
+      <li class="at-20"><span>8 PM</span></li>
+    </ul>
+
+    <div class="agenda-wrapper agenda-4-cols">
+
+      <div class="agenda-events agenda-day1">
+
+        <div class="agenda-header">
+          Sunday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day2">
+
+        <div class="agenda-header">
+          Monday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day3">
+
+        <div class="agenda-header">
+          Tuesday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day4">
+
+        <div class="agenda-header">
+          Wednesday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day5">
+
+        <div class="agenda-header">
+          Thursday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day6">
+
+        <div class="agenda-header">
+          Friday
+        </div>
+
+      </div>
+
+      <div class="agenda-events agenda-day7">
+
+        <div class="agenda-header">
+          Saturday
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 <% content_for :template_functions do %>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load('visualization', '1', {'packages':['gauge']});
-
-    google.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-      var data = new google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['PT', 80],
-          ['Memberships', 55],
-          ['Snack Bar', 68]
-      ]);
-
-      var options = {
-        width: 800, height: 240,
-        redFrom: 90, redTo: 100,
-        yellowFrom: 75, yellowTo: 90,
-        minorTicks: 5
-      };
-
-      var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-      chart.draw(data, options);
-    }
-  </script>
+  <%= javascript_include_tag 'js/developr.agenda' %>
 <% end %>
+

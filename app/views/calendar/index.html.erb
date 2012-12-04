@@ -8,20 +8,24 @@
   <%= stylesheet_link_tag "calendar" %>
 <% end %>
 
-<div class="mid-margin-bottom button-height">
-  <%= link_to new_event_path(current_date: @current_date), id: 'new-event-btn', class: 'button' do %>
-    <span class="button-icon blue-gradient"><span class="icon-star"></span></span>
-    New Event
+<div class="with-padding">
+
+  <div class="mid-margin-bottom button-height">
+    <%= link_to new_event_path(current_date: @current_date), id: 'new-event-btn', class: 'button' do %>
+      <span class="button-icon blue-gradient"><span class="icon-star"></span></span>
+      New Event
+    <% end %>
+  </div>
+
+  <div id="calendar-body">
+  <%= render :partial => 'calendar' %>
+  </div>
+
+  <% content_for :template_functions do %>
+    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+    <%= javascript_include_tag 'js/developr.calendar' %>
+    <%= javascript_include_tag 'js/developr.modal' %>
+    <%= javascript_include_tag 'events' %>
   <% end %>
-</div>
 
-<div id="calendar-body">
-<%= render :partial => 'calendar' %>
 </div>
-
-<% content_for :template_functions do %>
-  <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
-  <%= javascript_include_tag 'js/developr.calendar' %>
-  <%= javascript_include_tag 'js/developr.modal' %>
-  <%= javascript_include_tag 'events' %>
-<% end %>

@@ -1,0 +1,31 @@
+<div class="nine-columns twelve-columns-mobile" id="chart_div">
+  <!-- This div holds the chart that is generated in the footer -->
+</div>
+
+<% content_for :template_functions do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {'packages':['gauge']});
+
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = new google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['PT', 80],
+          ['Memberships', 55],
+          ['Snack Bar', 68]
+      ]);
+
+      var options = {
+        width: 800, height: 240,
+        redFrom: 90, redTo: 100,
+        yellowFrom: 75, yellowTo: 90,
+        minorTicks: 5
+      };
+
+      var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+<% end %>
