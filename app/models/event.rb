@@ -43,7 +43,7 @@ class Event < ActiveRecord::Base
     unless self.invitee_list.blank?
       self.invitee_list.split(/,\s*/).each do |attendee|
         user = User.find_by_full_name attendee
-        self.users << user if user
+        self.users << user if user && user != self.organizer
         Notifier::Events.deliver_invitation self, user
       end
     end
