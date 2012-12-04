@@ -16,10 +16,10 @@ set :use_sudo, true
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "ec2-50-112-74-198.us-west-2.compute.amazonaws.com"                   # Your HTTP server, Apache/etc
-role :app, "ec2-50-112-74-198.us-west-2.compute.amazonaws.com"                   # This may be the same as your `Web` server
-role :db, "ec2-50-112-74-198.us-west-2.compute.amazonaws.com", :primary => true # This is where Rails migrations will run
-role :db, "ec2-50-112-74-198.us-west-2.compute.amazonaws.com"
+role :web, "54.245.235.16"                   # Your HTTP server, Apache/etc
+role :app, "54.245.235.16"                   # This may be the same as your `Web` server
+role :db, "54.245.235.16", :primary => true # This is where Rails migrations will run
+role :db, "54.245.235.16"
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
