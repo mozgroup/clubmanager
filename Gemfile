@@ -8,7 +8,6 @@ gem 'activeadmin', '~> 0.5.0'
 gem "meta_search", "~> 1.1.3"
 gem 'faker', '~> 1.0.1'
 gem "state_machine", "~> 1.1.2"
-gem "capistrano", "~> 2.13.5"
 
 group :development, :test do
 # gem 'sqlite3', '~> 1.3.5'
@@ -48,5 +47,4 @@ group :test do
   gem 'growl', '1.0.3'
 end
 
-#gem 'pg', '~> 0.12.2'
-gem 'mysql2'
+gem 'pg', '~> 0.12.2'
