@@ -62,6 +62,14 @@ class Task < ActiveRecord::Base
     where('project_id = ?', project_id)
   end
 
+  def self.by_assigned_user(user_id)
+    where('assignee_id = ?', user_id)
+  end
+
+  def self.for_week(date)
+    where('due_at >= ? AND due_at <= ?', date.at_beginning_of_week(:sunday), date.at_end_of_week(:sunday))
+  end
+
   def context_name=(name)
     add_context({ name: name, owner_id: self.owner_id })
   end

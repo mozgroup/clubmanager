@@ -221,14 +221,16 @@ describe User do
 
       let!(:user) { FactoryGirl.create(:user) }
       let!(:current_date) { Time.parse('20121115') }
-      let!(:prev_month) { FactoryGirl.create(:event, user: user, start_at: current_date - 1.month, end_at: current_date - 1.month) }
-      let!(:next_month) { FactoryGirl.create(:event, user: user, start_at: current_date + 1.month, end_at: current_date + 1.month) }
-      let!(:event1) { FactoryGirl.create(:event, user: user, start_at: current_date.at_beginning_of_month, end_at: current_date.at_beginning_of_month) }
-      let!(:event2) { FactoryGirl.create(:event, user: user, start_at: current_date - 1.days, end_at: current_date - 1.days) }
-      let!(:event3) { FactoryGirl.create(:event, user: user, start_at: current_date + 1.days, end_at: current_date + 1.days) }
-      let!(:event4) { FactoryGirl.create(:event, user: user, start_at: current_date.at_end_of_month, end_at: current_date.at_end_of_month) }
+      let!(:prev_month) { FactoryGirl.create(:event, organizer: user, start_at: current_date - 1.month, end_at: current_date - 1.month) }
+      let!(:next_month) { FactoryGirl.create(:event, organizer: user, start_at: current_date + 1.month, end_at: current_date + 1.month) }
+      let!(:event1) { FactoryGirl.create(:event, organizer: user, start_at: current_date.at_beginning_of_month, end_at: current_date.at_beginning_of_month) }
+      let!(:event2) { FactoryGirl.create(:event, organizer: user, start_at: current_date - 1.days, end_at: current_date - 1.days) }
+      let!(:event3) { FactoryGirl.create(:event, organizer: user, start_at: current_date + 1.days, end_at: current_date + 1.days) }
+      let!(:event4) { FactoryGirl.create(:event, organizer: user, start_at: current_date.at_end_of_month, end_at: current_date.at_end_of_month) }
 
       it "should return only the current months events" do
+        Event.all.each { |event| event.users << user }
+
         events =  user.events.for_month(current_date)
         events.size.should eq(4)
         events.each do |event|

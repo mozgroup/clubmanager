@@ -182,4 +182,38 @@ describe Task do
 #    end
   end
 
+  describe "by_assigned_user method" do
+    before do
+      @assignee = FactoryGirl.create(:user)
+      @task_list = FactoryGirl.create_list(:task, 10, assignee: @assignee)
+      FactoryGirl.create_list(:task, 5)  # insert random tasks to make sure the method does not read them
+    end
+
+    it "should return all tasks assigned" do
+      @tasks = Task.by_assigned_user(@assignee)
+      @tasks.size.should == 10
+    end
+  end
+
+  describe "for_week method" do
+    before do
+      @current_date = Time.now
+      @task_bow = FactoryGirl.create(:task, @owner, due_at: @current_date.at_beginning_of_week(:sunday))
+      @task_mow = FactoryGirl.create(:task, @owner, due_at: @current_date.at_beginning_of_week(:sunday) + 2.days)
+      @task_eow = FactoryGirl.create(:task, @owner, due_at: @current_date.at_end_of_week(:sunday))
+      FactoryGirl.create_list(:task, 3, due_at: 1.month.from_now)
+    end
+
+    it "should return only this weeks tasks" do
+      @tasks = Task.for_week(@current_date)
+      @tasks.size.should == 3
+    end
+
+    it "should return tasks that are due for the current week" do
+      @tasks = Task.for_week(@current_date)
+      @tasks.each { |task| [@task_bow, @task_mow, @task_eow].should include(task) }
+    end
+  end
+
 end
+

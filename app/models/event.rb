@@ -12,6 +12,7 @@
 #  end_at       :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  state        :string(255)
 #
 
 class Event < ActiveRecord::Base
@@ -25,7 +26,7 @@ class Event < ActiveRecord::Base
   validates :start_at, presence: true
   validates :end_at, presence: true
 
-  delegate :full_name, to: :user, prefix: true
+  delegate :full_name, to: :organizer, prefix: true
 
   include SysLogger
 
@@ -47,5 +48,9 @@ class Event < ActiveRecord::Base
         Notifier::Events.deliver_invitation self, user
       end
     end
+  end
+
+  def self.for_week(date)
+    where('start_at >= ? AND start_at <= ?', date.at_beginning_of_week(:sunday), date.at_end_of_week(:sunday))
   end
 end
