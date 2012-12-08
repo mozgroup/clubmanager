@@ -2,7 +2,7 @@
   <!-- This div holds the chart that is generated in the footer -->
 </div>
 
-<% content_for :template_functions do %>
+<% content_for :additional_javascript do %>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <script type="text/javascript">
     google.load('visualization', '1', {'packages':['gauge']});
@@ -18,7 +18,7 @@
       ]);
 
       var options = {
-        width: 800, height: 240,
+        width: 500, height: 180,
         redFrom: 90, redTo: 100,
         yellowFrom: 75, yellowTo: 90,
         minorTicks: 5

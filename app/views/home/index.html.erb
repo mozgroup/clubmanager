@@ -36,11 +36,20 @@
       <li class="at-20"><span>8 PM</span></li>
     </ul>
 
-    <%= generate_agenda %>
+    <div class="agenda-wrapper">
+
+      <% 7.times do |i| %>
+        <%= render partial: "agenda_day", locals: { wday: i+1, items: @agenda_items } %>
+      <% end %>
+
+    </div>
 
 </div>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'js/developr.agenda' %>
+  <script type="text/javascript">
+    $.template.init();
+  </script>
 <% end %>
 
