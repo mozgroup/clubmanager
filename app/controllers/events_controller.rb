@@ -8,11 +8,28 @@ class EventsController < ApplicationController
     @event = Event.new(user_id: current_user.id, start_at: event_time(1.hour, @current_date), end_at: event_time(90.minutes, @current_date))
   end
 
+  def edit
+    @event = Event.find params[:id]
+    @current_date = @event.start_at
+  end
+
   def create
     @event = Event.new(params[:event])
     if @event.save
       @event.send_invite
       flash[:success] = "Event created!"
+      calendar_dates
+      @events = current_user.events.for_month @current_date
+      render 'ifshow'
+    else
+      render 'new'
+    end
+  end
+
+  def update
+    @event = Event.find params[:id]
+    if @event.update_attributes(params[:event])
+      flash[:success] = "Event updated"
       calendar_dates
       @events = current_user.events.for_month @current_date
       render 'ifshow'

@@ -21,13 +21,16 @@ jQuery ->
 
   if $('.event-link').length > 0
     $('.event-link').click (event) ->
+      href = $(@).attr('href')
       $.modal {
         title: 'Event',
-        url: $(@).attr('href'),
+        url: href
         height: 500,
         resizeOnLoad: true,
         buttons: {
-          'Close': (modal) -> modal.closeModal(),
+          'Edit' : (modal) -> 
+            editEvent modal, href
+          'Close': (modal) -> modal.closeModal()
         },
         loadingMessage: 'Loading event form...'
       }
@@ -63,3 +66,24 @@ split = (val) ->
 
 extractLast = (term) ->
   return split(term).pop()
+
+editEvent = (modal, link) ->
+  modal.closeModal()
+
+  $.modal {
+    useIframe: true,
+    title: 'New Event',
+    height: 510,
+    width: 500,
+    url: link + '/edit'
+    resizeOnLoad: true,
+    scrolling: false,
+    buttons: {
+      'Close': {
+        classes: 'blue-gradient glossy big full-width'
+        click: (modal) -> location.reload(); modal.closeModal()
+      }
+    },
+    loadingMessage: 'Loading event form...'
+  }
+  event.preventDefault()

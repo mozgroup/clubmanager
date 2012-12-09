@@ -1,6 +1,16 @@
-<h1>Editing event</h1>
+<%= stylesheet_link_tag "css/reset" %>
+<%= stylesheet_link_tag "css/style" %>
+<%= stylesheet_link_tag "css/colors" %>
+<%= stylesheet_link_tag 'css/print', media: 'print' %>
+<%= stylesheet_link_tag 'css/styles/form' %>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.21/themes/base/jquery-ui.css">
+<%= stylesheet_link_tag "calendar" %>
+
+<%= javascript_include_tag 'js/libs/modernizr.custom' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @event %> |
-<%= link_to 'Back', events_path %>
+<%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'js/developr.input' %>
+<script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+<%= javascript_include_tag 'events' %>
