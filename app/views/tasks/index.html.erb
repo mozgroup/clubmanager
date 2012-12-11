@@ -1,3 +1,6 @@
+<% provide(:current_tasks, " class='current'".html_safe) %>
+<% provide(:title, "Tasks") %>
+
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/table' %>
   <%= stylesheet_link_tag 'css/styles/form' %>
@@ -6,160 +9,98 @@
   <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
 <% end %>
 
-<!DOCTYPE html>
-<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<div class="content-panel">
 
-<html>
-<head>
+  <div class="panel-navigation silver-gradient">
 
-  <%= render 'layouts/head' %>
+    <div class="panel-control">
+    </div>
 
-  </head>
-  <body class="clearfix with-menu with-shortcuts">
+    <div class="panel-load-target" style="height:560px">
 
-      <!-- Prompt IE 6 users to install Chrome Frame -->
-      <!--[if lt IE 7]><p class="message red-gradient simpler">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+      <div class="navigable">
 
-      <!-- Title Bar -->
-      <header role="banner" id="title-bar">
-        <h2><%= full_title("Tasks") %></h2>
-      </header>
+        <ul class="unstyled-list open-on-panel-content">
 
-      <!-- Button to open/hide menu -->
-      <a href="#" id="open-menu"><span>Menu</span></a>
+          <li class="title-menu">Your Top Tasks</li>
 
-      <!-- Button to open/hide shortcuts -->
-      <a href="#" id="open-shortcuts"><span class="icon-thumbs"></span></a>
+          <% @top_tasks.each do |top_task| %>
 
-      <!-- Main content -->
-      <section role="main" id="main">
+            <li class="calendar-menu">
+              <%= link_to task_path(top_task), title: 'See task' do %>
+                <time datetime="<%= top_task.due_at.strftime("%Y-%m-%d") %>"><b><%= top_task.due_at.strftime("%-d") %></b> <%= top_task.due_at.strftime("%b") %></time>
+                <br />
+                <%= top_task.name %>
+              <% end %>
+            </li>
 
-              <!-- Visible only to browsers without javascript -->
-              <noscript class="message black-gradient simpler">Your browser does not support JavaScript! Some features won't work as expected...</noscript>
+          <% end %>
 
-              <!-- Main title -->
-              <hgroup id="main-title" class="thin">
-                <h1><%= main_title("Tasks") %></h1>
-                <h2><%= dashboard_date %></h2>
-              </hgroup>
+          <li class="title-menu">Task Menu</li>
 
-              <div class="with-padding">
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @my_count %></span>My Tasks</span>
+            <ul class="big-menu">
+              <li class="title-menu">Your Tasks</li>
+              <li class="grey-gradient"> <%= link_to "All My Tasks", my_tasks_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "Assigned", assigned_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "In Progress", in_progress_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "Completed", completed_tasks_path %> </li>
+            </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @context_count %></span>Contexts</span>
+            <ul class="big-menu">
+              <li class="title-menu">Contexts</li>
+              <% @contexts.each do |context| %>
+                <li class="grey-gradient with-right-arrow"> <%= link_to context.name, context_tasks_path(context) %> </li>
+              <% end %>
+            </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @project_count %></span>Projects</span>
+            <ul class="big-menu">
+              <li class="title-menu">Projects</li>
+              <% @projects.each do |project| %>
+                <li class="grey-gradient with-right-arrow"> <%= link_to project.name, project_tasks_path(project) %> </li>
+              <% end %>
+            </ul>
+          </li>
 
-              <!-- The padding wrapper may be omitted -->
-              <div class="content-panel" style="height:600px" >
+        </ul>
 
-                <div class="panel-navigation silver-gradient">
+      </div>  <!-- end of panel navigation -->
 
-                  <div class="panel-control">
-                    &nbsp;
-                  </div>
+    </div>
 
-                  <div class="navigable">
+  </div>
 
-                    <ul class="unstyled-list open-on-panel-content">
-
-                      <li class="title-menu">Your Top Tasks</li>
-
-                      <% @top_tasks.each do |top_task| %>
-
-                        <li class="calendar-menu">
-                          <%= link_to task_path(top_task), title: 'See task' do %>
-                            <time datetime="<%= top_task.due_at.strftime("%Y-%m-%d") %>"><b><%= top_task.due_at.strftime("%-d") %></b> <%= top_task.due_at.strftime("%b") %></time>
-                            <br />
-                            <%= top_task.name %>
-                          <% end %>
-                        </li>
-
-                      <% end %>
-
-                      <li class="title-menu">Task Menu</li>
-
-                      <li class="big-menu grey-gradient with-right-arrow">
-                        <span><span class="list-count"><%= @my_count %></span>My Tasks</span>
-                        <ul class="big-menu">
-                          <li class="title-menu">Your Tasks</li>
-                          <li class="grey-gradient"> <%= link_to "All My Tasks", my_tasks_tasks_path %> </li>
-                          <li class="grey-gradient"> <%= link_to "Assigned", assigned_tasks_path %> </li>
-                          <li class="grey-gradient"> <%= link_to "In Progress", in_progress_tasks_path %> </li>
-                          <li class="grey-gradient"> <%= link_to "Completed", completed_tasks_path %> </li>
-                        </ul>
-                      </li>
-                      <li class="big-menu grey-gradient with-right-arrow">
-                        <span><span class="list-count"><%= @context_count %></span>Contexts</span>
-                        <ul class="big-menu">
-                          <li class="title-menu">Contexts</li>
-                          <% @contexts.each do |context| %>
-                            <li class="grey-gradient with-right-arrow"> <%= link_to context.name, context_tasks_path(context) %> </li>
-                          <% end %>
-                        </ul>
-                      </li>
-                      <li class="big-menu grey-gradient with-right-arrow">
-                        <span><span class="list-count"><%= @project_count %></span>Projects</span>
-                        <ul class="big-menu">
-                          <li class="title-menu">Projects</li>
-                          <% @projects.each do |project| %>
-                            <li class="grey-gradient with-right-arrow"> <%= link_to project.name, project_tasks_path(project) %> </li>
-                          <% end %>
-                        </ul>
-                      </li>
-
-                    </ul>
-
-                  </div>
-
-                </div>
-
-                <div class="panel-content">
+  <div class="panel-content silver-gradient">
 
 
-                  <div class="panel-load-target scrollable">
+    <div class="panel-load-target task-panel" style="height:600px">
 
-                      <div class="panel-control align-right">
+      <div class="panel-control align-right">
+        <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
+          <span class="button-icon"><span class="icon-star"></span></span>
+          Create Task
+        <% end %>
+      </div>
 
-                        <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
-                          <span class="button-icon"><span class="icon-star"></span></span>
-                          Create Task
-                        <% end %>
+    </div>
 
-                      </div>
+  </div>
 
-                      <%= yield %>
+</div>
 
-                  </div>
-
-                </div>
-
-             </div>
-
-           </div>
-
-      </section>
-      <!-- End main content -->
-
-      <!-- Side tabs shortcuts -->
-      <%= render 'shared/side_tabs' %>
-
-      <!-- Sidebar/drop-down menu -->
-      <%= render 'shared/sidebar_menu' %>
-
-
-      <!-- JavaScript at the bottom for fast page loading -->
-
-      <!-- Scripts -->
-      <%= javascript_include_tag 'application' %>
-      <%= javascript_include_tag 'js/setup' %>
-      <%= javascript_include_tag 'js/developr.navigable.js' %>
-      <%= javascript_include_tag 'js/developr.content-panel.js' %>
-      <%= javascript_include_tag 'js/developr.accordions.js' %>
-      <%= javascript_include_tag 'js/developr.table' %>
-      <%= javascript_include_tag 'js/developr.modal' %>
-      <%= javascript_include_tag 'js/developr.message' %>
-      <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
-      <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
-      <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
-  </body>
-
-</html>
+<% content_for :additional_styles do %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'js/developr.content-panel' %>
+  <%= javascript_include_tag 'js/developr.scroll' %>
+  <%= javascript_include_tag 'js/developr.table' %>
+  <%= javascript_include_tag 'js/developr.modal' %>
+  <%= javascript_include_tag 'js/developr.message' %>
+  <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
+  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
+<% end %>

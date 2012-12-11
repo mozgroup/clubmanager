@@ -3,12 +3,14 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
 
+  $.template.init()
+  
   if $('#formID').length > 0
     # if this is an edit or new form
     $("#formID").validationEngine()
 
   if $(".datepicker").length > 0
-    $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" })
+    $(".datepicker").datepicker({ zIndex: 100, dateFormat: "yy-mm-dd" })
 
   if $('#task_context_name').length > 0
     $('#task_context_name').autocomplete {

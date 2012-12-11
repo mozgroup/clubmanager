@@ -1,4 +1,4 @@
-$('.panel-load-target').html("<%= escape_javascript(render(:partial => "show_data")) %>");
+$('.task-panel').html("<%= escape_javascript(render(:partial => "show_data")) %>");
 jQuery(function() {
   $('#show-data').message('This task was successfully assigned.', {
     classes: ['green-gradient']
