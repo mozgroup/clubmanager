@@ -27,10 +27,10 @@ module HomeHelper
         end_hour = item[:type] == 'task' ? '17' : item[:end_at].hour
         end_minute = item[:type] == 'task' ? '00' : item[:end_at].min
 
-        item_tags << agenda_span(start_hour,start_minute,end_hour,end_minute,item[:type])
-        item_tags << time_tag(item[:start_at], item[:end_at],item[:type])
-        item_tags << item[:title]
-        item_tags << "</span>"
+        item_tags << agenda_span(start_hour,start_minute,end_hour,end_minute,item[:type]) do |tag|
+          tag << time_tag(item[:start_at], item[:end_at],item[:type])
+          tag << (item[:type] == 'task' ? 'Task - ' : '') << item[:title]
+        end
 
       end # end if
 
@@ -40,14 +40,17 @@ module HomeHelper
 
   end
 
-  def agenda_span(start_hour, start_minute, end_hour, end_minute, item_type='event')
+  def agenda_span(start_hour, start_minute, end_hour, end_minute, item_type='event', &block)
     span_tag = "<span class=\"agenda-event from-#{start_hour}"
     span_tag << "-#{start_minute}" if start_minute.to_i > 0
     span_tag << " to-#{end_hour}"
     span_tag << "-#{end_minute}" if end_minute.to_i > 0
     span_tag << (item_type == 'event' ? ' blue-gradient' : ' anthracite-gradient')
     span_tag << "\">"
-    span_tag
+
+    yield span_tag
+
+    span_tag << "</span>"
   end
 
   def time_tag(start_at, end_at, item_type='event')
