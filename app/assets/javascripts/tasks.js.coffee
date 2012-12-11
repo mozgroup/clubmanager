@@ -10,7 +10,7 @@ jQuery ->
     $("#formID").validationEngine()
 
   if $(".datepicker").length > 0
-    $(".datepicker").datepicker({ zIndex: 100, dateFormat: "yy-mm-dd" })
+    $(".datepicker").glDatePicker({ zIndex: 100, dateFormat: "yy-mm-dd" })
 
   if $('#task_context_name').length > 0
     $('#task_context_name').autocomplete {
