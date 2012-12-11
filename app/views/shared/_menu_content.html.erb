@@ -18,9 +18,9 @@
                         <span class="count"><%= unread_count %></span>
                     <% end %></li>
                 <!-- Simple icon -->
-                <li><a href="#" title="Calendar">
+                <li><%= link_to calendar_path, title: 'Calendar' do %>
                         <span class="icon-calendar"></span></a>
-                </li>
+                    <% end %></li>
                 <!-- Disabled icon -->
                 <li><a href="#" title="User Settings">
                     <span class="icon-gear"></span></a>
