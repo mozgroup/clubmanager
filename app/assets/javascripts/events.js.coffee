@@ -62,10 +62,10 @@ jQuery ->
     }
 
 split = (val) ->
-  return val.split /,\s*/
+  val.split /,\s*/
 
 extractLast = (term) ->
-  return split(term).pop()
+  split(term).pop()
 
 editEvent = (modal, link) ->
   modal.closeModal()

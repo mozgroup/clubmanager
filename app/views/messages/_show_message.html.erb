@@ -1,22 +1,33 @@
-<h2 class="thin mid-margin-bottom"><%= @message.subject %></h2>
-<h4 class="no-margin-top no-margin-bottom">From: <%= @message.author_full_name %></h4>
-<h5 class="no-margin-bottom no-margin-top">To: <%= @message.send_to %></h5>
-<h5 class="no-margin-top">
-<% unless @message.copy_to.blank? %>
-  Cc: <%= @message.copy_to %>
-<% end %>
-</h5>
+<div id="message-main">
+  <div class="panel-control">
+    <%= link_to cancel_messages_path, class: 'button float-right open-on-panel-content' do %>
+      <span class="button-icon red-gradient glossy"><span class="icon-cross-round"></span></span>
+      Close
+    <% end %>
+  </div>
 
-<div id="message-main" class="large-box-shadow white-gradient with-border">
+  <br />
+
+  <div class="mid-margin-left mid-margin-right">
+    <h2 class="thin mid-margin-bottom"><%= @message.subject %></h2>
+    <h4 class="no-margin-top no-margin-bottom">From: <%= @message.author_full_name %></h4>
+    <h5 class="no-margin-bottom no-margin-top">To: <%= @message.send_to %></h5>
+    <h5 class="no-margin-top">
+    <% unless @message.copy_to.blank? %>
+      Cc: <%= @message.copy_to %>
+    <% end %>
+    </h5>
+
+    <div id="message-main" class="large-box-shadow white-gradient with-border">
 
         <div class="button-height with-mid-padding silver-gradient no-margin-top">
           <span class="button-group children-tooltip">
-            <%= link_to 'Reply', message_reply_path(@message), class: 'button blue-gradient icon-reply', title: 'Reply to this message', remote: true %>
-            <%= link_to message_reply_path(@message, reply_type: 'all'), class: 'button', title: 'Reply to all', remote: true do %>
+            <%= link_to 'Reply', message_reply_path(@message), class: 'button blue-gradient icon-reply open-on-panel-content', title: 'Reply to this message' %>
+            <%= link_to message_reply_path(@message, reply_type: 'all'), class: 'button open-on-panel-content', title: 'Reply to all' do %>
               <span class="icon-replay-all"></span>
             <% end %>
 
-            <%= link_to message_forward_path(@message), class: 'button', title: 'Forward', remote: true do %>
+            <%= link_to message_forward_path(@message), class: 'button open-on-panel-content', title: 'Forward' do %>
               <span class="icon-extract"></span>
             <% end %>
           </span>
@@ -30,7 +41,7 @@
                <span class="icon-flag"></span>
              <% end %>
           </span>
-          <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
+          <%= link_to cancel_messages_path, class: 'button with-tooltip open-on-panel-content', id: 'close-message', title: 'Close Message' do %>
             <span class="icon-cross-round"></span>
           <% end %>
           <% if @envelope.is_trash? %>
@@ -42,14 +53,8 @@
           <%= raw @message.body %>
         </div>
 
-</div>
+      </div>
 
-<script>
-  $(function() {
-    $("#close-message").bind( 'click', function(event) {
-      $('#message-main').fadeAndRemove('fast', function() {
-        $('#message-panel').html('');
-      });
-    });
-  });
-</script>
+    </div>
+
+</div>

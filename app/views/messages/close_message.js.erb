@@ -1,6 +1,4 @@
 $('#message-main').fadeAndRemove('fast', function() {
-  $('#message-panel').html('');
-
   <% if action_type == 'send' %>
     var aType = 'sent';
   <% else %>
@@ -15,3 +13,5 @@ $('#message-main').fadeAndRemove('fast', function() {
       icon: '<%= image_path 'img/demo/icon.png' %>',
   });
 });
+
+$('#message-panel').html("<%= escape_javascript(render(:partial => "close_panel")) %>");

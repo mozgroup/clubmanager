@@ -1,3 +1,75 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ->
+
+  editorTextarea = $('#message_body')
+  editorWrapper = editorTextarea.parent()
+  editor = editorTextarea.cleditor({
+    width: '100%'
+    height: 350
+  })[0]
+
+  if $('#message_send_to').length > 0
+	  $('#message_send_to').bind "keydown", (event) ->
+	    if event.keyCode == $.ui.keyCode.TAB && $(@).data("autocomplete").menu.active
+	      event.preventDefault()
+	  .autocomplete {
+	      minLength: 2,
+	      source: (request, response) ->
+	        $.getJSON '/users/search.json', {
+	          term: extractLast request.term
+	        }, response
+	      search: ->
+	        term = extractLast @.value
+	        if term.length < 2
+	          false
+	      focus: ->
+	        false
+	      select: (event, ui) ->
+	        terms = split @.value
+	        terms.pop()
+	        terms.push ui.item.label
+	        terms.push ""
+	        @.value = terms.join ", "
+	        false
+	    }
+
+  if $('#message_send_to').length > 0
+	  $('#message_copy_to').bind "keydown", (event) ->
+	    if event.keyCode == $.ui.keyCode.TAB && $(@).data("autocomplete").menu.active
+	      event.preventDefault()
+	  .autocomplete {
+	      minLength: 2,
+	      source: (request, response) ->
+	        $.getJSON '/users/search.json', {
+	          term: extractLast request.term
+	        }, response
+	      search: ->
+	        term = extractLast @.value
+	        if term.length < 2
+	          false
+	      focus: ->
+	        false
+	      select: (event, ui) ->
+	        terms = split @.value
+	        terms.pop()
+	        terms.push ui.item.label
+	        terms.push ""
+	        @.value = terms.join ", "
+	        false
+	    }
+
+  if $("#send-message").length > 0
+    $("#send-message").bind 'click', (event) ->
+      $("#action_type").val "send"
+      $("form").submit()
+
+  if $("#save-message").length > 0
+    $("#save-message").bind 'click', (event) ->
+      $("#action_type").value = "save"
+      $("form").submit()
+
+
+split = (val) ->
+  val.split(/,\s*/)
+
+extractLast = (term) ->
+  split(term).pop()

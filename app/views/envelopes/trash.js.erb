@@ -1,3 +1,1 @@
-$('#message-main').fadeAndRemove('fast', function() {
-  $('#message-panel').html('');
-});
+$('#message-panel').html("<%= escape_javascript(render(:partial => "messages/close_panel")) %>");

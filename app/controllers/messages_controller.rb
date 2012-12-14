@@ -1,17 +1,15 @@
 class MessagesController < ApplicationController
+  before_filter :authenticate_user!
+
+  layout false
+
   def show
     @message = Message.find(params[:id])
     @envelope = @message.envelopes.current_envelope(current_user)
-    respond_to do |format|
-      format.js { render layout: false }
-    end
   end
 
   def new
     @message = current_user.authored_messages.build
-    respond_to do |format|
-      format.js { render layout: false }
-    end
   end
 
   def edit
@@ -35,16 +33,12 @@ class MessagesController < ApplicationController
   def reply
     @orig_msg = Message.find(params[:message_id])
     @message = @orig_msg.reply(params[:reply_type])
-    respond_to do |format|
-      format.js { render 'new', layout: false }
-    end
+    render 'new'
   end
 
   def forward
     @message = Message.find(params[:message_id]).forward
-    respond_to do |format|
-      format.js { render 'new', layout: false }
-    end
+    render 'new'
   end
 
   def trash
@@ -64,15 +58,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def cancel
+  end
+
   private
 
     def save_response
       if params[:action_type] == 'send'
         @message.deliver
       end
-      respond_to do |format|
-        format.js { render 'close_message', locals: { action_type: params[:action_type] },  layout: false }
-      end
+      render 'close_message', locals: { action_type: params[:action_type] }
     end
 
 end

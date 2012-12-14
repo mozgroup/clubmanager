@@ -42,9 +42,14 @@ ClubManager::Application.routes.draw do
     get 'forward'
     put 'trash'
     put 'delete'
+    get 'cancel', on: :collection
   end
 
   resources :events
+
+  resources :samples do
+    get 'cancel', on: :collection
+  end
 
   root to: 'home#index'
 
