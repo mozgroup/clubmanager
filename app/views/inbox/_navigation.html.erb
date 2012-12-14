@@ -4,22 +4,22 @@
           <li class="big-menu grey-gradient with-right-arrow">
                   <span><span class="list-count"><%= @drafts.size %></span>Drafts</span>
                   <ul class="message-menu">
-                    <%= render :partial => 'draft', :collection => @drafts %>
+                    <%= render :partial => 'inbox/draft', :collection => @drafts %>
                   </ul>
           </li>
           <li class="big-menu grey-gradient with-right-arrow">
                   <span><span class="list-count"><%= @sent.size %></span>Sent</span>
                   <ul class="message-menu">
-                    <%= render :partial => 'sent', :collection => @sent %>
+                    <%= render :partial => 'inbox/sent', :collection => @sent %>
                   </ul>
           </li>
           <li class="big-menu grey-gradient with-right-arrow">
                   <span><span class="list-count"><%= @trash.size %></span>Trash</span>
                   <ul class="message-menu">
-                    <%= render :partial => 'trash', :collection => @trash %>
+                    <%= render :partial => 'inbox/trash', :collection => @trash %>
                   </ul>
           </li>
-        <%= render :partial => 'envelope', :collection => @inbox %>
+        <%= render :partial => 'inbox/envelope', :collection => @inbox %>
   </ul>
 
 </div>

@@ -4,6 +4,7 @@ class MessagesController < ApplicationController
   layout false
 
   def show
+    get_navigation
     @message = Message.find(params[:id])
     @envelope = @message.envelopes.current_envelope(current_user)
   end
@@ -68,6 +69,14 @@ class MessagesController < ApplicationController
         @message.deliver
       end
       render 'close_message', locals: { action_type: params[:action_type] }
+    end
+
+    def get_navigation
+      @inbox = current_user.envelopes.inbox
+      @unread_count = current_user.envelopes.unread_count
+      @trash = current_user.envelopes.trash
+      @sent = current_user.authored_messages.sent
+      @drafts = current_user.authored_messages.drafts
     end
 
 end
