@@ -1,0 +1,39 @@
+        <header>
+          <%= current_user.title %>
+        </header>
+
+        <div id="profile">
+          <%= gravatar_for(current_user, size: '64') %>
+
+                Hello
+                <%= dashboard_user(current_user) %>
+        </div>
+
+        <ul id="access" class="children-tooltip">
+                <!-- Icon with count -->
+                <li><%= link_to inbox_path, title: "Messages" do %>
+                        <span class="icon-inbox"></span>
+                        <span class="count"><%= unread_count %></span>
+                    <% end %></li>
+                <!-- Simple icon -->
+                <li><%= link_to calendar_path, title: 'Calendar' do %>
+                        <span class="icon-calendar"></span></a>
+                    <% end %></li>
+                <!-- Disabled icon -->
+                <li><a href="#" title="User Settings">
+                    <span class="icon-gear"></span></a>
+                </li>
+                <li><%= link_to destroy_user_session_path, title: 'Signout', method: :delete do %>
+                    <span class="icon-extract"></span>
+                  <% end %></li>
+        </ul>
+
+        <!-- Navigation goes here -->
+        <section class="navigable">
+
+          <ul class="big-menu">
+            <li>
+              <%= link_to "Tasks", tasks_path %>
+          </ul>
+
+        </section>

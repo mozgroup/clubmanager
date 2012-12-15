@@ -1,0 +1,4 @@
+<span><span class="list-count"><%= @unread_count %></span>Inbox</span>
+<ul class="message-menu">
+	<%= render :partial => 'inbox/envelope', :collection => @inbox %>
+</ul>

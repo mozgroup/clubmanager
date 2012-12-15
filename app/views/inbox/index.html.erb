@@ -22,7 +22,7 @@
 	            <%= link_to "Refresh", inbox_refresh_path, class: 'button icon-undo open-on-panel-navigation' %>
 	    </div>
 
-	    <div id="message-nav" class="panel-load-target scrollable" style="560px">
+	    <div id="message-nav" class="panel-load-target" style="560px">
 			<%= render 'navigation' %>
 		</div>
 	
@@ -32,7 +32,7 @@
 	<div class="panel-content silver-gradient">
 		
 
-		<div id="message-panel" class="panel-load-target scrollable" style="height:600px">
+		<div id="message-panel" class="panel-load-target" style="height:600px">
 
 			<div class="panel-control align-right">
 				<%= link_to 'New message', new_message_path, class: 'button icon-star margin-left open-on-panel-content' %>

@@ -2,6 +2,12 @@
 
   <ul class="unstyled-list open-on-panel-content">
           <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @inbox.count %></span>Inbox</span>
+            <ul class="message-menu" id="inbox-menu">
+              <%= render :partial => 'inbox/envelope', :collection => @inbox %>
+            </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
                   <span><span class="list-count"><%= @drafts.size %></span>Drafts</span>
                   <ul class="message-menu">
                     <%= render :partial => 'inbox/draft', :collection => @drafts %>
@@ -19,7 +25,6 @@
                     <%= render :partial => 'inbox/trash', :collection => @trash %>
                   </ul>
           </li>
-        <%= render :partial => 'inbox/envelope', :collection => @inbox %>
   </ul>
 
 </div>
