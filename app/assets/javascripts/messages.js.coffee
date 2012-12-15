@@ -67,6 +67,19 @@ jQuery ->
       $("#action_type").value = "save"
       $("form").submit()
 
+  if $("#delete-message").length > 0
+  	$.confirm.defaults = {
+  		message: 'Are you sure?'
+  		confirmText: 'Confirm'
+  		confirmClasses: ['blue-gradient', 'glossy']
+  		cancel: true
+  		cancelText: 'Cancel'
+  		onConfirm: ->
+  			$.ajax {
+  				url: $(@).attr('href')
+  				type: 'DELETE'
+  			}
+  	}
 
 split = (val) ->
   val.split(/,\s*/)

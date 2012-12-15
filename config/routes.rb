@@ -44,12 +44,8 @@ ClubManager::Application.routes.draw do
     put 'delete'
     get 'cancel', on: :collection
   end
-
+  resources :envelopes
   resources :events
-
-  resources :samples do
-    get 'cancel', on: :collection
-  end
 
   root to: 'home#index'
 

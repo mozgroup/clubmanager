@@ -1,8 +1,10 @@
 $('#message-main').fadeAndRemove('fast', function() {
   <% if action_type == 'send' %>
     var aType = 'sent';
-  <% else %>
+  <% elsif action_type == 'save' %>
     var aType = 'saved';
+  <% else %>
+    var aType = 'deleted'
   <% end %>
 
   var msgTitle = 'Message ' + aType;
@@ -14,4 +16,5 @@ $('#message-main').fadeAndRemove('fast', function() {
   });
 });
 
-$('#message-panel').html("<%= escape_javascript(render(:partial => "close_panel")) %>");
+$('#message-panel').html("<%= escape_javascript(render(:partial => "messages/close_panel")) %>");
+$('#message-nav').html("<%= escape_javascript(render(:partial => "inbox/navigation")) %>");

@@ -45,18 +45,14 @@ class MessagesController < ApplicationController
   def trash
     message = Message.find params[:message_id]
     message.send_to_trash
-    respond_to do |format|
-      format.js { render 'close_message', layout: false }
-    end
+    render 'close_message', layout: false
   end
 
   def destroy
     message = Message.find params[:id]
     message.destroy
-
-    respond_to do |format|
-      format.js { render 'close_message', layout: false }
-    end
+    get_navigation
+    render 'close_message', layout: false, locals: { action_type: 'delete' }
   end
 
   def cancel
@@ -68,6 +64,7 @@ class MessagesController < ApplicationController
       if params[:action_type] == 'send'
         @message.deliver
       end
+      get_navigation
       render 'close_message', locals: { action_type: params[:action_type] }
     end
 
