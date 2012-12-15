@@ -6,6 +6,7 @@ class EnvelopesController < ApplicationController
   def trash
     envelope = Envelope.find(params[:envelope_id])
     envelope.trash
+    get_navigation
   end
 
   def delete
