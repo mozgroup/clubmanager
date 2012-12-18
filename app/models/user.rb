@@ -111,4 +111,8 @@ class User < ActiveRecord::Base
 
     super(request)
   end
+
+  def default_club
+    self.clubs[0]
+  end
 end

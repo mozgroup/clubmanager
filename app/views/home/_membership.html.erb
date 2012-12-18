@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td class="align-right green"><strong>$50,000</strong></td>
+                  <td class="align-right green"><strong><%= format_currency(@monthly_summary.membership_goal) %></strong></td>
                 </tr>
                 <tr>
                   <td>Over/Under</td>
@@ -62,11 +62,11 @@
             </tr>
             <tr>
               <td>Projected</td>
-              <td class="align-right">$77,000</td>
+              <td class="align-right"><%= format_currency(@monthly_summary.membership_draft_expected) %></td>
             </tr>
             <tr>
               <td>Goal</td>
-              <td class="align-right green"><strong>$77,000</strong></td>
+              <td class="align-right green"><strong><%= format_currency(@monthly_summary.membership_draft_expected) %></strong></td>
             </tr>
           </table>
 
