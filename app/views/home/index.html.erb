@@ -9,6 +9,24 @@
 
   <div class="columns">
 
+    <div class="four-columns align-center">
+      <strong>
+        Today's Date: <span class="orange"><%= Date.current.strftime('%m/%d/%Y') %></span>
+      </strong>
+    </div>
+
+    <div class="four-columns align-center">
+      <strong>
+        Business Days In Month: <span class="orange">30</span>
+      </strong>
+    </div>
+
+    <div class="four-columns align-center">
+      <strong>
+        Business Days Completed: <span class="orange">10</span>
+      </strong>
+    </div>
+
     <%= render 'membership' %>
 
     <%= render 'training' %>
@@ -79,8 +97,8 @@
         yellowFrom: 70, 
         yellowTo: 90,
         minorTicks: 5,
-        width: 150,
-        height: 150
+        width: 190,
+        height: 190
       };
 
   </script>
