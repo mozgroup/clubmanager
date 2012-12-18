@@ -1,0 +1,56 @@
+<% provide(:title, "Monthly Summary") %>
+
+<div class="with-padding">
+
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <b>Club:</b>
+    <%= @monthly_summary.club_name %>
+  </p>
+
+  <p>
+    <b>Month:</b>
+    <%= @monthly_summary.month.strftime('%B %Y') %>
+  </p>
+
+  <p>
+    <b>Business days in month:</b>
+    <%= @monthly_summary.business_days_in_month %>
+  </p>
+
+  <p>
+    <b>Membership goal:</b>
+    <%= @monthly_summary.membership_goal %>
+  </p>
+
+  <p>
+    <b>Training goal:</b>
+    <%= @monthly_summary.training_goal %>
+  </p>
+
+  <p>
+    <b>Juice bar goal:</b>
+    <%= @monthly_summary.juice_bar_goal %>
+  </p>
+
+  <p>
+    <b>Nursery goal:</b>
+    <%= @monthly_summary.nursery_goal %>
+  </p>
+
+  <p>
+    <b>Membership draft expected:</b>
+    <%= @monthly_summary.membership_draft_expected %>
+  </p>
+
+  <p>
+    <b>Training draft expected:</b>
+    <%= @monthly_summary.training_draft_expected %>
+  </p>
+
+
+  <%= link_to 'Edit This Summary', edit_monthly_summary_path(@monthly_summary) %> |
+  <%= link_to 'Back To Summary Listing', monthly_summaries_path %>
+
+</div>

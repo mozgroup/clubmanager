@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128024406) do
+ActiveRecord::Schema.define(:version => 20121218014944) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -129,6 +129,23 @@ ActiveRecord::Schema.define(:version => 20121128024406) do
   add_index "messages", ["author_id"], :name => "index_messages_on_author_id"
   add_index "messages", ["sent_at"], :name => "index_messages_on_sent_at"
   add_index "messages", ["subject"], :name => "index_messages_on_subject"
+
+  create_table "monthly_summaries", :force => true do |t|
+    t.integer  "club_id"
+    t.datetime "month"
+    t.integer  "business_days_in_month"
+    t.decimal  "membership_goal",           :precision => 8, :scale => 2
+    t.decimal  "training_goal",             :precision => 8, :scale => 2
+    t.decimal  "juice_bar_goal",            :precision => 8, :scale => 2
+    t.decimal  "nursery_goal",              :precision => 8, :scale => 2
+    t.decimal  "membership_draft_expected", :precision => 8, :scale => 2
+    t.decimal  "training_draft_expected",   :precision => 8, :scale => 2
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+  end
+
+  add_index "monthly_summaries", ["club_id"], :name => "index_monthly_summaries_on_club_id"
+  add_index "monthly_summaries", ["month"], :name => "index_monthly_summaries_on_month"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

@@ -46,6 +46,7 @@ ClubManager::Application.routes.draw do
   end
   resources :envelopes
   resources :events
+  resources :monthly_summaries
 
   root to: 'home#index'
 

@@ -18,5 +18,6 @@ class Club < ActiveRecord::Base
   belongs_to :region
   has_many :club_users, class_name: 'ClubUsers'
   has_many :users, through: :club_users
+  has_many :monthly_summaries
 
 end

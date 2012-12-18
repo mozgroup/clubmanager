@@ -1,0 +1,2 @@
+module MonthlySummariesHelper
+end
