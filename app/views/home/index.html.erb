@@ -9,9 +9,17 @@
 
   <div class="columns">
 
-    <%= render :partial => 'chart' %>
+    <%= render 'membership' %>
+
+    <%= render 'training' %>
+
+    <%= render 'juice' %>
+
+    <%= render 'nursery' %>
 
   </div>
+
+</div>
 
 </div>
 
@@ -47,9 +55,33 @@
 </div>
 
 <% content_for :template_functions do %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
   <%= javascript_include_tag 'js/developr.agenda' %>
   <script type="text/javascript">
     $.template.init();
   </script>
 <% end %>
 
+<% content_for :additional_javascript do %>
+  <script type="text/javascript">
+
+    google.load('visualization', '1', {packages: ['gauge']});
+
+    var gauge;
+    var gaugeData;
+    var gaugeOptions;
+
+    gaugeOptions = {
+        min: 0,
+        max: 120,
+        redFrom: 90, 
+        redTo: 120,
+        yellowFrom: 70, 
+        yellowTo: 90,
+        minorTicks: 5,
+        width: 150,
+        height: 150
+      };
+
+  </script>
+<% end %>
