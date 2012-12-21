@@ -32,6 +32,8 @@ class MonthlySummary < ActiveRecord::Base
 
   delegate :name, to: :club, prefix: true
 
+  SUMMARY_TYPES = ['membership', 'training', 'juice_bar', 'nursery']
+
   def self.for_club(club_id)
   	where(:club_id => club_id)
   end
