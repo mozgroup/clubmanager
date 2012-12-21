@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220205459) do
+ActiveRecord::Schema.define(:version => 20121221041916) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -78,6 +78,26 @@ ActiveRecord::Schema.define(:version => 20121220205459) do
   add_index "contexts", ["name"], :name => "index_contexts_on_name"
   add_index "contexts", ["owner_id", "name"], :name => "index_contexts_on_owner_id_and_name"
   add_index "contexts", ["owner_id"], :name => "index_contexts_on_owner_id"
+
+  create_table "daily_summaries", :force => true do |t|
+    t.integer  "monthly_summary_id"
+    t.decimal  "membership_cash",                :precision => 8, :scale => 2
+    t.decimal  "training_cash",                  :precision => 8, :scale => 2
+    t.decimal  "juice_bar_cash",                 :precision => 8, :scale => 2
+    t.decimal  "nursery_cash",                   :precision => 8, :scale => 2
+    t.decimal  "membership_draft_cash",          :precision => 8, :scale => 2
+    t.decimal  "training_draft_cash",            :precision => 8, :scale => 2
+    t.integer  "membership_cancellations"
+    t.decimal  "membership_cancellations_value", :precision => 8, :scale => 2
+    t.integer  "membership_freezes"
+    t.decimal  "membership_freezes_value",       :precision => 8, :scale => 2
+    t.integer  "membership_delinquents"
+    t.decimal  "membership_delinquents_value",   :precision => 8, :scale => 2
+    t.integer  "training_cancellations"
+    t.decimal  "training_cancellations_value",   :precision => 8, :scale => 2
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
+  end
 
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
