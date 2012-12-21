@@ -1,7 +1,12 @@
 <%= content_tag :div, { id: "tab-#{tab_content_counter+1}", class: "with-padding" } do %>
 
   <div class="columns">
-  	<%= render "membership", locals: { club: tab_content, summary: tab_content.monthly_summaries.current(@current_month) } %>
+
+	<% ['membership', 'training', 'juice_bar', 'nursery'].each do |block_name| %>
+	  	<%= render :partial => "block_content", 
+			locals: { block_name: block_name, club: tab_content, summary: tab_content.monthly_summaries.current(@current_month).first } %>
+	<% end %>
+
   </div>
 
 <% end %>

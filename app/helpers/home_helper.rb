@@ -69,4 +69,8 @@ module HomeHelper
     number_to_currency(amount, precision: 0)
   end
 
+  def goal(block_name, summary)
+    format_currency(summary.send("#{block_name}_goal".to_sym))
+  end
+
 end

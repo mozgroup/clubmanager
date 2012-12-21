@@ -1,9 +1,8 @@
-<!-- Membership Block -->
 <div class="six-columns new-line">
 
   <div class="block">
     <div class="block-title">
-      <h3>Membership</h3>
+      <h3><%= block_name.titleize %></h3>
       <div class="button-group absolute-right compact">
         <%= link_to '', '#', class: "button icon-left" %>
         <%= link_to 'Today', '#', class: 'button' %>
@@ -17,7 +16,7 @@
 
         <div class="six-columns">
 
-          <div id="<%= club.abbreviation %>-membership-chart"></div>
+          <div id="<%= "#{club.abbreviation}-#{block_name}-chart" %>"></div>
 
         </div>
 
@@ -28,7 +27,7 @@
               <%= link_to "More", '#', class: 'button blue-gradient margin-right float-right' %>
             </div>
             <div class="twelve-columns new-row">
-              <strong>Memberships</strong>
+              <strong><%= block_name.titleize %></strong>
               <table width="100%">
                 <tr>
                   <td>Cash to Date</td>
@@ -40,7 +39,7 @@
                 </tr>
                 <tr>
                   <td>Goal</td>
-                  <td class="align-right green"><strong><%= format_currency(summary.membership_goal) %></strong></td>
+                  <td class="align-right green"><strong><%= goal(block_name, summary) %></strong></td>
                 </tr>
                 <tr>
                   <td>Over/Under</td>
@@ -70,7 +69,7 @@
             ['<%= club.abbreviation %>', 55]
         ]);
 
-        mGauge = new google.visualization.Gauge(document.getElementById('<%= club.abbreviation %>-membership-chart'));
+        mGauge = new google.visualization.Gauge(document.getElementById('<%= "#{club.abbreviation}-#{block_name}-chart" %>'));
 
         mGauge.draw(mGaugeData, gaugeOptions);
       }
