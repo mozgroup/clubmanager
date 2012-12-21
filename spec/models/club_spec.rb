@@ -2,12 +2,13 @@
 #
 # Table name: clubs
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  region_id  :integer
-#  address    :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  region_id    :integer
+#  address      :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  abbreviation :string(255)
 #
 
 require 'spec_helper'

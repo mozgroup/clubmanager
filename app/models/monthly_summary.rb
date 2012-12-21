@@ -32,7 +32,11 @@ class MonthlySummary < ActiveRecord::Base
 
   delegate :name, to: :club, prefix: true
 
-  def self.for_club(club_id, current_date)
-  	where(:club_id => club_id, :month => current_date)[0]
+  def self.for_club(club_id)
+  	where(:club_id => club_id)
+  end
+
+  def self.for_month(date)
+    where(:month => date).order('club_id')
   end
 end

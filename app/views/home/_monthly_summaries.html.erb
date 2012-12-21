@@ -20,14 +20,22 @@
       </strong>
     </div>
 
-    <%= render 'membership' %>
-
-    <%= render 'training' %>
-
-    <%= render 'juice' %>
-
-    <%= render 'nursery' %>
-
   </div>
+
+    <div class="standard-tabs">
+
+      <!-- Tabs -->
+      <ul class="tabs">
+        <%= render partial: 'club_tab', collection: @clubs %>
+      </ul>
+
+      <!-- Content -->
+      <div class="tabs-content">
+
+        <%= render partial: 'tab_content', collection: @clubs %>
+
+      </div>
+
+    </div>
 
 </div>

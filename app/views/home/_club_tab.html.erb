@@ -1,0 +1,3 @@
+<%= content_tag(:li, :class => ('active' if club_tab_counter == 0)) do %>
+	<%= link_to club_tab.name, "#tab-#{club_tab_counter+1}" %>
+<% end %>

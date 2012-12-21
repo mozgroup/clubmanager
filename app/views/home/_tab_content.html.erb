@@ -1,0 +1,7 @@
+<%= content_tag :div, { id: "tab-#{tab_content_counter+1}", class: "with-padding" } do %>
+
+  <div class="columns">
+  	<%= render "membership", locals: { club: tab_content, summary: tab_content.monthly_summaries.current(@current_month) } %>
+  </div>
+
+<% end %>

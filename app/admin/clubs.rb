@@ -4,6 +4,7 @@ ActiveAdmin.register Club do
     selectable_column
     id_column
     column :name
+    column :abbreviation
     column :address
     column :region
     column :created_at
