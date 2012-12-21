@@ -73,4 +73,15 @@ module HomeHelper
     format_currency(summary.send("#{block_name}_goal".to_sym))
   end
 
+  def cash_to_date(block_name, summary)
+    format_currency(summary.send("#{block_name}_cash_to_date".to_sym))
+  end
+
+  def percent_complete(block_name, summary)
+    (summary.send("#{block_name}_percent_complete".to_sym) * 100).round
+  end
+
+  def projected(block_name, summary)
+    format_currency(summary.send("#{block_name}_projected_cash".to_sym))
+  end
 end

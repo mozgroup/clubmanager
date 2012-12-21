@@ -42,4 +42,52 @@ class MonthlySummary < ActiveRecord::Base
   def self.for_month(date)
     where(:month => date).order('club_id')
   end
+
+  def membership_cash_to_date
+    @membership_cash_to_date ||= self.daily_summaries.sum('membership_cash')
+  end
+
+  def training_cash_to_date
+    @training_cash_to_date ||= self.daily_summaries.sum('training_cash')
+  end
+
+  def juice_bar_cash_to_date
+    @juice_bar_cash_to_date ||= self.daily_summaries.sum('juice_bar_cash')
+  end
+
+  def nursery_cash_to_date
+    @nursery_cash_to_date ||= self.daily_summaries.sum('nursery_cash')
+  end
+
+  def membership_percent_complete
+    membership_cash_to_date / self.membership_goal
+  end
+
+  def training_percent_complete
+    training_cash_to_date / self.training_goal
+  end
+
+  def juice_bar_percent_complete
+    juice_bar_cash_to_date / self.juice_bar_goal
+  end
+
+  def nursery_percent_complete
+    nursery_cash_to_date / self.nursery_goal
+  end
+
+  def membership_projected_cash
+    (membership_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
+  end
+
+  def training_projected_cash
+    (training_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
+  end
+
+  def juice_bar_projected_cash
+    (juice_bar_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
+  end
+
+  def nursery_projected_cash
+    (nursery_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
+  end
 end
