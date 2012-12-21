@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20121221041916) do
   add_index "contexts", ["owner_id"], :name => "index_contexts_on_owner_id"
 
   create_table "daily_summaries", :force => true do |t|
+    t.datetime "summary_date"
     t.integer  "monthly_summary_id"
     t.decimal  "membership_cash",                :precision => 8, :scale => 2
     t.decimal  "training_cash",                  :precision => 8, :scale => 2
