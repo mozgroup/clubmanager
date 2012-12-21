@@ -3,6 +3,7 @@
 # Table name: daily_summaries
 #
 #  id                             :integer          not null, primary key
+#  summary_date                   :datetime
 #  monthly_summary_id             :integer
 #  membership_cash                :decimal(8, 2)
 #  training_cash                  :decimal(8, 2)

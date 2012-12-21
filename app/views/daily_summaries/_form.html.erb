@@ -1,0 +1,45 @@
+<%= form_for([@monthly_summary, @daily_summary]) do |f| %>
+  <% if @daily_summary.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily_summary.errors.count, "error") %> prohibited this daily summary from being saved:</h2>
+
+      <ul>
+      <% @daily_summary.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :summary_date %><br />
+    <%= f.date_select :summary_date, default: @monthly_summary.month %>
+  </div>
+  <div class="field">
+    <%= f.label :membership_cash %><br />
+    <%= f.text_field :membership_cash %>
+  </div>
+  <div class="field">
+    <%= f.label :training_cash %><br />
+    <%= f.text_field :training_cash %>
+  </div>
+  <div class="field">
+    <%= f.label :juice_bar_cash %><br />
+    <%= f.text_field :juice_bar_cash %>
+  </div>
+  <div class="field">
+    <%= f.label :nursery_cash %><br />
+    <%= f.text_field :nursery_cash %>
+  </div>
+  <div class="field">
+    <%= f.label :membership_draft_cash %><br />
+    <%= f.text_field :membership_draft_cash %>
+  </div>
+  <div class="field">
+    <%= f.label :training_draft_cash %><br />
+    <%= f.text_field :training_draft_cash %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

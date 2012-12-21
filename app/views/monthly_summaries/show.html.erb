@@ -1,8 +1,18 @@
 <% provide(:title, "Monthly Summary") %>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/table" %>
+<% end %>
 
 <div class="with-padding">
 
   <p id="notice"><%= notice %></p>
+
+  <p>
+    <%= link_to 'Edit This Summary', edit_monthly_summary_path(@monthly_summary) %> |
+    <%= link_to 'Back To Summary Listing', monthly_summaries_path %>
+  </p>
+
+  <hr />
 
   <p>
     <b>Club:</b>
@@ -49,8 +59,46 @@
     <%= @monthly_summary.training_draft_expected %>
   </p>
 
+  <hr />
 
-  <%= link_to 'Edit This Summary', edit_monthly_summary_path(@monthly_summary) %> |
-  <%= link_to 'Back To Summary Listing', monthly_summaries_path %>
+  <p>
+    <%= link_to "Add a daily summary", new_monthly_summary_daily_summary_path(@monthly_summary) %>
+  </p>
+
+  <table class="simple-table">
+
+      <thead>
+        <tr>
+          <th scope="col">Day</th>
+          <th scope="col">Membership Cash</th>
+          <th scope="col">Training Cash</th>
+          <th scope="col">Juice Bar Cash</th>
+          <th scope="col">Nursery Cash</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tfooter></tfooter>
+
+      <tbody>
+
+          <% @monthly_summary.daily_summaries.each do |daily_summary| %>
+            <tr>
+              <td><%= daily_summary.summary_date.strftime('%d') %></td>
+              <td><%= daily_summary.membership_cash %></td>
+              <td><%= daily_summary.training_cash %></td>
+              <td><%= daily_summary.juice_bar_cash %></td>
+              <td><%= daily_summary.nursery_cash %></td>
+              <td><%= link_to 'Show', monthly_summary_daily_summary_path(@monthly_summary, daily_summary) %></td>
+              <td><%= link_to 'Edit', edit_monthly_summary_daily_summary_path(@monthly_summary, daily_summary) %></td>
+              <td><%= link_to 'Destroy', [@monthly_summary,daily_summary], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+
+      </tbody>
+
+  </table>
 
 </div>

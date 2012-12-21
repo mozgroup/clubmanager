@@ -29,7 +29,7 @@ class MonthlySummary < ActiveRecord::Base
   validates :training_draft_expected, presence: true
 
   belongs_to :club
-  has_many :daily_summaries
+  has_many :daily_summaries, dependent: :destroy
 
   delegate :name, to: :club, prefix: true
 

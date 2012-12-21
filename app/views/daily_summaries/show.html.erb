@@ -1,0 +1,47 @@
+<% provide(:title, "Daily Summary") %>
+
+<div class="with-padding">
+
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <b>Date:</b>
+    <%= @daily_summary.summary_date %>
+  </p>
+
+  <p>
+    <b>Membership Cash:</b>
+    <%= @daily_summary.membership_cash %>
+  </p>
+
+  <p>
+    <b>Training Cash:</b>
+    <%= @daily_summary.training_cash %>
+  </p>
+
+  <p>
+    <b>Juice Bar Cash:</b>
+    <%= @daily_summary.juice_bar_cash %>
+  </p>
+
+  <p>
+    <b>Nursery Cash:</b>
+    <%= @daily_summary.nursery_cash %>
+  </p>
+
+  <p>
+    <b>Membership draft cash:</b>
+    <%= @daily_summary.membership_draft_cash %>
+  </p>
+
+  <p>
+    <b>Training draft cash:</b>
+    <%= @daily_summary.training_draft_cash %>
+  </p>
+
+  <div class="margin-top">
+    <%= link_to 'Edit This Summary', edit_monthly_summary_daily_summary_path(@daily_summary,@daily_summary) %> |
+    <%= link_to 'Back To Monthly Summary', @monthly_summary %>
+  </div>
+
+</div>
