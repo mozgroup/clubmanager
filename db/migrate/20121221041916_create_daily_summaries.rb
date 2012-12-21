@@ -19,5 +19,7 @@ class CreateDailySummaries < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :daily_summaries, :monthly_summary_id
   end
 end

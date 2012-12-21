@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(:version => 20121221041916) do
     t.datetime "updated_at",                                                   :null => false
   end
 
+  add_index "daily_summaries", ["monthly_summary_id"], :name => "index_daily_summaries_on_monthly_summary_id"
+
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
     t.integer  "recipient_id"

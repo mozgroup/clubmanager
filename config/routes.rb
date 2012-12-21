@@ -1,4 +1,14 @@
 ClubManager::Application.routes.draw do
+  get "daily_summaries/new"
+
+  get "daily_summaries/show"
+
+  get "daily_summaries/edit"
+
+  get "daily_summaries/create"
+
+  get "daily_summaries/destroy"
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
