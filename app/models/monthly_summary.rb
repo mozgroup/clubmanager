@@ -43,67 +43,28 @@ class MonthlySummary < ActiveRecord::Base
     where(:month => date).order('club_id')
   end
 
-  def membership_cash_to_date
-    @membership_cash_to_date ||= self.daily_summaries.sum('membership_cash')
+  def cash_to_date(column)
+    instance_var = "@#{column}_cash".to_sym
+    instance_variable_set(instance_var, self.daily_summaries.sum("#{column}_cash")) unless instance_variable_defined?(instance_var)
+    instance_variable_get(instance_var)
   end
 
-  def training_cash_to_date
-    @training_cash_to_date ||= self.daily_summaries.sum('training_cash')
+  def percent_complete(column)
+    cash_to_date(column) / send("#{column}_goal")
   end
 
-  def juice_bar_cash_to_date
-    @juice_bar_cash_to_date ||= self.daily_summaries.sum('juice_bar_cash')
+  def projected_cash(column)
+    (cash_to_date(column) / self.daily_summaries.count) * self.business_days_in_month
   end
 
-  def nursery_cash_to_date
-    @nursery_cash_to_date ||= self.daily_summaries.sum('nursery_cash')
+  def over_under(column)
+    projected_cash(column) - send("#{column}_goal")
   end
 
-  def membership_percent_complete
-    membership_cash_to_date / self.membership_goal
-  end
+  private
 
-  def training_percent_complete
-    training_cash_to_date / self.training_goal
-  end
+    def memoize(var_name, value)
+      
+    end
 
-  def juice_bar_percent_complete
-    juice_bar_cash_to_date / self.juice_bar_goal
-  end
-
-  def nursery_percent_complete
-    nursery_cash_to_date / self.nursery_goal
-  end
-
-  def membership_projected_cash
-    (membership_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
-  end
-
-  def training_projected_cash
-    (training_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
-  end
-
-  def juice_bar_projected_cash
-    (juice_bar_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
-  end
-
-  def nursery_projected_cash
-    (nursery_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
-  end
-
-  def membership_over_under
-    membership_projected_cash - self.membership_goal
-  end
-
-  def training_over_under
-    training_projected_cash - self.training_goal
-  end
-
-  def juice_bar_over_under
-    juice_bar_projected_cash - self.juice_bar_goal
-  end
-
-  def nursery_over_under
-    nursery_projected_cash - self.nursery_goal
-  end
 end

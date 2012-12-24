@@ -74,15 +74,15 @@ module HomeHelper
   end
 
   def cash_to_date(block_name, summary)
-    format_currency(summary.send("#{block_name}_cash_to_date".to_sym))
+    format_currency(summary.cash_to_date(block_name))
   end
 
   def percent_complete(block_name, summary)
-    (summary.send("#{block_name}_percent_complete".to_sym) * 100).round
+    (summary.percent_complete(block_name) * 100).round
   end
 
   def projected(block_name, summary)
-    format_currency(summary.send("#{block_name}_projected_cash".to_sym))
+    format_currency(summary.projected_cash(block_name))
   end
 
   def monthly_summary(club, current_date)
@@ -94,7 +94,7 @@ module HomeHelper
   end
 
   def over_under(block_name, summary)
-    amount = summary.send("#{block_name}_over_under".to_sym)
+    amount = summary.over_under(block_name)
     class_color = amount < 0 ? 'red' : 'green'
     "<td class=\"align-right #{class_color}\"><strong>#{format_currency(amount)}</strong></td>".html_safe
   end
