@@ -84,4 +84,18 @@ module HomeHelper
   def projected(block_name, summary)
     format_currency(summary.send("#{block_name}_projected_cash".to_sym))
   end
+
+  def monthly_summary(club, current_date)
+    club.monthly_summaries.current(current_date).first
+  end
+
+  def business_days_completed(club, current_date)
+    monthly_summary(club, current_date).daily_summaries.count
+  end
+
+  def over_under(block_name, summary)
+    amount = summary.send("#{block_name}_over_under".to_sym)
+    class_color = amount < 0 ? 'red' : 'green'
+    "<td class=\"align-right #{class_color}\"><strong>#{format_currency(amount)}</strong></td>".html_safe
+  end
 end

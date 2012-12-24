@@ -90,4 +90,20 @@ class MonthlySummary < ActiveRecord::Base
   def nursery_projected_cash
     (nursery_cash_to_date / self.daily_summaries.count) * self.business_days_in_month
   end
+
+  def membership_over_under
+    membership_projected_cash - self.membership_goal
+  end
+
+  def training_over_under
+    training_projected_cash - self.training_goal
+  end
+
+  def juice_bar_over_under
+    juice_bar_projected_cash - self.juice_bar_goal
+  end
+
+  def nursery_over_under
+    nursery_projected_cash - self.nursery_goal
+  end
 end

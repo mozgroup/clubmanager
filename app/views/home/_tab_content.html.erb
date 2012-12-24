@@ -2,8 +2,26 @@
 
   <div class="columns">
 
+	<div class="four-columns align-center">
+	  <strong>
+	    Today's Date: <span class="orange"><%= Date.current.strftime('%m/%d/%Y') %></span>
+	  </strong>
+	</div>
+
+	<div class="four-columns align-center">
+	  <strong>
+	    Business Days In Month: <span class="orange"><%= monthly_summary(club, @current_month).business_days_in_month %></span>
+	  </strong>
+	</div>
+
+	<div class="four-columns align-center">
+	  <strong>
+	    Business Days Completed: <span class="orange"><%= business_days_completed(club, @current_month) %></span>
+	  </strong>
+	</div>
+
   	<%= render partial: 'block_content', collection: MonthlySummary::SUMMARY_TYPES, as: :block_name, 
-  	    locals: { club: club, summary: club.monthly_summaries.current(@current_month).first } %>
+  	    locals: { club: club, summary: monthly_summary(club, @current_month) } %>
 
   </div>
 

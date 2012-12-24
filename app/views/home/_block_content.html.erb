@@ -1,5 +1,4 @@
 <div class="six-columns new-line">
-
   <div class="block">
     <div class="block-title">
       <h3><%= block_name.titleize %></h3>
@@ -43,8 +42,8 @@
                 </tr>
                 <tr>
                   <td>Over/Under</td>
-                  <td class="align-right red"><strong>-$15,000</strong></td>
-                </tr>
+                    <%= over_under(block_name, summary) %>
+                  </tr>
               </table>
             </div>
           </div>
