@@ -76,7 +76,6 @@
           <th scope="col">Nursery Cash</th>
           <th scope="col"></th>
           <th scope="col"></th>
-          <th scope="col"></th>
         </tr>
       </thead>
 
@@ -91,7 +90,6 @@
               <td><%= daily_summary.training_cash %></td>
               <td><%= daily_summary.juice_bar_cash %></td>
               <td><%= daily_summary.nursery_cash %></td>
-              <td><%= link_to 'Show', monthly_summary_daily_summary_path(@monthly_summary, daily_summary) %></td>
               <td><%= link_to 'Edit', edit_monthly_summary_daily_summary_path(@monthly_summary, daily_summary) %></td>
               <td><%= link_to 'Destroy', [@monthly_summary,daily_summary], method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
