@@ -2,6 +2,7 @@ class CheckList < ActiveRecord::Base
   attr_accessible :frequency, :name, :user_id
 
   belongs_to :user
+  belongs_to :author, class_name: 'User', foreign_key: :author_id
   has_many :check_list_items
 
   validate :name, presence: true

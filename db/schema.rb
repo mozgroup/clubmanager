@@ -60,12 +60,14 @@ ActiveRecord::Schema.define(:version => 20121227180356) do
 
   create_table "check_lists", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "author_id"
     t.string   "name"
     t.string   "frequency"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  add_index "check_lists", ["author_id"], :name => "index_check_lists_on_author_id"
   add_index "check_lists", ["name"], :name => "index_check_lists_on_name"
   add_index "check_lists", ["user_id"], :name => "index_check_lists_on_user_id"
 
