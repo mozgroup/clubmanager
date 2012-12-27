@@ -2,5 +2,6 @@
         <li<%= yield(:current_dashboard) %>><%= link_to "Dashboard", root_url, class: "shortcut-dashboard", title: "Dashboard" %></li>
         <li<%= yield(:current_messages) %>><%= link_to "Messages", inbox_path, class: "shortcut-messages", title: "Messages" %></li>
         <li<%= yield(:current_calendar) %>><%= link_to "Agenda", calendar_path, class: "shortcut-agenda", title: "Calendar" %></li>
+        <li<%= yield(:current_check_list) %>><%= link_to "Checklist", check_lists_path, class: "shortcut-contacts", title: "Checklist" %></li>
         <li<%= yield(:current_tasks) %>><%= link_to "Tasks", tasks_path, class: "shortcut-notes", title: "Tasks" %></li>
 </ul>
