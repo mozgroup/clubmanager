@@ -47,6 +47,8 @@ ClubManager::Application.routes.draw do
   resources :envelopes
   resources :events
   resources :monthly_summaries do
+    get 'forecast', on: :collection
+
     resources :daily_summaries
   end
 

@@ -98,4 +98,10 @@ module HomeHelper
     class_color = amount < 0 ? 'red' : 'green'
     "<td class=\"align-right #{class_color}\"><strong>#{format_currency(amount)}</strong></td>".html_safe
   end
+
+  def over_under_summary(amount)
+    class_color = amount < 0 ? 'red' : 'green'
+    "<td class=\"#{class_color}\"><strong>#{format_currency(amount)}</strong></td>".html_safe
+  end
+
 end

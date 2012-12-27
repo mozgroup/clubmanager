@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="three-columns">
-      <%= link_to "More", '#', class: 'button blue-gradient' %>
+      <%= link_to "More", forecast_monthly_summaries_path(club_id: club.id, month: @current_date), class: 'button blue-gradient' %>
       <div class="button-group">
         <%= link_to '', '#', class: "button icon-left" %>
         <%= link_to 'Today', '#', class: 'button' %>

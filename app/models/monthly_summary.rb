@@ -34,6 +34,7 @@ class MonthlySummary < ActiveRecord::Base
   delegate :name, to: :club, prefix: true
 
   SUMMARY_TYPES = ['membership', 'training', 'juice_bar', 'nursery']
+  DRAFT_TYPES = ['membership_draft', 'training_draft']
 
   def self.for_club(club_id)
   	where(:club_id => club_id)
@@ -44,9 +45,7 @@ class MonthlySummary < ActiveRecord::Base
   end
 
   def cash_to_date(column)
-    instance_var = "@#{column}_cash".to_sym
-    instance_variable_set(instance_var, self.daily_summaries.sum("#{column}_cash")) unless instance_variable_defined?(instance_var)
-    instance_variable_get(instance_var)
+    self.daily_summaries.sum("#{column}_cash")
   end
 
   def percent_complete(column)
@@ -61,10 +60,27 @@ class MonthlySummary < ActiveRecord::Base
     projected_cash(column) - send("#{column}_goal")
   end
 
+  def membership_draft_cash_to_date
+    self.daily_summaries.sum("membership_draft_cash")
+  end
+
+  def training_draft_cash_to_date
+    self.daily_summaries.sum("training_draft_cash")
+  end
+
   private
 
-    def memoize(var_name, value)
-      
-    end
+    def memoize(i_var, &block)
+      instance_var = "@#{i_var}".to_sym
 
+      unless instance_variable_defined?(instance_var)
+        if block_given?
+          yield instance_var
+        else
+          "no block given"
+        end
+      end
+
+      instance_variable_get(instance_var)
+    end
 end

@@ -1,0 +1,97 @@
+<% provide(:title, "Monthly Summary - Forecast") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/table" %>
+<% end %>
+
+<div class="with-padding">
+	<table class="simple-table">
+		<tbody>
+			<tr>
+				<th>Today's Date</th>
+				<td><%= @current_date.strftime("%m/%d/%Y") %></td>
+			</tr>
+			<tr>
+				<td>Business Days in Month</td>
+				<td><%= @monthly_summary.business_days_in_month %></td>
+			</tr>
+			<tr>
+				<td>Business Days Completed</td>
+				<td><%= @completed_days %></td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="simple-table">
+		<thead>
+			<tr>
+				<th><%= @club.abbreviation %></th>
+				<th>Cash to Date</th>
+				<th>Projected</th>
+				<th>Goal</th>
+				<th>Over / Under Goal</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<th>Memberships</th>
+				<td><%= format_currency(@membership_cash_to_date) %></td>
+				<td><%= format_currency(@membership_projected) %></td>
+				<td><%= format_currency(@membership_goal) %></td>
+				<%= over_under_summary(@membership_over_under) %>
+			</tr>
+			<tr>
+				<th>Personal Training</th>
+				<td><%= format_currency(@training_cash_to_date) %></td>
+				<td><%= format_currency(@training_projected) %></td>
+				<td><%= format_currency(@training_goal) %></td>
+				<%= over_under_summary(@training_over_under) %>
+			</tr>
+			<tr>
+				<th>Juice Bar</th>
+				<td><%= format_currency(@juice_bar_cash_to_date) %></td>
+				<td><%= format_currency(@juice_bar_projected) %></td>
+				<td><%= format_currency(@juice_bar_goal) %></td>
+				<%= over_under_summary(@juice_bar_over_under) %>
+			</tr>
+			<tr>
+				<th>Nursery</th>
+				<td><%= format_currency(@nursery_cash_to_date) %></td>
+				<td><%= format_currency(@nursery_projected) %></td>
+				<td><%= format_currency(@nursery_goal) %></td>
+				<%= over_under_summary(@nursery_over_under) %>
+			</tr>
+			<tr>
+				<th>Total</th>
+				<td><%= format_currency(@cash_to_date_total) %></td>
+				<td><%= format_currency(@projected_total) %></td>
+				<td><%= format_currency(@goal_total) %></td>
+				<%= over_under_summary(@over_under_total) %>
+			</tr>
+			<tr>
+				<td colspan='5'></td>
+			</tr>
+			<tr>
+				<th>Membership Draft Expected</th>
+				<td><%= format_currency(@membership_draft_cash) %></td>
+				<td><%= format_currency(@monthly_summary.membership_draft_expected) %></td>
+				<td><%= format_currency(@monthly_summary.membership_draft_expected) %></td>
+				<td></td>
+			</tr>				
+			<tr>
+				<th>PT Draft Expected</th>
+				<td><%= format_currency(@training_draft_cash) %></td>
+				<td><%= format_currency(@monthly_summary.training_draft_expected) %></td>
+				<td><%= format_currency(@monthly_summary.training_draft_expected) %></td>
+				<td></td>
+			</tr>				
+			<tr>
+				<th>Total</th>
+				<td><%= format_currency(@total_draft_cash) %></td>
+				<td><%= format_currency(@total_draft_projected) %></td>
+				<td><%= format_currency(@total_draft_projected) %></td>
+				<td></td>
+			</tr>				
+		</tbody>
+	</table>
+</div>
