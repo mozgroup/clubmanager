@@ -1,21 +1,55 @@
-<h1>Listing check_lists</h1>
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Checklists") %>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @check_lists.each do |check_list| %>
-  <tr>
-    <td><%= link_to 'Show', check_list %></td>
-    <td><%= link_to 'Edit', edit_check_list_path(check_list) %></td>
-    <td><%= link_to 'Destroy', check_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/table' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/styles/modal' %>
+  <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
 <% end %>
-</table>
 
-<br />
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'js/developr.content-panel' %>
+  <%= javascript_include_tag 'js/developr.scroll' %>
+  <%= javascript_include_tag 'js/developr.table' %>
+  <%= javascript_include_tag 'js/developr.modal' %>
+  <%= javascript_include_tag 'js/developr.message' %>
+  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
+  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
+<% end %>
 
-<%= link_to 'New Check list', new_check_list_path %>
+<div class="content-panel">
+
+    <div class="panel-navigation silver-gradient">
+
+        <!-- This element won't change -->
+        <div class="panel-control">
+            ...1
+        </div>
+
+        <!-- Navigation content will be loaded here -->
+        <div class="panel-load-target scrollable" style="height:560px">
+            ...2
+        </div>
+
+    </div>
+
+    <div class="panel-content linen">
+
+        <!-- This element won't change -->
+        <div class="panel-control align-right">
+          <%= link_to new_check_list_path, class: 'button open-on-panel-content' do %>
+            <span class="button-icon"><span class="icon-star"></span></span>
+            Create Checklist
+          <% end %>
+        </div>
+
+        <!-- Main content will be loaded here -->
+        <div class="panel-load-target scrollable" style="height:600px">
+            ...4
+        </div>
+
+    </div>
+
+</div>
