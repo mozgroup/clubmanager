@@ -1,0 +1,21 @@
+<h1>Listing check_lists</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @check_lists.each do |check_list| %>
+  <tr>
+    <td><%= link_to 'Show', check_list %></td>
+    <td><%= link_to 'Edit', edit_check_list_path(check_list) %></td>
+    <td><%= link_to 'Destroy', check_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Check list', new_check_list_path %>
