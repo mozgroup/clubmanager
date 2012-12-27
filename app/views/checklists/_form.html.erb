@@ -1,17 +1,52 @@
-<%= form_for(@check_list) do |f| %>
-  <% if @check_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@check_list.errors.count, "error") %> prohibited this check_list from being saved:</h2>
+<%= form_for(@checklist, remote: true) do |f| %>
 
-      <ul>
-      <% @check_list.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+  <%= render 'shared/form_error_messages', object: f.object %>
+
+  <%= f.hidden_field :author_id %>
+
+  <div class="with-padding">
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :name, class: 'label' do %>
+        Checklist Name
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <%= f.text_field :name, class: 'input' %>
+      <small class="input-info">Required</small>
+    </p>
 
-  <div class="actions">
-    <%= f.submit %>
+    <p class="button-height inline-medium-label">
+      <%= f.label :assigned_to, class: 'label' do %>
+        Assigned To
+      <% end %>
+      <%= f.text_field :assigned_to, class: 'input' %>
+      <small class="input-info">Required</small>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :frequency, class: 'label' do %>
+        Frequency
+      <% end %>
+      <span class="button-group">
+        <% Checklist.frequency.each do |freq| %>
+          <label for="checklist_frequency_<%= freq.downcase %>" class="button green-active">
+            <%= f.radio_button :frequency, freq %>
+            <%= freq %>
+          </label>
+        <% end %>
+      </span>
+    </p>
+
   </div>
+
+  <div class="field-block button-height">
+    <%= button_tag(class: 'button glossy mid-margin-right open-on-panel-content') do %>
+      <span class="button-icon"><span class="icon-tick"></span></span>
+      Save
+    <% end %>
+    <%= link_to tasks_path, class: 'button' do %>
+      <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
+      Cancel
+    <% end %>
+  </div>
+
 <% end %>
