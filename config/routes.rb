@@ -51,7 +51,7 @@ ClubManager::Application.routes.draw do
 
     resources :daily_summaries
   end
-  resources :check_lists
+  resources :checklists
 
   root to: 'home#index'
 

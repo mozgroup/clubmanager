@@ -46,19 +46,17 @@ ActiveRecord::Schema.define(:version => 20121227180356) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "check_list_items", :force => true do |t|
-    t.integer  "check_list_id"
+  create_table "checklist_items", :force => true do |t|
+    t.integer  "checklist_id"
     t.string   "name"
-    t.string   "due_on"
-    t.boolean  "complete_flg"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
-  add_index "check_list_items", ["check_list_id"], :name => "index_check_list_items_on_check_list_id"
-  add_index "check_list_items", ["name"], :name => "index_check_list_items_on_name"
+  add_index "checklist_items", ["checklist_id"], :name => "index_checklist_items_on_checklist_id"
+  add_index "checklist_items", ["name"], :name => "index_checklist_items_on_name"
 
-  create_table "check_lists", :force => true do |t|
+  create_table "checklists", :force => true do |t|
     t.integer  "user_id"
     t.integer  "author_id"
     t.string   "name"
@@ -67,9 +65,9 @@ ActiveRecord::Schema.define(:version => 20121227180356) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "check_lists", ["author_id"], :name => "index_check_lists_on_author_id"
-  add_index "check_lists", ["name"], :name => "index_check_lists_on_name"
-  add_index "check_lists", ["user_id"], :name => "index_check_lists_on_user_id"
+  add_index "checklists", ["author_id"], :name => "index_checklists_on_author_id"
+  add_index "checklists", ["name"], :name => "index_checklists_on_name"
+  add_index "checklists", ["user_id"], :name => "index_checklists_on_user_id"
 
   create_table "club_users", :force => true do |t|
     t.integer  "user_id"

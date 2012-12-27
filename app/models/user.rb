@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
     end
   end
   has_many :organized_events, class_name: 'Event', foreign_key: :user_id
-  has_many :check_lists
+  has_many :checklists
 
   validates :first_name, presence: true
   validates :last_name, presence: true
