@@ -1,6 +1,15 @@
 <% provide(:current_check_list, " class='current'".html_safe) %>
 <% provide(:title, "Checklists") %>
 
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+  <%= stylesheet_link_tag 'css/styles/table' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+<% end %>
+
 <div class="with-padding">
 
 	<h3><%= @checklist.name %></h3>
@@ -15,15 +24,21 @@
 
 	</dl>
 
-	<h4>Checklist Items</h4>
+	<div class="columns large-margin-top">
 
-	<ol class="checklist-items">
-		<% @checklist.checklist_items.each do |item| %>
-			<li><%= item.name %></li>
-		<% end %>
-	</ol>
+		<div class="six-columns">
 
-	<%= link_to 'Edit This Task List', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
+			<h4>Checklist Tasks</h4>
+
+			<div id="checklist-items">
+				<%= render 'checklist_items', checklist: @checklist %>
+			</div>
+
+		</div>
+	</div>
+
+
+	<%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
 	<%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
 
 </div>

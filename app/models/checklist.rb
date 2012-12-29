@@ -46,4 +46,16 @@ class Checklist < ActiveRecord::Base
   def self.frequency
     FREQUENCY_LIST.collect { |f| f.camelize }
   end
+
+  def is_daily?
+    frequency == 'Daily'
+  end
+
+  def is_weekly?
+    frequency == 'Weekly'
+  end
+  
+  def is_monthly?
+    frequency == 'Monthly'
+  end
 end
