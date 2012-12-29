@@ -92,9 +92,9 @@ ActiveRecord::Schema.define(:version => 20121229194025) do
 
   create_table "completes", :force => true do |t|
     t.integer  "completable_id"
-    t.string   "completeable_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string   "completable_type"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "completes", ["completable_id"], :name => "index_completes_on_completable_id"

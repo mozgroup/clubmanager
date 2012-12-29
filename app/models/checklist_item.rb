@@ -14,4 +14,12 @@ class ChecklistItem < ActiveRecord::Base
 
   belongs_to :checklist
   has_many :completes, :as => :completable, :dependent => :destroy
+
+  def is_complete?(date)
+  	!completes.where('created_at >= ? and created_at <= ?', date.beginning_of_day, date.end_of_day).empty?
+  end
+
+  def complete
+  	self.completes.create
+  end
 end
