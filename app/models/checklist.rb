@@ -30,7 +30,7 @@ class Checklist < ActiveRecord::Base
   MONTHLY = 'monthly'
   SEMIMONTHLY = 'semimonthly' # Twice monthly
   BIMONTHLY = 'bimonthly'     # Every two months
-  FREQUENCY_LIST = [DAILY, WEEKLY, SEMIWEEKLY, BIWEEKLY, MONTHLY, SEMIMONTHLY, BIMONTHLY]
+  FREQUENCY_LIST = [DAILY, WEEKLY, MONTHLY]
 
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
