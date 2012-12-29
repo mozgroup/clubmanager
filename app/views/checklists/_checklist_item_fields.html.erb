@@ -1,0 +1,10 @@
+<fieldset class="fieldset">
+  <p class="button-height inline-medium-label">
+    <%= f.label :name, class: 'label' do %>
+      Item Name
+    <% end %>
+    <%= f.text_field :name, class: 'input' %>
+    <%= f.hidden_field :_destroy %>
+    <%= link_to "remove", '#', class: "remove_fields button icon-trash" %>
+  </p>
+</fieldset>

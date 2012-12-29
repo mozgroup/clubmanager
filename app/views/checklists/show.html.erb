@@ -1,5 +1,29 @@
-<p id="notice"><%= notice %></p>
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Checklists") %>
 
+<div class="with-padding">
 
-<%= link_to 'Edit', edit_check_list_path(@check_list) %> |
-<%= link_to 'Back', check_lists_path %>
+	<h3><%= @checklist.name %></h3>
+
+	<dl class="definition inline">
+
+		<dt>Assigned To</dt>
+		<dd><%= @checklist.assigned_to %></dd>
+
+		<dt>Frequency</dt>
+		<dd><%= @checklist.frequency %></dd>
+
+	</dl>
+
+	<h4>Checklist Items</h4>
+
+	<ol class="checklist-items">
+		<% @checklist.checklist_items.each do |item| %>
+			<li><%= item.name %></li>
+		<% end %>
+	</ol>
+
+	<%= link_to 'Edit This Task List', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
+	<%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
+
+</div>

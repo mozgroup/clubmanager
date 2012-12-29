@@ -1,52 +1,56 @@
-<%= form_for(@checklist, remote: true) do |f| %>
-
-  <%= render 'shared/form_error_messages', object: f.object %>
-
-  <%= f.hidden_field :author_id %>
+<%= form_for @checklist do |f| %>
 
   <div class="with-padding">
 
-    <p class="button-height inline-medium-label">
-      <%= f.label :name, class: 'label' do %>
-        Checklist Name
-      <% end %>
-      <%= f.text_field :name, class: 'input' %>
-      <small class="input-info">Required</small>
-    </p>
-
-    <p class="button-height inline-medium-label">
-      <%= f.label :assigned_to, class: 'label' do %>
-        Assigned To
-      <% end %>
-      <%= f.text_field :assigned_to, class: 'input' %>
-      <small class="input-info">Required</small>
-    </p>
-
-    <p class="button-height inline-medium-label">
-      <%= f.label :frequency, class: 'label' do %>
-        Frequency
-      <% end %>
-      <span class="button-group">
-        <% Checklist.frequency.each do |freq| %>
-          <label for="checklist_frequency_<%= freq.downcase %>" class="button green-active">
-            <%= f.radio_button :frequency, freq %>
-            <%= freq %>
-          </label>
+      <p class="button-height inline-medium-label">
+        <%= f.label :name, class: 'label' do %>
+          Checklist Name
         <% end %>
-      </span>
-    </p>
+        <%= f.text_field :name, class: 'input' %>
+        <small class="input-info">Required</small>
+      </p>
+
+      <p class="button-height inline-medium-label">
+        <%= f.label :assigned_to, class: 'label' do %>
+          Assigned To
+        <% end %>
+        <%= f.text_field :assigned_to, class: 'input' %>
+        <small class="input-info">Required</small>
+      </p>
+
+      <p class="button-height inline-medium-label">
+        <%= f.label :frequency, class: 'label' do %>
+          Frequency
+        <% end %>
+        <% Checklist.frequency.each do |freq| %>
+          <%= f.radio_button :frequency, freq, class: 'radio', checked: (freq == @checklist.frequency ? true : false) %>
+          <%= freq %>
+        <% end %>
+      </p>
+
+  </div>
+  
+  <div class="with-padding">
+
+  <fieldset class="fieldset">
+    <legend class="legend">Checklist Items</legend>
+    <%= f.fields_for :checklist_items do |builder| %>
+      <%= render 'checklist_item_fields', f: builder %>
+    <% end %>
+    <%= link_to_add_fields "Add an item", f, :checklist_items %>
+  </fieldset>
 
   </div>
 
-  <div class="field-block button-height">
-    <%= button_tag(class: 'button glossy mid-margin-right open-on-panel-content') do %>
-      <span class="button-icon"><span class="icon-tick"></span></span>
-      Save
-    <% end %>
-    <%= link_to tasks_path, class: 'button' do %>
-      <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
-      Cancel
-    <% end %>
-  </div>
+    <div class="field-block button-height">
+      <%= button_tag(class: 'button glossy mid-margin-right open-on-panel-content') do %>
+        <span class="button-icon"><span class="icon-tick"></span></span>
+        Save
+      <% end %>
+      <%= link_to checklists_path, class: 'button' do %>
+        <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
+        Cancel
+      <% end %>
+    </div>
 
 <% end %>

@@ -3,53 +3,45 @@
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/table' %>
-  <%= stylesheet_link_tag 'css/styles/form' %>
-  <%= stylesheet_link_tag 'css/styles/modal' %>
-  <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
 <% end %>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'js/developr.content-panel' %>
-  <%= javascript_include_tag 'js/developr.scroll' %>
   <%= javascript_include_tag 'js/developr.table' %>
-  <%= javascript_include_tag 'js/developr.modal' %>
-  <%= javascript_include_tag 'js/developr.message' %>
-  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
-  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
 <% end %>
 
-<div class="content-panel">
+<div class="with-padding">
 
-    <div class="panel-navigation silver-gradient">
+  <div class="small-margin-bottom">
+    <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star' %>
+  </div>
 
-        <!-- This element won't change -->
-        <div class="panel-control">
-            ...1
-        </div>
+  <table class="table">
 
-        <!-- Navigation content will be loaded here -->
-        <div class="panel-load-target scrollable" style="height:560px">
-            ...2
-        </div>
+    <thead>
+      <tr>
+        <th scope="col">List Name</th>
+        <th scope="col">Frequency</th>
+        <th scope="col">Assigned To</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
 
-    </div>
+    <tbody>
 
-    <div class="panel-content silver-gradient">
+      <% @checklists.each do |checklist| %>
 
-        <!-- This element won't change -->
-        <div class="panel-control align-right">
-          <%= link_to new_checklist_path, class: 'button open-on-panel-content' do %>
-            <span class="button-icon"><span class="icon-star"></span></span>
-            Create Checklist
-          <% end %>
-        </div>
+        <tr>
+          <th scope="row"><%= link_to checklist.name, checklist %></th>
+          <td><%= checklist.frequency %></td>
+          <td><%= checklist.assigned_to %></td>
+          <td></td>
+        </tr>
 
-        <!-- Main content will be loaded here -->
-        <div class="panel-load-target scrollable" style="height:600px">
-            ...4
-        </div>
+      <% end %>
 
-    </div>
+    </tbody>
+
+  </table>
 
 </div>

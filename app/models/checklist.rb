@@ -12,7 +12,7 @@
 #
 
 class Checklist < ActiveRecord::Base
-  attr_accessible :frequency, :name, :assigned_to
+  attr_accessible :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes
 
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
@@ -31,6 +31,8 @@ class Checklist < ActiveRecord::Base
   SEMIMONTHLY = 'semimonthly' # Twice monthly
   BIMONTHLY = 'bimonthly'     # Every two months
   FREQUENCY_LIST = [DAILY, WEEKLY, SEMIWEEKLY, BIWEEKLY, MONTHLY, SEMIMONTHLY, BIMONTHLY]
+
+  accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
   def assigned_to
     user_full_name
