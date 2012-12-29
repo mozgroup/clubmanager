@@ -16,7 +16,7 @@ class Checklist < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
-  has_many :checklist_items
+  has_many :checklist_items, order: 'id'
 
   validate :name, presence: true
   validate :frequency, presence: true
