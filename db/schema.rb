@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227180356) do
+ActiveRecord::Schema.define(:version => 20121229194025) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(:version => 20121227180356) do
 
   add_index "clubs", ["name"], :name => "index_clubs_on_name"
   add_index "clubs", ["region_id"], :name => "index_clubs_on_region_id"
+
+  create_table "completes", :force => true do |t|
+    t.integer  "completable_id"
+    t.string   "completeable_type"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "completes", ["completable_id"], :name => "index_completes_on_completable_id"
 
   create_table "contexts", :force => true do |t|
     t.string   "name"

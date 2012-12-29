@@ -13,4 +13,5 @@ class ChecklistItem < ActiveRecord::Base
   attr_accessible :checklist_id, :name
 
   belongs_to :checklist
+  has_many :completes, :as => :completable, :dependent => :destroy
 end
