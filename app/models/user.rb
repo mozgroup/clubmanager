@@ -20,9 +20,12 @@
 #  title                  :string(255)
 #  first_name             :string(255)
 #  last_name              :string(255)
+#  role_mask              :integer
 #
 
 class User < ActiveRecord::Base
+  include SysLogger
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -31,8 +34,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :title, :employee_number, :first_name, :last_name
-  attr_accessible :club_ids
+  attr_accessible :club_ids, :roles
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :employee_number, presence: true
 
   has_many :club_users, class_name: 'ClubUsers'
   has_many :clubs, through: :club_users
@@ -83,13 +89,11 @@ class User < ActiveRecord::Base
   has_many :organized_events, class_name: 'Event', foreign_key: :user_id
   has_many :checklists
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :employee_number, presence: true
-
   accepts_nested_attributes_for :club_users
 
-  include SysLogger
+  scope :with_role, lambda { |role| { conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
+
+  ROLES = %w[admin owner manager associate]
 
   def self.name_search(query)
     if query.present?
@@ -115,5 +119,17 @@ class User < ActiveRecord::Base
 
   def default_club
     self.clubs[0]
+  end
+
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+  end
+
+  def roles
+    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
+  end
+
+  def role_symbols
+    roles.map(&:to_sym)
   end
 end

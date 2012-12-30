@@ -20,6 +20,7 @@
 #  title                  :string(255)
 #  first_name             :string(255)
 #  last_name              :string(255)
+#  role_mask              :integer
 #
 
 require 'spec_helper'

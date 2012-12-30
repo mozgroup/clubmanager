@@ -23,6 +23,7 @@ ActiveAdmin.register User do
       f.input :password
       f.input :password_confirmation
       f.input :clubs
+      f.input :roles, as: :check_boxes, collection: User::ROLES
     end
     f.buttons
   end
@@ -37,4 +38,18 @@ ActiveAdmin.register User do
     User.includes(:clubs)
   end
 
+  show do
+    h3 user.full_name
+    attributes_table do
+      row :id
+      row :email
+      row :sign_in_count
+      row :last_sign_in_at
+      row :employee_number
+      row :title
+      row :roles
+      row :created_at
+      row :updated_at
+    end
+  end
 end
