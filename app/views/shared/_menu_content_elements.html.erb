@@ -10,19 +10,18 @@
         </div>
 
         <ul id="access" class="children-tooltip">
-                <!-- Icon with count -->
                 <li><%= link_to inbox_path, title: "Messages" do %>
                         <span class="icon-inbox"></span>
                         <span class="count"><%= unread_count %></span>
                     <% end %></li>
-                <!-- Simple icon -->
                 <li><%= link_to calendar_path, title: 'Calendar' do %>
                         <span class="icon-calendar"></span></a>
                     <% end %></li>
-                <!-- Disabled icon -->
+                <% if can? :manage, MonthlySummary %>
                 <li><%= link_to monthly_summaries_path, title: 'Summary' do %>
                     <span class="icon-gear"></span>
                 <% end %></li>
+                <% end %>
                 <li><%= link_to destroy_user_session_path, title: 'Signout', method: :delete do %>
                     <span class="icon-extract"></span>
                   <% end %></li>

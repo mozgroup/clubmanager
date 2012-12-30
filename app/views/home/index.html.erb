@@ -5,7 +5,9 @@
   <%= stylesheet_link_tag "css/styles/dashboard" %>
 <% end %>
 
+<% if can? :read, MonthlySummary %>
 <%= render('monthly_summaries') %>
+<% end %>
 
 </div>
 
