@@ -2,7 +2,7 @@ class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @checklists = Checklist.all
+    @checklists = Checklist.for_user current_user.id
   end
 
   def show

@@ -34,6 +34,14 @@ class Checklist < ActiveRecord::Base
 
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
+  def self.for_user(user_id)
+    where(user_id: user_id)
+  end
+
+  def self.frequency
+    FREQUENCY_LIST.collect { |f| f.camelize }
+  end
+
   def assigned_to
     user_full_name
   end
@@ -41,10 +49,6 @@ class Checklist < ActiveRecord::Base
   def assigned_to=(name)
     user = User.find_by_full_name(name)
     self.user_id = user.id unless user.nil?
-  end
-
-  def self.frequency
-    FREQUENCY_LIST.collect { |f| f.camelize }
   end
 
   def is_daily?
