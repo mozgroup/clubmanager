@@ -41,7 +41,7 @@ class MonthlySummary < ActiveRecord::Base
   end
 
   def self.for_month(date)
-    where(:month => date).order('club_id')
+    where('month >= ? and month <= ?', date.beginning_of_month, date.end_of_month)
   end
 
   def cash_to_date(column)
