@@ -20,13 +20,8 @@
 	  </strong>
 	</div>
 
-	<div class="three-columns">
+	<div class="three-columns align-right">
       <%= link_to "More", forecast_monthly_summaries_path(club_id: club.id, month: @current_date), class: 'button blue-gradient' %>
-      <div class="button-group">
-        <%= link_to '', '#', class: "button icon-left" %>
-        <%= link_to 'Today', '#', class: 'button' %>
-        <%= link_to '', '#', class: 'button icon-right' %>
-      </div>
 	</div>
 
   	<%= render partial: 'block_content', collection: MonthlySummary::SUMMARY_TYPES, as: :block_name, 
