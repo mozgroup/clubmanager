@@ -37,8 +37,9 @@
 		</div>
 	</div>
 
-
-	<%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
+	<% if can? :update, @checklist %>
+		<%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
+	<% end %>
 	<%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
 
 </div>

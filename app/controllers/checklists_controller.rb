@@ -1,12 +1,12 @@
 class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
+  skip_load_resource :only => :new
 
   def index
-    @checklists = Checklist.for_user current_user.id
   end
 
   def show
-    @checklist = Checklist.find(params[:id])
   end
 
   def new
@@ -14,11 +14,10 @@ class ChecklistsController < ApplicationController
   end
 
   def edit
-    @checklist = Checklist.find(params[:id])
   end
 
   def create
-    @checklist = Checklist.new(params[:checklist])
+    @checklist = Checklist.new(params[:checklist].merge(author_id: current_user.id))
     if @checklist.save
       flash[:notice] = 'Checklist was successfully created.'
       redirect_to @checklist

@@ -22,6 +22,7 @@ class Checklist < ActiveRecord::Base
   validate :frequency, presence: true
 
   delegate :full_name, to: :user, prefix: true, allow_nil: true
+  delegate :full_name, to: :author, prefix: true
 
   DAILY = 'daily'
   WEEKLY = 'weekly'
