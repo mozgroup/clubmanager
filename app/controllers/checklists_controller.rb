@@ -2,6 +2,8 @@ class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   skip_load_resource :only => :new
+  before_filter :get_layout_data
+
 
   def index
   end

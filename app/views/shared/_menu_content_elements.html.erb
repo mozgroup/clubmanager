@@ -28,11 +28,46 @@
         </ul>
 
         <!-- Navigation goes here -->
-        <section class="navigable">
-
-          <ul class="big-menu">
-            <li>
-              <%= link_to "Tasks", tasks_path %>
-          </ul>
-
-        </section>
+        <ul class="unstyled-list">
+          <li class="title-menu">Today's Tasks</li>
+          <% unless @incomplete_tasks.empty? %>
+          <li>
+            <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+            <% @incomplete_tasks.each do |task| %>
+                <li class="white-gradient">
+                    <ul class="message-status">
+                        <li class="unstarred"><%= link_to 'Complete Task', '#', title: 'Incomplete' %></li>
+                    </ul>
+                    <%= link_to '#', title: 'Open checklist' do %>
+                        <strong class="blue"><%= task.name %></strong><br />
+                        <%= task.checklist_name %>
+                    <% end %>
+                </li>
+            <% end %>
+            </ul>
+          </li>
+          <% end %>
+          <li class="title-menu">New Messages</li>
+          <% unless @unread_envelopes.empty? %>
+          <li>
+            <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+            <% @unread_envelopes.each do |envelope| %>
+                <li class="white-gradient">
+                    <ul class="message-status">
+                        <li class="starred"><%= link_to 'Starred', '#', title: 'Starred' %></li>
+                        <li class="new-message"><%= link_to 'New', '#', title: 'Mark as read' %></li>
+                    </ul>
+                    <ul class="message-info">
+                        <li class="blue"><%= format_delivery_date(envelope.delivered_at) %></li>
+                    </ul>
+                    <%= link_to '#', title: 'Read Message' do %>
+                        <strong class="blue"><%= envelope.sender_full_name %></strong><br />
+                        <strong><%= envelope.message_subject %></strong>
+                    <% end %>
+                </li>
+            <% end %>
+            </ul>
+          </li>
+          <% end %>
+          <li class="title-menu">Today's Events</li>
+        </ul>

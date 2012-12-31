@@ -1,5 +1,7 @@
 class TasksController < TasksBaseController
   before_filter :authenticate_user!
+  before_filter :get_layout_data
+
   load_and_authorize_resource
   
   def index

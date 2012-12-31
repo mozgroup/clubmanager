@@ -1,6 +1,8 @@
 class DailySummariesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_monthly_summary
+  before_filter :get_layout_data
+
 
   def show
     @daily_summary = DailySummary.find params[:id]

@@ -25,6 +25,14 @@ class Envelope < ActiveRecord::Base
 
   delegate :importance, :subject, to: :message, prefix: true
 
+  def self.for_recipient(user_id)
+    where(recipient_id: user_id)
+  end
+
+  def self.unread
+    where(read_flag: false)
+  end
+
   def sender_full_name
     self.message.author_full_name
   end

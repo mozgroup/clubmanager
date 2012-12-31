@@ -1,4 +1,6 @@
 class CalendarController < ApplicationController
+  before_filter :get_layout_data
+
   include CalendarMethods
 
   def index

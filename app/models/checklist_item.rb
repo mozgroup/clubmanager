@@ -15,6 +15,32 @@ class ChecklistItem < ActiveRecord::Base
   belongs_to :checklist
   has_many :completes, :as => :completable, :dependent => :destroy
 
+  delegate :name, to: :checklist, prefix: true
+
+  def self.for_user(user_id)
+    joins(:checklist).where('checklists.user_id = ?', user_id)
+  end
+
+  def self.completes_for_today
+    joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_day, Time.zone.now.end_of_day)
+  end
+
+  def self.daily
+    joins(:checklist).where('checklists.frequency = ?', Checklist::DAILY)
+  end
+
+  def self.weekly
+    joins(:checklist).where('checklists.frequency = ?', Checklist::WEEKLY)
+  end
+
+  def self.monthly
+    joins(:checklist).where('checklists.frequency = ?', Checklist::MONTHLY)
+  end
+
+  def self.daily_incomplete_for_user(user_id)
+    (for_user(user_id).daily.order(:id) - for_user(user_id).completes_for_today.order(:id))
+  end
+
   def is_complete?(date)
   	start_date = date.beginning_of_day
   	end_date = date.end_of_day
@@ -32,4 +58,5 @@ class ChecklistItem < ActiveRecord::Base
   def complete
   	self.completes.create
   end
+
 end

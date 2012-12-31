@@ -2359,6 +2359,7 @@ li.message-menu {
 			.shortcut-stats		{ background-position: -66px -355px; }
 			.shortcut-settings	{ background-position: -66px -425px; }
 			.shortcut-notes		{ background-position: -66px -495px; }
+			.shortcut-checklist	{ background-position: -66px -565px; }
 
 			span.shortcut-dashboard	{ background-position: 1px -5px; }
 			span.shortcut-messages	{ background-position: 1px -75px; }
@@ -2368,6 +2369,7 @@ li.message-menu {
 			span.shortcut-stats		{ background-position: 1px -355px; }
 			span.shortcut-settings	{ background-position: 1px -425px; }
 			span.shortcut-notes		{ background-position: 1px -495px; }
+			span.shortcut-checklist	{ background-position: 1px -565px; }
 
 /* Sidebar/drop-down menu */
 #menu {

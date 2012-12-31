@@ -1,5 +1,5 @@
 class InboxController < ApplicationController
-  before_filter :authenticate_user!, :get_navigation
+  before_filter :authenticate_user!, :get_navigation, :get_layout_data
 
   def index
   end

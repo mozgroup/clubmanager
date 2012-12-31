@@ -104,4 +104,11 @@ module HomeHelper
     "<td class=\"#{class_color}\"><strong>#{format_currency(amount)}</strong></td>".html_safe
   end
 
+  def format_delivery_date(date)
+    if date.today?
+      date.strftime('%I:%M%P')
+    else
+      date.strftime('%m/%d/%Y %I:%M%P')
+    end
+  end
 end
