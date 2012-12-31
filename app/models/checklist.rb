@@ -31,16 +31,12 @@ class Checklist < ActiveRecord::Base
   MONTHLY = 'monthly'
   SEMIMONTHLY = 'semimonthly' # Twice monthly
   BIMONTHLY = 'bimonthly'     # Every two months
-  FREQUENCY_LIST = [DAILY, WEEKLY, MONTHLY]
+  FREQUENCIES = [DAILY, WEEKLY, MONTHLY]
 
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
   def self.for_user(user_id)
     where(user_id: user_id)
-  end
-
-  def self.frequency
-    FREQUENCY_LIST.collect { |f| f.camelize }
   end
 
   def assigned_to

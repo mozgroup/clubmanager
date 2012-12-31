@@ -2,6 +2,8 @@
 
   <div class="with-padding">
 
+      <%= f.hidden_field :author_id %>
+
       <p class="button-height inline-medium-label">
         <%= f.label :name, class: 'label' do %>
           Checklist Name
@@ -22,9 +24,9 @@
         <%= f.label :frequency, class: 'label' do %>
           Frequency
         <% end %>
-        <% Checklist.frequency.each do |freq| %>
-          <%= f.radio_button :frequency, freq, class: 'radio', checked: (freq == @checklist.frequency ? true : false) %>
-          <%= freq %>
+        <% for frequency in Checklist::FREQUENCIES %>
+          <%= f.radio_button :frequency, frequency, class: 'radio', checked: (@checklist.frequency == frequency) %>
+          <%= frequency.humanize %>
         <% end %>
       </p>
 

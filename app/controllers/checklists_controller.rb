@@ -12,13 +12,14 @@ class ChecklistsController < ApplicationController
   end
 
   def new
+    @checklist = Checklist.new(author_id: current_user.id)
   end
 
   def edit
   end
 
   def create
-    @checklist = Checklist.new(params[:checklist].merge(author_id: current_user.id))
+    @checklist = Checklist.new(params[:checklist])
     if @checklist.save
       flash[:notice] = 'Checklist was successfully created.'
       redirect_to @checklist
