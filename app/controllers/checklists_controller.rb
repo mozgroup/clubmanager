@@ -10,7 +10,6 @@ class ChecklistsController < ApplicationController
   end
 
   def new
-    @checklist = Checklist.new(author_id: current_user.id)
   end
 
   def edit
