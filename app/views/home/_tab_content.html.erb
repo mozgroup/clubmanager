@@ -10,7 +10,7 @@
 
 	<div class="three-columns align-center">
 	  <strong>
-	    Business Days In Month: <span class="orange"><%= monthly_summary(club, @current_month).business_days_in_month %></span>
+	    Business Days In Month: <span class="orange"><%= business_days_in_month(club, @current_month) %></span>
 	  </strong>
 	</div>
 
@@ -20,12 +20,14 @@
 	  </strong>
 	</div>
 
-	<div class="three-columns align-right">
-      <%= link_to "More", forecast_monthly_summaries_path(club_id: club.id, month: @current_date), class: 'button blue-gradient' %>
-	</div>
+	<% unless business_days_completed(club, @current_month) == 0 %>
+		<div class="three-columns align-right">
+	      <%= link_to "More", forecast_monthly_summaries_path(club_id: club.id, month: @current_date), class: 'button blue-gradient' %>
+		</div>
 
-  	<%= render partial: 'block_content', collection: MonthlySummary::SUMMARY_TYPES, as: :block_name, 
-  	    locals: { club: club, summary: monthly_summary(club, @current_month) } %>
+	  	<%= render partial: 'block_content', collection: MonthlySummary::SUMMARY_TYPES, as: :block_name, 
+	  	    locals: { club: club, summary: monthly_summary(club, @current_month) } %>
+  	<% end %>
 
   </div>
 

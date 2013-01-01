@@ -90,7 +90,21 @@ module HomeHelper
   end
 
   def business_days_completed(club, current_date)
-    monthly_summary(club, current_date).daily_summaries.count
+    ms = monthly_summary(club, current_date)
+    if ms.nil?
+      0
+    else
+      ms.daily_summaries.count
+    end
+  end
+
+  def business_days_in_month(club, current_date)
+    ms = monthly_summary(club, current_date)
+    if ms.nil?
+      0
+    else
+      ms.business_days_in_month
+    end
   end
 
   def over_under(block_name, summary)
