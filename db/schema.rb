@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230190106) do
+ActiveRecord::Schema.define(:version => 20130101213000) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -61,8 +61,9 @@ ActiveRecord::Schema.define(:version => 20121230190106) do
     t.integer  "author_id"
     t.string   "name"
     t.string   "frequency"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "day_of_week"
   end
 
   add_index "checklists", ["author_id"], :name => "index_checklists_on_author_id"
