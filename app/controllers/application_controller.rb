@@ -15,7 +15,9 @@ class ApplicationController < ActionController::Base
 
     def get_layout_data
       @unread_envelopes = Envelope.for_recipient(current_user.id).unread.limit(4)
-      @incomplete_tasks = ChecklistItem.daily_incomplete_for_user(current_user.id).slice(0,3)
+      @daily_incomplete = ChecklistItem.daily_incomplete_for_user(current_user.id)
+      @weekly_incomplete = ChecklistItem.weekly_incomplete_for_user(current_user.id)
+      @monthly_incomplete = ChecklistItem.monthly_incomplete_for_user(current_user.id)
     end
     helper_method :get_layout_data
 

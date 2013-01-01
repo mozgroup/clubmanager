@@ -27,47 +27,64 @@
                   <% end %></li>
         </ul>
 
+        <section class="navigable">
+          <ul class="big-menu">
+            <li class="with-right-arrow">
+              <span>Checklists</span>
+              <ul class="big-menu">
+                <% unless @daily_incomplete.empty? %>
+                  <li class="with-right-arrow">
+                    <span>Today's Tasks</span>
+                    <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+                        <li class="title-menu">Today's Tasks</li>
+                    <% @daily_incomplete.each do |task| %>
+                        <li class="white-gradient">
+                            <%= link_to task.checklist, title: 'Open checklist' do %>
+                                <strong class="blue"><%= task.name %></strong><br />
+                                <%= task.checklist_name %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+                <% unless @weekly_incomplete.empty? %>
+                <li class="with-right-arrow">
+                  <span>This Week's Tasks</span>
+                    <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+                      <li class="title-menu">This Week's Tasks</li>
+                    <% @weekly_incomplete.each do |task| %>
+                        <li class="white-gradient">
+                            <%= link_to task.checklist, title: 'Open checklist' do %>
+                                <strong class="blue"><%= task.name %></strong><br />
+                                <%= task.checklist_name %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                    </ul>
+                </li>
+                <% end %>
+                <% unless @monthly_incomplete.empty? %>
+                <li class="with-right-arrow">
+                  <span>This Month's Tasks</span>
+                    <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+                      <li class="title-menu">This Month's Tasks</li>
+                    <% @monthly_incomplete.each do |task| %>
+                        <li class="white-gradient">
+                            <%= link_to task.checklist, title: 'Open checklist' do %>
+                                <strong class="blue"><%= task.name %></strong><br />
+                                <%= task.checklist_name %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                    </ul>
+                </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </section>
         <!-- Navigation goes here -->
-        <ul class="unstyled-list">
-          <li class="title-menu">Today's Tasks</li>
-          <% unless @incomplete_tasks.empty? %>
-          <li>
-            <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
-            <% @incomplete_tasks.each do |task| %>
-                <li class="white-gradient">
-                    <ul class="message-status">
-                        <li class="unstarred"><%= link_to 'Complete Task', '#', title: 'Incomplete' %></li>
-                    </ul>
-                    <%= link_to '#', title: 'Open checklist' do %>
-                        <strong class="blue"><%= task.name %></strong><br />
-                        <%= task.checklist_name %>
-                    <% end %>
-                </li>
-            <% end %>
-            </ul>
-          </li>
-          <% end %>
-          <li class="title-menu">New Messages</li>
-          <% unless @unread_envelopes.empty? %>
-          <li>
-            <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
-            <% @unread_envelopes.each do |envelope| %>
-                <li class="white-gradient">
-                    <ul class="message-status">
-                        <li class="starred"><%= link_to 'Starred', '#', title: 'Starred' %></li>
-                        <li class="new-message"><%= link_to 'New', '#', title: 'Mark as read' %></li>
-                    </ul>
-                    <ul class="message-info">
-                        <li class="blue"><%= format_delivery_date(envelope.delivered_at) %></li>
-                    </ul>
-                    <%= link_to '#', title: 'Read Message' do %>
-                        <strong class="blue"><%= envelope.sender_full_name %></strong><br />
-                        <strong><%= envelope.message_subject %></strong>
-                    <% end %>
-                </li>
-            <% end %>
-            </ul>
-          </li>
-          <% end %>
-          <li class="title-menu">Today's Events</li>
-        </ul>
+        <div id="navigation-list">
+          <%= render 'shared/navigation' %>
+        </div>

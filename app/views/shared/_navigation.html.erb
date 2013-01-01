@@ -1,0 +1,24 @@
+<ul class="unstyled-list">
+  <li class="title-menu">New Messages</li>
+  <% unless @unread_envelopes.empty? %>
+  <li>
+    <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+    <% @unread_envelopes.each do |envelope| %>
+        <li class="white-gradient">
+            <ul class="message-status">
+                <li class="starred"><%= link_to 'Starred', '#', title: 'Starred' %></li>
+                <li class="new-message"><%= link_to 'New', '#', title: 'Mark as read' %></li>
+            </ul>
+            <ul class="message-info">
+                <li class="blue"><%= format_delivery_date(envelope.delivered_at) %></li>
+            </ul>
+            <%= link_to '#', title: 'Read Message' do %>
+                <strong class="blue"><%= envelope.sender_full_name %></strong><br />
+                <strong><%= envelope.message_subject %></strong>
+            <% end %>
+        </li>
+    <% end %>
+    </ul>
+  </li>
+  <% end %>
+</ul>

@@ -25,6 +25,14 @@ class ChecklistItem < ActiveRecord::Base
     joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_day, Time.zone.now.end_of_day)
   end
 
+  def self.completes_for_week
+    joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_week, Time.zone.now.end_of_week)
+  end
+
+  def self.completes_for_month
+    joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_month, Time.zone.now.end_of_month)
+  end
+
   def self.daily
     joins(:checklist).where('checklists.frequency = ?', Checklist::DAILY)
   end
@@ -38,7 +46,15 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def self.daily_incomplete_for_user(user_id)
-    (for_user(user_id).daily.order(:id) - for_user(user_id).completes_for_today.order(:id))
+    (for_user(user_id).daily.order(:id) - for_user(user_id).daily.completes_for_today.order(:id))
+  end
+
+  def self.weekly_incomplete_for_user(user_id)
+    (for_user(user_id).weekly.order(:id) - for_user(user_id).weekly.completes_for_today.order(:id))
+  end
+
+  def self.monthly_incomplete_for_user(user_id)
+    (for_user(user_id).monthly.order(:id) - for_user(user_id).monthly.completes_for_today.order(:id))
   end
 
   def is_complete?(date)
