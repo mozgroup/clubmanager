@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20130101213000) do
     t.integer  "author_id"
     t.string   "name"
     t.string   "frequency"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "day_of_week"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "days_of_week_mask"
   end
 
   add_index "checklists", ["author_id"], :name => "index_checklists_on_author_id"

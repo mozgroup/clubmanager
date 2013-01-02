@@ -21,12 +21,18 @@
       </p>
 
       <p class="button-height inline-medium-label">
-        <%= f.label :frequency, class: 'label' do %>
-          Frequency
-        <% end %>
+        <%= f.label :frequency, class: 'label' %>
         <% for frequency in Checklist::FREQUENCIES %>
-          <%= f.radio_button :frequency, frequency, class: 'radio', checked: (@checklist.frequency == frequency) %>
+          <%= f.radio_button :frequency, frequency, class: 'checkbox', checked: (@checklist.frequency == frequency) %>
           <%= frequency.humanize %>
+        <% end %>
+      </p>
+
+      <p id="days-of-week" class="button-height inline-medium-label" style="display:<%= @checklist.frequency == Checklist::DAILY ? 'block' : 'none' %>">
+        <%= f.label :days_of_week, "Days", class: 'label' %>
+        <% for day in Checklist::DAYS_OF_WEEK %>
+          <%= check_box_tag "checklist[days_of_week][]", day, @checklist.days_of_week.include?(day) %>
+          <%= day.humanize %>
         <% end %>
       </p>
 

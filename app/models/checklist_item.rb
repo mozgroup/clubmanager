@@ -33,8 +33,13 @@ class ChecklistItem < ActiveRecord::Base
     joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_month, Time.zone.now.end_of_month)
   end
 
+  def self.with_day_of_week(dow)
+    joins.(:checklist).where("checklists.days_of_week_mask & #{2**Checklist::DAYS_OF_WEEK.index(dow.to_s)} > 0}" )
+  end
+
   def self.daily
-    joins(:checklist).where('checklists.frequency = ?', Checklist::DAILY)
+    joins(:checklist).where("checklists.days_of_week_mask & #{2**Time.zone.now.wday} > 0")
+#    joins(:checklist).where('checklists.frequency = ?', Checklist::DAILY)
   end
 
   def self.weekly
@@ -58,17 +63,23 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def is_complete?(date)
-  	start_date = date.beginning_of_day
-  	end_date = date.end_of_day
-  	if checklist.is_weekly?
-  		start_date = date.beginning_of_week
-  		end_date = date.end_of_week
-  	elsif checklist.is_monthly?
-  		start_date = date.beginning_of_month
-  		end_date = date.end_of_month
-  	end
+    if self.checklist.days_of_week.include? Checklist::DAYS_OF_WEEK[date.wday]
+    	start_date = date.beginning_of_day
+    	end_date = date.end_of_day
+      if checklist.is_daily?
 
-  	!completes.where('created_at >= ? and created_at <= ?', start_date, end_date).empty?
+    	elsif checklist.is_weekly?
+    		start_date = date.beginning_of_week
+    		end_date = date.end_of_week
+    	elsif checklist.is_monthly?
+    		start_date = date.beginning_of_month
+    		end_date = date.end_of_month
+    	end
+
+    	!completes.where('created_at >= ? and created_at <= ?', start_date, end_date).empty?
+    else
+      false
+    end
   end
 
   def complete

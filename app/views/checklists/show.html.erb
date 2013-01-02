@@ -22,6 +22,11 @@
 		<dt>Frequency</dt>
 		<dd><%= @checklist.frequency %></dd>
 
+		<% if @checklist.frequency == Checklist::DAILY %>
+			<dt><%= pluralize(@checklist.days_of_week.size, 'Day') %></dt>
+			<dd><%= @checklist.days_of_week.join(', ') %></dd>
+		<% end %>
+
 	</dl>
 
 	<div class="columns large-margin-top">

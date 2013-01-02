@@ -18,3 +18,9 @@ jQuery ->
   	regexp = new RegExp($(@).data('id'), 'g')
   	$(@).before($(@).data('fields').replace(regexp, time))
   	event.preventDefault()
+
+  $('input[type=radio]').click (event) ->
+    if $('#checklist_frequency_daily').is(':checked')
+      $('#days-of-week').show()
+    else
+      $('#days-of-week').hide()

@@ -13,7 +13,7 @@
 #
 
 class Checklist < ActiveRecord::Base
-  attr_accessible :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes
+  attr_accessible :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week
 
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
@@ -33,6 +33,9 @@ class Checklist < ActiveRecord::Base
   SEMIMONTHLY = 'semimonthly' # Twice monthly
   BIMONTHLY = 'bimonthly'     # Every two months
   FREQUENCIES = [DAILY, WEEKLY, MONTHLY]
+  DAYS_OF_WEEK = %w[sunday monday tuesday wednesday thursday friday saturday]
+
+  scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
 
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
@@ -50,14 +53,41 @@ class Checklist < ActiveRecord::Base
   end
 
   def is_daily?
-    frequency == 'Daily'
+    frequency == 'daily'
   end
 
   def is_weekly?
-    frequency == 'Weekly'
+    frequency == 'weekly'
   end
   
   def is_monthly?
-    frequency == 'Monthly'
+    frequency == 'monthly'
+  end
+
+  def days_of_week=(days)
+    self.days_of_week_mask = (days & DAYS_OF_WEEK).map { |d| 2**DAYS_OF_WEEK.index(d) }.sum
+  end
+
+  def days_of_week
+    DAYS_OF_WEEK.reject { |d| ((days_of_week_mask || 0) & 2**DAYS_OF_WEEK.index(d)).zero? }
+  end
+
+  def day_of_week(day)
+    case day
+    when 'sunday'
+      0
+    when 'monday'
+      1
+    when 'tuesday'
+      2
+    when 'wednesday'
+      3
+    when 'thursday'
+      4
+    when 'friday'
+      5
+    when 'saturday'
+      6
+    end
   end
 end
