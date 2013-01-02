@@ -30,7 +30,7 @@ class Envelope < ActiveRecord::Base
   end
 
   def self.unread
-    where(read_flag: false)
+    where(read_flag: false, author_flag: false)
   end
 
   def sender_full_name
