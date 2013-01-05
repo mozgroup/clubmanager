@@ -80,9 +80,11 @@
     <div class="panel-load-target task-panel" style="height:600px">
 
       <div class="panel-control align-right">
+        <% if can? :create, Task %>
         <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
           <span class="button-icon"><span class="icon-star"></span></span>
           Create Task
+        <% end %>
         <% end %>
       </div>
 
