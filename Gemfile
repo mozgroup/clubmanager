@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.8'
 gem 'thin', '~> 1.4.1'
+gem 'pg', '~> 0.12.2'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'jquery-rails'
 gem 'devise', '~> 2.1.2'
@@ -12,7 +13,6 @@ gem "state_machine", "~> 1.1.2"
 gem "cancan", "~> 1.6.8"
 
 group :development, :test do
-  gem 'mysql2'
   gem 'rspec-rails', '>= 2.10.1'
   gem 'factory_girl_rails', '~> 4.0.0'
   gem 'guard-rspec', '~> 2.1.0'
