@@ -1,0 +1,16 @@
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+  <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/libs/glDatePicker/developr' %>
+
+    <%= form_for @task, remote: true do |f| %>
+
+    <%= render 'fields', f: f %>
+
+    <% end %>
+
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
+  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
+  <%= javascript_include_tag 'js/libs/glDatePicker/glDatePicker.min' %>
+  <%= javascript_include_tag 'tasks' %>

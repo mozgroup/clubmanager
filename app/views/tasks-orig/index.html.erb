@@ -1,0 +1,106 @@
+<% provide(:current_tasks, " class='current'".html_safe) %>
+<% provide(:title, "Tasks") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/table' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/styles/modal' %>
+  <%= stylesheet_link_tag 'css/libs/formValidator/developr.validationEngine' %>
+<% end %>
+
+<div class="content-panel">
+
+  <div class="panel-navigation silver-gradient">
+
+    <div class="panel-control">
+    </div>
+
+    <div class="panel-load-target" style="height:560px">
+
+      <div class="navigable">
+
+        <ul class="unstyled-list open-on-panel-content">
+
+          <li class="title-menu">Your Top Tasks</li>
+
+          <% @top_tasks.each do |top_task| %>
+
+            <li class="calendar-menu">
+              <%= link_to task_path(top_task), title: 'See task' do %>
+                <time datetime="<%= top_task.due_at.strftime("%Y-%m-%d") %>"><b><%= top_task.due_at.strftime("%-d") %></b> <%= top_task.due_at.strftime("%b") %></time>
+                <br />
+                <%= top_task.name %>
+              <% end %>
+            </li>
+
+          <% end %>
+
+          <li class="title-menu">Task Menu</li>
+
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @my_count %></span>My Tasks</span>
+            <ul class="big-menu">
+              <li class="title-menu">Your Tasks</li>
+              <li class="grey-gradient"> <%= link_to "All My Tasks", my_tasks_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "Assigned", assigned_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "In Progress", in_progress_tasks_path %> </li>
+              <li class="grey-gradient"> <%= link_to "Completed", completed_tasks_path %> </li>
+            </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @context_count %></span>Contexts</span>
+            <ul class="big-menu">
+              <li class="title-menu">Contexts</li>
+              <% @contexts.each do |context| %>
+                <li class="grey-gradient with-right-arrow"> <%= link_to context.name, context_tasks_path(context) %> </li>
+              <% end %>
+            </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+            <span><span class="list-count"><%= @project_count %></span>Projects</span>
+            <ul class="big-menu">
+              <li class="title-menu">Projects</li>
+              <% @projects.each do |project| %>
+                <li class="grey-gradient with-right-arrow"> <%= link_to project.name, project_tasks_path(project) %> </li>
+              <% end %>
+            </ul>
+          </li>
+
+        </ul>
+
+      </div>  <!-- end of panel navigation -->
+
+    </div>
+
+  </div>
+
+  <div class="panel-content silver-gradient">
+
+
+    <div class="panel-load-target task-panel" style="height:600px">
+
+      <div class="panel-control align-right">
+        <% if can? :create, Task %>
+        <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
+          <span class="button-icon"><span class="icon-star"></span></span>
+          Create Task
+        <% end %>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'js/developr.content-panel' %>
+  <%= javascript_include_tag 'js/developr.scroll' %>
+  <%= javascript_include_tag 'js/developr.table' %>
+  <%= javascript_include_tag 'js/developr.modal' %>
+  <%= javascript_include_tag 'js/developr.message' %>
+  <%= javascript_include_tag 'js/libs/formValidator/jquery.validationEngine' %>
+  <%= javascript_include_tag 'js/libs/formValidator/languages/jquery.validationEngine-en' %>
+<% end %>

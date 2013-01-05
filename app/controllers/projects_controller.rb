@@ -1,6 +1,4 @@
-class ProjectsController < TasksBaseController
-
-  layout 'tasks'
+class ProjectsController < ApplicationController
 
   def index
     @projects = Project.by_name

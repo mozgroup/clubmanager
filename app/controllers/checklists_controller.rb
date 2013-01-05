@@ -45,4 +45,5 @@ class ChecklistsController < ApplicationController
     flash[:notice] = 'Checklist was deleted.'
     redirect_to checklists_url
   end
+
 end

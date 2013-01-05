@@ -1,0 +1,66 @@
+<%= form_for @task do |f| %>
+  <%= render 'shared/form_error_messages', object: f.object %>
+
+  <%= f.hidden_field :owner_id %>
+
+  <div class="with-padding">
+    <p class="button-height inline-medium-label">
+      <%= f.label :context_name, class: 'label' do %>
+        Context
+      <% end %>
+      <%= f.text_field :context_name, class: 'input' %>
+      <small class="input-info">Required</small>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :project_name, class: 'label' do %>
+        Project
+      <% end %>
+      <%= f.text_field :project_name, class: 'input' %>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :name, class: 'label' do %>
+        Task Name
+      <% end %>
+      <%= f.text_field :name, class: 'input' %>
+      <small class="input-info">Required</small>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :assigned_to, class: 'label' do %>
+        Assigned To
+      <% end %>
+      <%= f.text_field :assigned_to, class: 'input' %>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :due_at, class: 'label' do %>
+        Due On
+      <% end %>
+      <span class="input">
+        <span class="icon-calendar"></span>
+        <%= f.text_field :due_at, class: 'input-unstyled datepicker' %>
+      </span>
+      <small class="input-info">Required</small>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :notes, class: 'label' do %>
+        Notes
+      <% end %>
+      <%= f.text_area :notes, rows: 5, class: 'input' %>
+    </p>
+
+    <div class="field-block button-height">
+      <%= button_tag(class: 'button glossy mid-margin-right open-on-panel-content') do %>
+        <span class="button-icon"><span class="icon-tick"></span></span>
+        Save
+      <% end %>
+      <%= link_to tasks_path, class: 'button' do %>
+        <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
+        Cancel
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,115 +1,68 @@
-class TasksController < TasksBaseController
+class TasksController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+  skip_load_resource :only => :new
   before_filter :get_layout_data
 
-  load_and_authorize_resource
-  
   def index
-    @tasks = current_user.tasks
+  end
+
+  def show
   end
 
   def new
-    @task = Task.new(owner_id: current_user.id, assignee_id: current_user.id)
-    render layout: false
+  	@task = Task.new(owner_id: current_user.id)
   end
 
   def edit
-    @task = Task.find(params[:id])
-    render layout: false
-  end
-
-  def update
-    @task = Task.find(params[:id])
-    if @task.update_attributes(params[:task])
-      flash[:sucess] = "Task successfully updated!"
-    else
-      render 'edit'
-    end
   end
 
   def create
     @task = Task.new(params[:task])
     if @task.save
-      flash[:success] = "Task created!"
+      flash[:notice] = 'A task was successfully created.'
+      redirect_to @task
     else
       render 'new'
+    end
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update_attributes(params[:task])
+      flash[:notice] = 'The task was successfully updated.'
+      redirect_to @task
+    else
+      render 'edit'
     end
   end
 
   def destroy
     @task = Task.find(params[:id])
     @task.destroy
-    render 'index'
-  end
-
-  def show
-    @task = Task.find params[:id]
-    render layout: false
+    flash[:notice] = 'The task was deleted.'
+    redirect_to tasks_url
   end
 
   def assign
-    @task = Task.find params[:id]
-    render layout: false
-  end
-
-  def update_assigned_to
-    @task = Task.find params[:id]
-    @task.update_assigned_to params[:task][:assigned_to]
-    respond_to do |format|
-      format.js { render layout: false }
-    end
   end
 
   def update_claimed
     @task = Task.find params[:id]
     @task.claim_task
-    respond_to do |format|
-      format.js { render layout: false }
-    end
+    redirect_to @task
   end
 
   def start
     @task = Task.find params[:id]
     @task.start_task
-    respond_to do |format|
-      format.js { render layout: false }
-    end
+    redirect_to @task
   end
 
   def complete
     @task = Task.find params[:id]
     @task.complete_task
-    respond_to do |format|
-      format.js { render layout: false }
-    end
+    redirect_to @task
   end
 
-  def my_tasks
-    @tasks = current_user.tasks
-    render layout: false
-  end
-
-  def assigned
-    @tasks = current_user.tasks.assigned
-    render layout: false
-  end
-
-  def in_progress
-    @tasks = current_user.tasks.started
-    render layout: false
-  end
-
-  def completed
-    @tasks = current_user.tasks.completed
-    render layout: false
-  end
-
-  def context
-    @tasks = Task.by_context(params[:context_id])
-    render layout: false
-  end
-
-  def project
-    @tasks = Task.by_project(params[:project_id])
-    render layout: false
-  end
 end

@@ -1,36 +1,53 @@
-<div class="panel-control align-right">
+<% provide(:current_tasks, " class='current'".html_safe) %>
+<% provide(:title, @task.name) %>
 
-  <% if current_user == @task.owner %>
-    <%= link_to assign_task_path(@task), id: 'task-assign', class: 'button open-on-panel-content' do %>
-      <span class="button-icon"><span class="icon-lightning"></span></span>
-      Assign Task
-    <% end %>
-  <% end %>
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'tasks' %>
+<% end %>
+
+<div class="large-margin-left margin-bottom">
   <% if current_user == @task.assignee && @task.assigned? %>
-    <%= link_to update_claimed_task_path(@task), id: 'task-claim', class: 'button', method: :put, remote: true do %>
+    <%= link_to update_claimed_task_path(@task), id: 'task-claim', class: 'button', method: :put do %>
       <span class="button-icon"><span class="icon-like"></span></span>
       Accept Task
     <% end %>
   <% end %>
   <% if current_user == @task.assignee && (@task.assigned? || @task.claimed?) %>
-    <%= link_to start_task_path(@task), class: 'button open-on-panel-content', method: :put do %>
+    <%= link_to start_task_path(@task), class: 'button', method: :put do %>
       <span class="button-icon"><span class="icon-play"></span></span>
       Start Task
     <% end %>
   <% end %>
   <% if current_user == @task.assignee && @task.started? %>
-    <%= link_to complete_task_path(@task), class: 'button open-on-panel-content', method: :put do %>
+    <%= link_to complete_task_path(@task), class: 'button', method: :put do %>
       <span class="button-icon"><span class="icon-play"></span></span>
       Complete Task
     <% end %>
   <% end %>
-  <%= link_to edit_task_path(@task), class: 'button open-on-panel-content' do %>
+  <%= link_to edit_task_path(@task), class: 'button' do %>
     <span class="button-icon"><span class="icon-star"></span></span>
     Edit Task
   <% end %>
+  <% if can? :destroy, Task %>
+    <%= link_to @task, method: :delete, class: 'button', data: { confirm: 'Are you sure?' } do %>
+      <span class="button-icon"><span class="icon-trash"></span></span>
+      Delete Task
+    <% end %>
+  <% end %>
+  <%= link_to tasks_path, class: 'button' do %>
+    <span class="button-icon"><span class="icon-list"></span></span>
+    Back To Tasks
+  <% end %>
 </div>
 
-<div class="with-padding">
+<div class="large-margin-left large-margin-right">
+  <fieldset class="fieldset">
   <p class="inline-medium-label">
     <%= label_tag 'name', 'Task', class: 'label' %>
     <%= @task.name %>
@@ -56,7 +73,7 @@
     <%= @task.owner_full_name %>
   </p>
 
-  <%= form_for @task, :url => update_assigned_to_task_path(@task), remote: true, method: :put  do |f| %>
+  <%= form_for @task  do |f| %>
 
     <p class="button-height inline-medium-label">
       <%= f.label :assigned_to, class: 'label' do %>
@@ -70,6 +87,7 @@
     </p>
 
   <% end %>
+
 
   <p class="inline-medium-label">
     <%= label_tag 'due_at', 'Date Due', class: 'label' %>
@@ -95,6 +113,8 @@
     <%= label_tag 'notes', 'Notes', class: 'label' %>
     <%= @task.notes %>
   </p>
-</div>
 
-<%= javascript_include_tag 'tasks' %>
+  </fieldset>
+
+
+</div>
