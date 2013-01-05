@@ -28,9 +28,11 @@
     <span class="button-icon"><span class="icon-star"></span></span>
     Edit Task
   <% end %>
-  <%= link_to new_task_path, class: 'button open-on-panel-content' do %>
-    <span class="button-icon"><span class="icon-star"></span></span>
-    Create Task
+  <% if can? :destroy, Task %>
+    <%= link_to @task, method: :delete, class: 'button open-on-panel-content', data: { confirm: 'Are you sure?' } do %>
+      <span class="button-icon"><span class="icon-trash"></span></span>
+      Delete Task
+    <% end %>
   <% end %>
 </div>
 

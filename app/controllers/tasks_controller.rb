@@ -35,6 +35,12 @@ class TasksController < TasksBaseController
     end
   end
 
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    render 'index'
+  end
+
   def show
     @task = Task.find params[:id]
     render layout: false
