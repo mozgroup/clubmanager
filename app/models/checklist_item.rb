@@ -63,27 +63,22 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def is_complete?(date)
-    if self.checklist.days_of_week.include? Checklist::DAYS_OF_WEEK[date.wday]
-    	start_date = date.beginning_of_day
-    	end_date = date.end_of_day
-      if checklist.is_daily?
+    start_date = date.beginning_of_day
+    end_date = date.end_of_day
 
-    	elsif checklist.is_weekly?
-    		start_date = date.beginning_of_week
-    		end_date = date.end_of_week
-    	elsif checklist.is_monthly?
-    		start_date = date.beginning_of_month
-    		end_date = date.end_of_month
-    	end
-
-    	!completes.where('created_at >= ? and created_at <= ?', start_date, end_date).empty?
-    else
-      false
+    if checklist.is_weekly?
+      start_date = date.beginning_of_week
+      end_date = date.end_of_week
+    elsif checklist.is_monthly?
+      start_date = date.beginning_of_month
+      end_date = date.end_of_month
     end
+
+    !completes.where('created_at >= ? and created_at <= ?', start_date, end_date).empty?
   end
 
   def complete
-  	self.completes.create
+    self.completes.create
   end
 
 end
