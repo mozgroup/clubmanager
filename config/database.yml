@@ -15,3 +15,12 @@ test:
   username: cm_admin
   password: nov8ordie
   host: localhost
+
+-production:
+  adapter: postgresql
+  encoding: unicode
+  database: club_manager_development
+  pool: 5
+  username: tadpreston
+  password: nov8ordie
+  host: localhost
