@@ -16,7 +16,7 @@ test:
   password: nov8ordie
   host: localhost
 
--production:
+production:
   adapter: postgresql
   encoding: unicode
   database: club_manager_development
