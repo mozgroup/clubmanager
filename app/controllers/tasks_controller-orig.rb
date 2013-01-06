@@ -1,4 +1,4 @@
-class TasksController < TasksBaseController
+class TasksControllerOrig < TasksBaseController
   before_filter :get_layout_data
 
   load_and_authorize_resource
