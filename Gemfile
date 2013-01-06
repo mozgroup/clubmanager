@@ -13,6 +13,7 @@ gem "state_machine", "~> 1.1.2"
 gem "cancan", "~> 1.6.8"
 
 group :development, :test do
+  gem 'mysql2'
   gem 'rspec-rails', '>= 2.10.1'
   gem 'factory_girl_rails', '~> 4.0.0'
   gem 'guard-rspec', '~> 2.1.0'
