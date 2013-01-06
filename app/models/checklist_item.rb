@@ -26,7 +26,7 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def self.completes_for_week
-    joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_week, Time.zone.now.end_of_week)
+    joins(:completes).where('completes.created_at >= ? and completes.created_at <= ?', Time.zone.now.beginning_of_week(:sunday), Time.zone.now.end_of_week(:sunday))
   end
 
   def self.completes_for_month
@@ -55,11 +55,11 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def self.weekly_incomplete_for_user(user_id)
-    (for_user(user_id).weekly.order(:id) - for_user(user_id).weekly.completes_for_today.order(:id))
+    (for_user(user_id).weekly.order(:id) - for_user(user_id).weekly.completes_for_week.order(:id))
   end
 
   def self.monthly_incomplete_for_user(user_id)
-    (for_user(user_id).monthly.order(:id) - for_user(user_id).monthly.completes_for_today.order(:id))
+    (for_user(user_id).monthly.order(:id) - for_user(user_id).monthly.completes_for_month.order(:id))
   end
 
   def is_complete?(date)
@@ -67,8 +67,8 @@ class ChecklistItem < ActiveRecord::Base
     end_date = date.end_of_day
 
     if checklist.is_weekly?
-      start_date = date.beginning_of_week
-      end_date = date.end_of_week
+      start_date = date.beginning_of_week(:sunday)
+      end_date = date.end_of_week(:sunday)
     elsif checklist.is_monthly?
       start_date = date.beginning_of_month
       end_date = date.end_of_month
