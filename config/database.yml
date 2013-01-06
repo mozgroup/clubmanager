@@ -1,38 +1,38 @@
-#development:
-#  adapter: mysql2
-#  encoding: utf8
-#  database: club_manager_development
-#  pool: 5
-#  username: cm_admin
-#  password: nov8ordie
-#  host: localhost
-#
-#test:
-#  adapter: mysql2
-#  encoding: utf8
-#  database: club_manager_test
-#  pool: 5
-#  username: cm_admin
-#  password: nov8ordie
-#  host: localhost
-
 development:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   database: club_manager_development
   pool: 5
-  username: tadpreston
+  username: cm_admin
   password: nov8ordie
   host: localhost
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
+  encoding: utf8
   database: club_manager_test
   pool: 5
-  username: tadpreston
+  username: cm_admin
   password: nov8ordie
   host: localhost
+
+#development:
+#  adapter: postgresql
+#  encoding: unicode
+#  database: club_manager_development
+#  pool: 5
+#  username: tadpreston
+#  password: nov8ordie
+#  host: localhost
+#
+#test:
+#  adapter: postgresql
+#  encoding: unicode
+#  database: club_manager_test
+#  pool: 5
+#  username: tadpreston
+#  password: nov8ordie
+#  host: localhost
 
 production:
   adapter: postgresql
