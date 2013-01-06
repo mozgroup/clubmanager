@@ -20,7 +20,7 @@ module HomeHelper
 
     items.each do |item|
 
-      if item[:start_at].wday == dow
+      if item[:start_at].wday + 1 == dow
 
         start_hour = item[:type] == 'task' ? '16' : item[:start_at].hour
         start_minute = item[:type] == 'task' ? '00' : item[:start_at].min
