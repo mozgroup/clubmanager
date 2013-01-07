@@ -22,18 +22,26 @@ jQuery ->
   if $('.event-link').length > 0
     $('.event-link').click (event) ->
       href = $(@).attr('href')
-      $.modal {
-        title: 'Event',
-        url: href
-        height: 500,
-        resizeOnLoad: true,
-        buttons: {
-          'Edit' : (modal) -> 
+      updatable = $(@).attr('updatable')
+      if updatable == 'true'
+        btns =
+          'Delete' : (modal) ->
+            deleteEvent modal, href
+          'Edit' : (modal) ->
             editEvent modal, href
           'Close': (modal) -> modal.closeModal()
-        },
+      else
+        btns =
+          'Close': (modal) -> modal.closeModal()
+
+      $.modal
+        title: 'Event'
+        url: href
+        height: 500
+        resizeOnLoad: true
+        buttons: btns
         loadingMessage: 'Loading event form...'
-      }
+
       event.preventDefault()
 
   if $("#event_invitee_list").length > 0
@@ -87,3 +95,12 @@ editEvent = (modal, link) ->
     loadingMessage: 'Loading event form...'
   }
   event.preventDefault()
+
+deleteEvent = (modal, href) ->
+  if confirm 'Are you sure you want to delete this event?'
+    $.ajax
+      url: href
+      type: 'DELETE'
+      success: (data) ->
+        location.reload()
+        modal.closeModal()

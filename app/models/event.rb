@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   attr_accessible :description, :end_at, :invitee_list, :location, :start_at, :subject, :user_id
 
   belongs_to :organizer, class_name: 'User', foreign_key: :user_id
-  has_many :user_events
+  has_many :user_events, dependent: :destroy
   has_many :users, through: :user_events
 
   validates :subject, presence: true

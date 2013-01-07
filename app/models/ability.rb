@@ -16,10 +16,12 @@ class Ability
         can :manage, Task, owner_id: user.id
         can [:read, :create], Context
         can [:read, :create], Project
+        can [:create, :read], Event
+        can [:update, :destroy], Event, user_id: user.id
     else
-    	can :read, Checklist, user_id: user.id
+      can :read, Checklist, user_id: user.id
       can [:read, :update], Task, assignee_id: user.id
     end
-            
+
   end
 end

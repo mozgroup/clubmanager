@@ -42,6 +42,12 @@ class EventsController < ApplicationController
     @event = Event.find params[:id]
   end
 
+  def destroy
+    event = Event.find params[:id]
+    event.destroy
+    render :nothing => true
+  end
+
   private
 
     def event_time(offset, current_date = Time.zone.now)
