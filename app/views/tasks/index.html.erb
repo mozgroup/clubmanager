@@ -25,6 +25,7 @@
         <th scope="col">Task Name</th>
         <th scope="col">Date Due</th>
         <th scope="col">Assigned To</th>
+        <th scope="col">Status</th>
         <th scope="col">Created By</th>
         <th scope="col"></th>
       </tr>
@@ -38,6 +39,7 @@
           <th scope="row"><%= link_to task.name, task %></th>
           <td><%= date_format(task.due_at) %></td>
           <td><%= task.assignee_full_name %></td>
+          <td><%= task.state %></td>
           <td><%= task.owner_full_name %></td>
           <td class="align-right low-padding">
             <%= link_to 'Show', task, class: 'button compact' %>
