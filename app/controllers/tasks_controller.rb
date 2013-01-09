@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   end
 
   def new
-  	@task = Task.new(owner_id: current_user.id)
+    @task = Task.new(owner_id: current_user.id)
   end
 
   def edit

@@ -30,11 +30,13 @@
       Complete Task
     <% end %>
   <% end %>
+  <% if can? :update, @task %>
   <%= link_to edit_task_path(@task), class: 'button' do %>
     <span class="button-icon"><span class="icon-star"></span></span>
     Edit Task
   <% end %>
-  <% if can? :destroy, Task %>
+  <% end %>
+  <% if can? :destroy, @task %>
     <%= link_to @task, method: :delete, class: 'button', data: { confirm: 'Are you sure?' } do %>
       <span class="button-icon"><span class="icon-trash"></span></span>
       Delete Task

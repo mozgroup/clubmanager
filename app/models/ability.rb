@@ -20,7 +20,8 @@ class Ability
         can [:update, :destroy], Event, user_id: user.id
     else
       can :read, Checklist, user_id: user.id
-      can [:read, :update], Task, assignee_id: user.id
+      can :read, Task, assignee_id: user.id
+      can [:update_claimed, :start, :complete], Task, assignee_id: user.id
     end
 
   end
