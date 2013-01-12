@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     end
     helper_method :get_layout_data
 
+    def dummy_method
+      'hello'
+    end
+
   private
 
     def after_sign_out_path_for(resource_or_scope)
