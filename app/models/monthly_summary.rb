@@ -37,7 +37,7 @@ class MonthlySummary < ActiveRecord::Base
   DRAFT_TYPES = ['membership_draft', 'training_draft']
 
   def self.for_club(club_id)
-  	where(:club_id => club_id)
+    where(:club_id => club_id)
   end
 
   def self.for_month(date)

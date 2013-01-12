@@ -13,7 +13,7 @@
 #
 
 class Checklist < ActiveRecord::Base
-  attr_accessible :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week
+  attr_accessible :user_id, :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week
 
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
