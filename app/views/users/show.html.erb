@@ -1,0 +1,21 @@
+<% provide(:title, "User Profile - #{@user.full_name}") %>
+
+<div class="with-padding">
+
+  <dl class="definition inline">
+
+    <dt>Employee Number</dt>
+    <dd><%= @user.employee_number %></dd>
+
+    <dt>Job Title</dt>
+    <dd><%= @user.title %></dd>
+
+    <dt>E-Mail</dt>
+    <dd><%= @user.email %></dd>
+
+    <dt>Roles</dt>
+    <dd><%= @user.roles %></dd>
+
+  </dl>
+
+</div>
