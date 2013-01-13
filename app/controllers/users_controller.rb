@@ -26,4 +26,8 @@ class UsersController < ApplicationController
       format.json { render json: users.collect { |u| { label: u.full_name, value: u.id } }.to_json }
     end
   end
+
+  def change_password
+    @user = User.find params[:id]
+  end
 end

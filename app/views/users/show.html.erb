@@ -1,21 +1,38 @@
-<% provide(:title, "User Profile - #{@user.full_name}") %>
+<% provide(:title, "User Settings - #{@user.full_name}") %>
 
-<div class="with-padding">
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+<% end %>
 
-  <dl class="definition inline">
+<div class="large-margin-left large-margin-right">
 
-    <dt>Employee Number</dt>
-    <dd><%= @user.employee_number %></dd>
+  <fieldset class="fieldset">
 
-    <dt>Job Title</dt>
-    <dd><%= @user.title %></dd>
+    <p class="inline-medium-label">
+      <%= label_tag 'employee_number', 'Employee Number', class: 'label' %>
+      <%= @user.employee_number %>
+    </p>
 
-    <dt>E-Mail</dt>
-    <dd><%= @user.email %></dd>
+    <p class="inline-medium-label">
+      <%= label_tag 'title', 'Job Title', class: 'label' %>
+      <%= @user.title %>
+    </p>
 
-    <dt>Roles</dt>
-    <dd><%= @user.roles %></dd>
+    <p class="inline-medium-label">
+      <%= label_tag 'email', 'E-Mail', class: 'label' %>
+      <%= @user.email %>
+    </p>
 
-  </dl>
+    <p class="inline-medium-label">
+      <%= label_tag 'roles', 'Roles', class: 'label' %>
+      <%= @user.roles %>
+    </p>
+
+  </fieldset>
+
+  <div class="margin-top">
+    <%= link_to 'Change Password', change_password_user_path(@user), class: 'button' %>
+    <%= link_to 'Change Settings', edit_user_path(@user), class: 'button' %>
+  </div>
 
 </div>

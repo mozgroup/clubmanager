@@ -3,6 +3,7 @@ require 'spec_helper'
 describe UsersController do
 
   let!(:user) { FactoryGirl.create(:user, roles: ['associate']) }
+  let!(:another_user) { FactoryGirl.create(:user, roles: ['associate']) }
 
   def valid_attributes
     {
@@ -16,8 +17,6 @@ describe UsersController do
   end
 
   describe "GET show" do
-    let!(:another_user) { FactoryGirl.create(:user, roles: ['associate']) }
-
     it "assigns the requested user as @user" do
       get :show, { id: user.to_param }
       assigns(:user).should eq(user)
@@ -80,4 +79,14 @@ describe UsersController do
     end
   end
 
+  describe "GET change_password" do
+    it "assigns the requested user to @user" do
+      get :change_password, { id: user.to_param }
+      assigns(:user).should eq(user)
+    end
+
+    it "should not allow access to another user" do
+      expect { get :change_password, { id: another_user.to_param } }.to raise_error(Exception)
+    end
+  end
 end

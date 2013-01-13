@@ -54,7 +54,9 @@ ClubManager::Application.routes.draw do
     resources :daily_summaries
   end
   resources :checklists
-  resources :users
+  resources :users do
+    get 'change_password', on: :member
+  end
 
   root to: 'home#index'
 

@@ -17,11 +17,9 @@
                 <li><%= link_to calendar_path, title: 'Calendar' do %>
                         <span class="icon-calendar"></span></a>
                     <% end %></li>
-                <% if can? :manage, MonthlySummary %>
-                <li><%= link_to monthly_summaries_path, title: 'Summary' do %>
+                <li><%= link_to current_user, title: 'User Settings' do %>
                     <span class="icon-gear"></span>
                 <% end %></li>
-                <% end %>
                 <li><%= link_to destroy_user_session_path, title: 'Signout', method: :delete do %>
                     <span class="icon-extract"></span>
                   <% end %></li>
@@ -29,6 +27,11 @@
 
         <section class="navigable">
           <ul class="big-menu">
+            <% if can? :manage, MonthlySummary %>
+            <li>
+              <%= link_to "Monthly Summary", monthly_summaries_path %>
+            </li>
+            <% end %>
             <li class="with-right-arrow">
               <span>Checklists</span>
               <ul class="big-menu">

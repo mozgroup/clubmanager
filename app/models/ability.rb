@@ -19,13 +19,13 @@ class Ability
       can [:create, :read], Event
       can [:update, :destroy], Event, user_id: user.id
       can :search, User
-      can [:read, :update], User, id: user.id
+      can [:read, :update, :change_password], User, id: user.id
     else
       can :read, Checklist, user_id: user.id
       can :read, Task, assignee_id: user.id
       can [:update_claimed, :start, :complete], Task, assignee_id: user.id
       can :search, User
-      can [:read, :update], User, id: user.id
+      can [:read, :update, :change_password], User, id: user.id
     end
 
   end
