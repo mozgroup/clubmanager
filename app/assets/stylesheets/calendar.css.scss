@@ -1,5 +1,46 @@
-.ui-autocomplete {
-  max-height: 100px;
-  overflow-y: auto;
-  overflow-x: hidden;
+.event-layer {
+  visibility: hidden;
+
+  border: 1px solid #ccc;
+
+}
+
+.calendar_event_editor {
+  display: none;
+}
+
+.right_side {
+  right: -315px;
+}
+
+.balloon {
+  position: absolute;
+  top: -30px;
+  z-index: 1000;
+  font-size: 13px;
+  line-height: 15px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  width: 260px;
+  height: 235px;
+  background-color: #fff;
+}
+
+.event_editor_fields {
+  margin: 5px;
+
+  .event_input {
+    border: none;
+    border-bottom: 1px dotted #ccc
+  }
+  .subject {
+    width: 100%;
+    font-size: 20px;
+  }
+  .event_time {
+  }
 }

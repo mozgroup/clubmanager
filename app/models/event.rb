@@ -53,4 +53,16 @@ class Event < ActiveRecord::Base
   def self.for_week(date)
     where('start_at >= ? AND start_at <= ?', date.at_beginning_of_week(:sunday), date.at_end_of_week(:sunday))
   end
+
+  def event_time
+  end
+
+  def event_time=(time)
+  end
+
+  def event_date
+  end
+
+  def event_date=(date)
+  end
 end
