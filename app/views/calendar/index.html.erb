@@ -19,11 +19,12 @@
   </div>
 
   <div id="calendar-body">
-  <%= render :partial => 'calendar' %>
+    <%= render 'calendar' %>
   </div>
 
-  <div class='calendar_event_editor'>
-    <div class='balloon right_side'></div>
+  <div id="dialog-event" title="New Event">
+    <div id="event-form">
+    </div>
   </div>
 
   <% content_for :template_functions do %>

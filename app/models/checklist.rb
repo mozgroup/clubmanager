@@ -2,14 +2,14 @@
 #
 # Table name: checklists
 #
-#  id          :integer          not null, primary key
-#  user_id     :integer
-#  author_id   :integer
-#  name        :string(255)
-#  frequency   :string(255)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  day_of_week :integer
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  author_id         :integer
+#  name              :string(255)
+#  frequency         :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  days_of_week_mask :integer
 #
 
 class Checklist < ActiveRecord::Base

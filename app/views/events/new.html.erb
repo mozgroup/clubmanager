@@ -1,5 +1,5 @@
 <div class="event_editor_fields">
-<%= form_for(@event) do |f| %>
+<%= form_for(@event, remote: true) do |f| %>
   <%= f.text_field :subject, class: 'event_input subject', placeholder: 'New Event' %>
   <%= f.text_field :event_time, class: 'event_input', placeholder: 'any time' %>
   <br />

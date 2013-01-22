@@ -1,17 +1,35 @@
 jQuery ->
+  event_list = ''
+
+  buttons = [
+    { text: 'Save Event', click: ->
+      $('form').submit()
+    }
+    { text: 'Cancel', click: ->
+      $('#dialog-event').dialog 'close'
+    }]
+
+  $('#dialog-event').dialog
+    width: 360
+    height: 340
+    autoOpen: false
+    close: (event, ui) ->
+      event_list.children().first().remove()
+    buttons: buttons
+
   $('table.calendar tbody tr td').on 'click', (event) ->
-    pos = $(@).position()
-    selected_date = $(@).attr 'data-cdate'
+    if $('#dialog-event').dialog 'isOpen'
+      $('#dialog-event').dialog 'close'
+      event_list.children().first().remove()
+    else
+      event_list = $(@).find 'ul.cal-events'
 
-    event_list = $(@).find 'ul.cal-events'
-    event_list.prepend '<li>New Event</li>'
+      pos = $(@).position()
+      selected_date = $(@).attr 'data-cdate'
 
-    $('.calendar_event_editor').show()
-    $('.balloon').position
-      my: "left top"
-      at: "right top"
-      of: @
-      collision: "fit"
+      event_list.prepend '<li>New Event</li>'
 
-    $.get '/events/new?current_date='+selected_date, (data) ->
-      $('.balloon').html data
+      $.get '/events/new?current_date='+selected_date, (data) ->
+        $('#event-form').html data
+
+      $('#dialog-event').dialog 'open'
