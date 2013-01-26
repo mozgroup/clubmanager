@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130101213000) do
+ActiveRecord::Schema.define(:version => 20130123033512) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -151,7 +151,27 @@ ActiveRecord::Schema.define(:version => 20130101213000) do
   add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"
   add_index "envelopes", ["recipient_id"], :name => "index_envelopes_on_recipient_id"
 
+  create_table "event_subscriptions", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "events", :force => true do |t|
+    t.integer "organizer_id"
+    t.text    "summary"
+    t.text    "description"
+    t.time    "starts_at_time"
+    t.date    "starts_at_date"
+    t.date    "ends_at_date"
+  end
+
+  add_index "events", ["organizer_id"], :name => "index_events_on_organizer_id"
+  add_index "events", ["starts_at_date", "starts_at_time"], :name => "index_events_on_starts_at_date_and_starts_at_time"
+  add_index "events", ["starts_at_date"], :name => "index_events_on_starts_at_date"
+
+  create_table "events_save", :force => true do |t|
     t.integer  "user_id"
     t.string   "invitee_list"
     t.string   "subject"
@@ -164,9 +184,9 @@ ActiveRecord::Schema.define(:version => 20130101213000) do
     t.string   "state"
   end
 
-  add_index "events", ["end_at"], :name => "index_events_on_end_at"
-  add_index "events", ["start_at"], :name => "index_events_on_start_at"
-  add_index "events", ["user_id"], :name => "index_events_on_user_id"
+  add_index "events_save", ["end_at"], :name => "index_events_on_end_at"
+  add_index "events_save", ["start_at"], :name => "index_events_on_start_at"
+  add_index "events_save", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "messages", :force => true do |t|
     t.integer  "author_id"

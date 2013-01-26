@@ -80,13 +80,24 @@ class User < ActiveRecord::Base
   end
   has_many :top_tasks, class_name: 'Task', foreign_key: :assignee_id, order: 'due_at ASC', limit: 3
 
-  has_many :user_events
-  has_many :events, through: :user_events do
-    def for_month(current_date)
-      where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
-    end
-  end
-  has_many :organized_events, class_name: 'Event', foreign_key: :user_id
+  has_many :subscriptions, class_name: 'EventSubscriptions', dependent: :destroy
+  has_many :events, through: :subscriptions
+  has_many :organized_events, class_name: 'Event', foreign_key: 'organizer_id'
+
+#  has_many :subscriptions, class_name: 'EventSubscriptions', dependent: :destroy
+#  has_many :events, through: :subscriptions, source: :event do
+#    def for_month(current_date)
+#      where('events.starts_at_date >= ? AND events.starts_at_date <= ?', current_date.beginning_of_month, current_date.end_of_month).order(:starts_at_date)
+#    end
+#  end
+
+#  has_many :user_events
+#  has_many :events, through: :user_events do
+#    def for_month(current_date)
+#      where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
+#    end
+#  end
+#  has_many :organized_events, class_name: 'Event', foreign_key: :user_id
   has_many :checklists
 
   accepts_nested_attributes_for :club_users
