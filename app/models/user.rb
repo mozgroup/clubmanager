@@ -84,20 +84,6 @@ class User < ActiveRecord::Base
   has_many :events, through: :subscriptions
   has_many :organized_events, class_name: 'Event', foreign_key: 'organizer_id'
 
-#  has_many :subscriptions, class_name: 'EventSubscriptions', dependent: :destroy
-#  has_many :events, through: :subscriptions, source: :event do
-#    def for_month(current_date)
-#      where('events.starts_at_date >= ? AND events.starts_at_date <= ?', current_date.beginning_of_month, current_date.end_of_month).order(:starts_at_date)
-#    end
-#  end
-
-#  has_many :user_events
-#  has_many :events, through: :user_events do
-#    def for_month(current_date)
-#      where('start_at >= ? AND start_at <= ?', current_date.at_beginning_of_month, current_date.at_end_of_month).order(:start_at)
-#    end
-#  end
-#  has_many :organized_events, class_name: 'Event', foreign_key: :user_id
   has_many :checklists
 
   accepts_nested_attributes_for :club_users
@@ -108,9 +94,8 @@ class User < ActiveRecord::Base
 
   def self.name_search(query)
     if query.present?
-      User.where('LOWER(first_name) LIKE :q or LOWER(last_name) LIKE :q', q: "%#{query.downcase}%")
-#     LOWER(column) LIKE '%#LCase(var)#%'
-#     User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%")
+#     User.where('LOWER(first_name) LIKE :q or LOWER(last_name) LIKE :q', q: "%#{query.downcase}%")
+      User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%")
     else
       scoped
     end
