@@ -10,8 +10,8 @@ jQuery ->
     }]
 
   $('#dialog-event').dialog
-    width: 360
-    height: 340
+    width: 400
+    height: 380
     autoOpen: false
     close: (event, ui) ->
       event_list.children().first().remove()

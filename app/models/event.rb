@@ -12,7 +12,7 @@
 #
 
 class Event < ActiveRecord::Base
-  attr_accessible :organizer_id, :summary, :description, :starts_at_time, :starts_at_date, :ends_at_date
+  attr_accessible :organizer_id, :summary, :description, :start_time, :starts_at_date, :ends_at_date, :subscription_names
 
 # after_create :add_organizer_as_subscriber
 
@@ -25,14 +25,49 @@ class Event < ActiveRecord::Base
 
   delegate :full_name, to: :organizer, prefix: true
 
-  include SysLogger
+  # include SysLogger
 
   scope :subscribed_to, lambda { |user| joins(:subscribers).where('event_subscriptions.user_id = ?', user.id) }
-  scope :for_month, lambda { |date| where('starts_at_date >= :b AND starts_at_date <= :e', b: date.beginning_of_month, e: date.end_of_month) }
-  scope :for_week, lambda { |date| where('starts_at_date >= :b AND starts_at_date <= :e', b: date.beginning_of_week(:sunday), e: date.end_of_week(:sunday)) }
+  scope :for_month, lambda { |date| where('ends_at_date >= :b AND ends_at_date <= :e', b: date.beginning_of_month, e: date.end_of_month) }
+  scope :for_week, lambda { |date| where('ends_at_date >= :b AND ends_at_date <= :e', b: date.beginning_of_week(:sunday), e: date.end_of_week(:sunday)) }
 
   def is_subscriber?(user)
     self.subscribers.include?(user)
+  end
+
+  def start_time
+    unless self.starts_at_time.nil?
+      if self.starts_at_time.min == 0
+        self.starts_at_time.strftime("%l%P")
+      else
+        self.starts_at_time.strftime("%l:%M%P")
+      end
+    end
+  end
+
+  def start_time=(time)
+    unless time.blank?
+      if time =~ /^(\d+):?(\d+)?(am|pm)$/
+        self.starts_at_time = Time.parse(time)
+      else
+        self.starts_at_time = Time.zone.now
+      end
+    end
+  end
+
+  def subscription_names
+  end
+
+  def subscription_names=(subscribers)
+    unless subscribers.blank?
+      subscribers_list = subscribers.gsub(/, |,/,'|').gsub(/|$/,'').split('|')
+      subscribers_list.each do |subscriber|
+        user = User.find_by_full_name(subscriber)
+        if user
+          self.subscribers << user
+        end
+      end
+    end
   end
 
   state_machine initial: :draft do
@@ -46,7 +81,7 @@ class Event < ActiveRecord::Base
   private
 
     after_create do |event|
-      event.subscribers << self.organizer
+      event.subscribers << self.organizer unless is_subscriber?(self.organizer)
     end
 
 end

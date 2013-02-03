@@ -31,16 +31,82 @@
 }
 
 .event_editor_fields {
-  margin: 5px;
+  margin: 0;
+  padding: 0;
+
+  header {
+    background-color: #f7f7f7;
+
+    fieldset {
+      display: block;
+      -webkit-margin-start: 2px;
+      -webkit-margin-end: 2px;
+      -webkit-padding-before: 0.35em;
+      -webkit-padding-start: 0.75em;
+      -webkit-padding-end: 0.75em;
+      -webkit-padding-after: 0.625em;
+
+      table {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        vertical-align: baseline;
+        background: transparent;
+
+        td.summary {
+          .event_input {
+            width: 250px;
+            font-size: 1.3em;
+          }
+        }
+        td.spacer {
+          width: 1%;
+        }
+        td.time {
+          .event_input {
+            width: 95px;
+            font-size: 1.3em;
+          }
+        }
+        td.event_description {
+          padding-top: 10px;
+          .event_input {
+            width: 350px;
+          }
+        }
+      }
+      .event_input {
+        background-color: inherit;
+      }
+    }
+  }
 
   .event_input {
     border: none;
-    border-bottom: 1px dotted #ccc
+    border-bottom: 1px dotted #ccc;
   }
-  .subject {
-    width: 100%;
-    font-size: 20px;
+
+  .event_date {
+    margin: 10px;
   }
-  .event_time {
+
+  .event_subscribers {
+    margin-top: 15px;
+    .event_input {
+      width: 360px;
+    }
+  }
+
+  .event-link {
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+  }
+
+  .ends_at_date {
+    div {
+      margin-left: 100px;
+    }
   }
 }

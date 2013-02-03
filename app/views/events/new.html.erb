@@ -1,19 +1,45 @@
 <div class="event_editor_fields">
 <%= form_for(@event, remote: true) do |f| %>
-  <%= f.text_field :subject, class: 'event_input subject', placeholder: 'New Event' %>
-  <%= f.text_field :event_time, class: 'event_input', placeholder: 'any time' %>
-  <br />
-  <%= f.text_field :description, class: 'event_input', placeholder: 'add an optional note' %>
-  <p class="button-height">
-    <%= f.text_field :event_date, class: 'datepicker' %>
-  </p>
-  <%= f.hidden_field :user_id %>
-  <%= f.hidden_field :end_at %>
+  <header>
+    <fieldset>
+      <table>
+        <tbody>
+          <tr>
+            <td class="summary">
+              <%= f.text_field :summary, class: 'event_input subject', placeholder: 'New Event' %>
+            </td>
+            <td class="spacer">&nbsp;</td>
+            <td class="time">
+              <%= f.text_field :start_time, class: 'event_input event_time', placeholder: 'any time' %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="event_description">
+              <%= f.text_field :description, class: 'event_input', placeholder: 'add an optional note' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </header>
+
+  <div class="event_date">
+    <%= f.text_field :starts_at_date, class: 'starts_at_datepicker' %>
+    <div class="event_ends_at">
+      <span class="event-link date_range">Lasts multiple days</span>
+      <div class="ends_at_date" style="display: none;">
+        <div>To</div>
+        <%= f.text_field :ends_at_date, class: 'ends_at_datepicker' %>
+      </div>
+    </div>
+  </div>
+  <div class="event_subscribers">
+    <span class="event-link invite-others">Invite others to this event</span>
+    <%= f.text_field :subscription_names, class: 'event_input', style: 'display: none',  placeholder: 'type the names to be notified' %>
+  </div>
+
+  <%= f.hidden_field :organizer_id %>
 <% end %>
 </div>
 
-<script>
-  jQuery(function() {
-    $(".datepicker").datepicker();
-  });
-</script>
+<%= javascript_include_tag 'events' %>

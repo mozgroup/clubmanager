@@ -6,7 +6,6 @@ class CalendarController < ApplicationController
 
   def index
     calendar_dates
-
-    @events = current_user.events.for_month @current_date
+    @events = Event.subscribed_to(current_user).for_month(@current_date)
   end
 end
