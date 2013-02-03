@@ -26,9 +26,21 @@
   <div class="event_date">
     <%= f.text_field :starts_at_date, class: 'starts_at_datepicker' %>
     <div class="event_ends_at">
-      <span class="event-link date_range">Lasts multiple days</span>
+      <div id="event-links">
+        <div class="event-link date_range">Lasts multiple days</div>
+        <div class="event-link recurring_event">Recurring Event</div>
+      </div>
+      <div id="recurring-event" style="display: none;">
+        <div class='recurring_description'>This event occurrs every:</div>
+        <div class="recurring_days">
+          <% for day in Event::DAYS_OF_WEEK %>
+            <%= check_box_tag "event[days_of_week][]", day, @event.days_of_week.include?(day) %>
+            <%= day.humanize %>
+          <% end %>
+        </div>
+      </div>
       <div class="ends_at_date" style="display: none;">
-        <div>To</div>
+        <div>Until</div>
         <%= f.text_field :ends_at_date, class: 'ends_at_datepicker' %>
       </div>
     </div>

@@ -54,7 +54,12 @@ jQuery ->
         return false
 
   $('.date_range').on 'click', (event) ->
-    $(@).hide()
+    $('#event-links').hide()
+    $('.ends_at_date').show()
+
+  $('.recurring_event').on 'click', (event) ->
+    $('#event-links').hide()
+    $('#recurring-event').show()
     $('.ends_at_date').show()
 
 split = (val) ->

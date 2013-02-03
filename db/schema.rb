@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123033512) do
+ActiveRecord::Schema.define(:version => 20130203030519) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20130123033512) do
     t.time    "starts_at_time"
     t.date    "starts_at_date"
     t.date    "ends_at_date"
+    t.integer "days_of_week_mask"
   end
 
   add_index "events", ["organizer_id"], :name => "index_events_on_organizer_id"
