@@ -65,6 +65,8 @@ class Event < ActiveRecord::Base
   end
 
   def subscription_names=(subscribers)
+    self.subscribers.clear unless self.subscribers.empty?
+
     unless subscribers.blank?
       subscribers_list = subscribers.gsub(/, |,/,'|').gsub(/|$/,'').split('|')
       subscribers_list.each do |subscriber|
@@ -118,14 +120,6 @@ class Event < ActiveRecord::Base
 
   def is_recurring?
     ! self.days_of_week_mask.nil?
-  end
-
-  state_machine initial: :draft do
-    event :send_invite do
-      transition [:draft, :sent] => :sent
-    end
-
-    after_transition :on => :send_invite, :do => :setup_attendees
   end
 
   private

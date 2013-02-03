@@ -50,14 +50,19 @@ jQuery ->
       $('#dialog-event').dialog 'open'
 
   $('table.calendar li a').on 'click', (event) ->
-    if $('#dialog-event').dialog 'isOpen'
-      $('#dialog-event').dialog 'close'
-
-    $.get $(@).attr('href'), (data) ->
-      $('#show-event').html data
-
-    $('#dialog-show-event').dialog 'open'
-
     # Stop the event from bubbling up
     event.stopPropagation()
     event.preventDefault()
+
+    if $('#dialog-event').dialog 'isOpen'
+      $('#dialog-event').dialog 'close'
+
+    clicked_link =  $('table.calendar li a')
+    if clicked_link.attr('updatable') == 'true'
+      $.get $(@).attr('href'), (data) ->
+        $('#event-form').html data
+      $('#dialog-event').dialog 'open'
+    else
+      $.get $(@).attr('href'), (data) ->
+        $('#show-event').html data
+      $('#dialog-show-event').dialog 'open'

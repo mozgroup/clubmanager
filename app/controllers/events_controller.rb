@@ -28,8 +28,6 @@ class EventsController < ApplicationController
     if @event.update_attributes(params[:event])
       flash[:success] = "Event updated"
       calendar_dates
-      @events = current_user.events.for_month @current_date
-      render 'ifshow'
     else
       render 'new'
     end

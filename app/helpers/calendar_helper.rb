@@ -53,7 +53,11 @@ module CalendarHelper
     events.each do |event|
       if is_in_range?(event, current_day)
         event_text = "#{!event.starts_at_time.blank? ? event.starts_at_time.strftime('%l:%m%p') + ' - ' : ''} #{event.summary}"
-        daily_markup << "<li>#{link_to(event_text, event, :class => 'white event-link')}</li>"
+        url_path = event
+        if can?(:update, event)
+          url_path = edit_event_path(event)
+        end
+        daily_markup << "<li>#{link_to(event_text, url_path, deletable: can?(:destroy,event), updatable: can?(:update,event), :class => 'white event-link')}</li>"
       end
     end
     daily_markup << '</ul>'
