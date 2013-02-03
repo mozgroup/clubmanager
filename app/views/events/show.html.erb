@@ -1,1 +1,56 @@
-<%= render :partial => 'show_data' %>
+<div class="event_editor_fields">
+  <header>
+    <fieldset>
+      <table>
+        <tbody>
+          <tr>
+            <td class="summary">
+              <span class='event_input subject'>
+                <%= @event.summary %>
+              </span>
+            </td>
+            <td class="spacer">&nbsp;</td>
+            <td class="time">
+              <span class='event_input event_time'>
+                <%= @event.start_time %>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" class="event_description">
+              <%= @event.description %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </fieldset>
+  </header>
+
+  <div class="event_date">
+    <%= @event.starts_at_date.strftime('%A, %B %-d, %Y') %>
+    <div class="event_ends_at">
+      <% if @event.is_recurring? %>
+        <div id="recurring-event">
+          <span class='recurring_description'>This event occurrs every:</span>
+          <div class="recurring_days">
+            <%= @event.days_of_week.each { |d| d.humanize } %>
+          </div>
+        </div>
+      <% end %>
+      <% if @event.is_recurring? || @event.ends_at_date > @event.starts_at_date %>
+        <div class="ends_at_date">
+          <div>Until</div>
+            <span class="ends_at_datepicker">
+            <%= @event.ends_at_date.strftime('%A, %B %-d, %Y') %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="event_subscribers">
+    <div class="event-link invite-others">Invitations sent to</div>
+    <%= @event.subscription_names %>
+  </div>
+
+</div>
+

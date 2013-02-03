@@ -59,6 +59,9 @@ class Event < ActiveRecord::Base
   end
 
   def subscription_names
+    sub_names = []
+    self.subscribers.each { |s| sub_names << s.full_name }
+    sub_names.join(', ')
   end
 
   def subscription_names=(subscribers)
@@ -111,6 +114,10 @@ class Event < ActiveRecord::Base
       end
     end
     is_for_date
+  end
+
+  def is_recurring?
+    ! self.days_of_week_mask.nil?
   end
 
   state_machine initial: :draft do

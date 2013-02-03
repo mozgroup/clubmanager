@@ -52,13 +52,15 @@ module CalendarHelper
     daily_markup = ['<ul class="cal-events">']
     events.each do |event|
       if is_in_range?(event, current_day)
-        event_text = "#{!event.starts_at_time.blank? ? event.starts_at_time.strftime('%l:%M%P') + ' - ' : ''} #{event.summary}"
-        daily_markup << "<li>#{link_to(event_text, event, deletable: can?(:destroy,event), updatable: can?(:update,event), :class => 'white event-link')}</li>"
+        event_text = "#{!event.starts_at_time.blank? ? event.starts_at_time.strftime('%l:%m%p') + ' - ' : ''} #{event.summary}"
+        daily_markup << "<li>#{link_to(event_text, event, :class => 'white event-link')}</li>"
       end
     end
     daily_markup << '</ul>'
     daily_markup.join
   end
+
+  # , deletable: can?(:destroy,event), updatable: can?(:update,event)
 
   def is_in_range?(event, current_day)
     event.for_date(current_day)
