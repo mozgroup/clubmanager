@@ -22,15 +22,15 @@ module HomeHelper
 
       if item[:start_at].wday + 1 == dow
 
-        item[:agenda_time] = Time.parse('7am') if item[:agenda_time].blank?
+        agenda_time = item[:agenda_time].blank? ? Time.zone.parse('7am') : item[:agenda_time].in_time_zone
 
-        start_hour = item[:type] == 'task' ? '16' : item[:agenda_time].hour
-        start_minute = item[:type] == 'task' ? '00' : item[:agenda_time].min
-        end_hour = item[:type] == 'task' ? '17' : item[:agenda_time].hour + 1.hour
-        end_minute = item[:type] == 'task' ? '00' : item[:agenda_time].min
+        start_hour = item[:type] == 'task' ? '16' : agenda_time.hour
+        start_minute = item[:type] == 'task' ? '00' : agenda_time.min
+        end_hour = item[:type] == 'task' ? '17' : agenda_time.hour + 1.hour
+        end_minute = item[:type] == 'task' ? '00' : agenda_time.min
 
         item_tags << agenda_span(start_hour,start_minute,end_hour,end_minute,item[:type]) do |tag|
-          tag << time_tag(item[:agenda_time], item[:agenda_time],item[:type])
+          tag << time_tag(agenda_time, agenda_time,item[:type])
           tag << (item[:type] == 'task' ? 'Task - ' : '') << item[:title]
         end
 
