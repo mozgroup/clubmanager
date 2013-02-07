@@ -52,7 +52,7 @@ module CalendarHelper
     daily_markup = ['<ul class="cal-events">']
     events.each do |event|
       if is_in_range?(event, current_day)
-        event_text = "#{!event.starts_at_time.blank? ? event.starts_at_time.strftime('%l:%m%p') + ' - ' : ''} #{event.summary}"
+        event_text = "#{!event.starts_at_time.blank? ? event.start_time + ' - ' : ''} #{event.summary}"
         url_path = event
         if can?(:update, event)
           url_path = edit_event_path(event)

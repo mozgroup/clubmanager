@@ -41,20 +41,16 @@ class Event < ActiveRecord::Base
   def start_time
     unless self.starts_at_time.nil?
       if self.starts_at_time.min == 0
-        self.starts_at_time.strftime("%l%P")
+        self.starts_at_time.in_time_zone.strftime("%l%P")
       else
-        self.starts_at_time.strftime("%l:%M%P")
+        self.starts_at_time.in_time_zone.strftime("%l:%M%P")
       end
     end
   end
 
   def start_time=(time)
     unless time.blank?
-      if time =~ /^(\d+):?(\d+)?(am|pm)$/
-        self.starts_at_time = Time.parse(time)
-      else
-        self.starts_at_time = Time.zone.now
-      end
+      self.starts_at_time = Time.parse(time)
     end
   end
 
