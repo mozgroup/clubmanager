@@ -50,9 +50,6 @@ jQuery ->
       $('#dialog-event').dialog 'open'
 
   $('table.calendar li a').on 'click', (event) ->
-    # Stop the event from bubbling up
-    event.stopPropagation()
-    event.preventDefault()
 
     if $('#dialog-event').dialog 'isOpen'
       $('#dialog-event').dialog 'close'
@@ -66,3 +63,7 @@ jQuery ->
       $.get $(@).attr('href'), (data) ->
         $('#show-event').html data
       $('#dialog-show-event').dialog 'open'
+
+    # Stop the event from bubbling up
+    event.stopPropagation()
+    event.preventDefault()
