@@ -11,13 +11,6 @@
 
 <div class="with-padding">
 
-  <div class="mid-margin-bottom button-height">
-    <%= link_to new_event_path(current_date: @current_date), id: 'new-event-btn', class: 'button' do %>
-      <span class="button-icon blue-gradient"><span class="icon-star"></span></span>
-      New Event
-    <% end %>
-  </div>
-
   <div id="calendar-body">
     <%= render 'calendar' %>
   </div>
