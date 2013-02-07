@@ -50,7 +50,7 @@ class Event < ActiveRecord::Base
 
   def start_time=(time)
     unless time.blank?
-      self.starts_at_time = Time.parse(time)
+      self.starts_at_time = Time.zone.parse(time)
     end
   end
 
