@@ -6,7 +6,7 @@ gem 'thin', '~> 1.4.1'
 gem 'pg', '~> 0.12.2'
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'jquery-rails'
-gem 'devise', '~> 2.1.2'
+gem 'devise', '~> 2.2.3'
 gem 'activeadmin', '~> 0.5.0'
 gem "meta_search", "~> 1.1.3"
 gem 'faker', '~> 1.0.1'
