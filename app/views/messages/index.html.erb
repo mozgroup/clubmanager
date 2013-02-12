@@ -1,0 +1,55 @@
+<% provide(:current_messages, " class='current'".html_safe) %>
+<% provide(:title, "Messages") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag "css/styles/files" %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag "js/developr.scroll" %>
+  <%= javascript_include_tag "js/developr.content-panel" %>
+  <%= javascript_include_tag "messages" %>
+<% end %>
+
+<div class="content-panel">
+
+  <!-- Navigation panel -->
+  <div class="panel-navigation silver-gradient scrollable" style="height:550px">
+    <div class="panel-control">
+      <%= link_to 'New Folder', '#', class: 'button icon-folder' %>
+    </div>
+      <div class="navigable">
+        <ul class="files-list mini open-on-panel-content">
+          <li>
+            <%= link_to inbox_messages_path, class: 'file-link' do %>
+              <span class="icon folder-close"></span>
+              Inbox
+            <% end %>
+          </li>
+          <li>
+            <%= link_to drafts_messages_path, class: 'file-link' do %>
+              <span class="icon folder-close"></span>
+              Drafts
+            <% end %>
+          </li>
+          <li>
+            <%= link_to sent_messages_path, class: 'file-link' do %>
+              <span class="icon folder-close"></span>
+              Sent
+            <% end %>
+          </li>
+          <li>
+            <%= link_to trash_messages_path, class: 'file-link' do %>
+              <span class="icon folder-close"></span>
+              Trash
+            <% end %>
+          </li>
+        </ul>
+    </div>
+  </div>
+
+  <!-- Content panel -->
+  <div class="panel-content linen panel-load-target scrollable" style="height:550px">
+  </div>
+
+</div>
