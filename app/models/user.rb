@@ -83,6 +83,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions, class_name: 'EventSubscriptions', dependent: :destroy
   has_many :events, through: :subscriptions
   has_many :organized_events, class_name: 'Event', foreign_key: 'organizer_id'
+  has_many :mailboxes
 
   has_many :checklists
 

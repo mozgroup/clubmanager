@@ -40,11 +40,18 @@ ClubManager::Application.routes.draw do
     get 'search', on: :collection
   end
   resources :messages do
+    collection do
+      get 'inbox'
+      get 'drafts'
+      get 'sent'
+      get 'trash'
+      get 'cancel'
+    end
+
     get 'reply'
     get 'forward'
     put 'trash'
     put 'delete'
-    get 'cancel', on: :collection
   end
   resources :envelopes
   resources :events

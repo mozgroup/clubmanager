@@ -3,63 +3,82 @@ class MessagesController < ApplicationController
   before_filter :get_layout_data
 
 
-  layout false
+  layout false, except: :index
 
-  def show
-    get_navigation
-    @message = Message.find(params[:id])
-    @envelope = @message.envelopes.current_envelope(current_user)
+  def index
   end
 
-  def new
-    @message = current_user.authored_messages.build
+  def inbox
   end
 
-  def edit
-    @message = Message.find(params[:id])
+  def drafts
+    @messaages = Message.belonging_to(current_user).drafts
   end
 
-  def create
-    @message = current_user.authored_messages.build(params[:message])
-    if @message.save
-      save_response
-    end
-  end
-
-  def update
-    @message = Message.find(params[:id])
-    if @message.update_attributes(params[:message])
-      save_response
-    end
-  end
-
-  def reply
-    @orig_msg = Message.find(params[:message_id])
-    @message = @orig_msg.reply(params[:reply_type])
-    render 'new'
-  end
-
-  def forward
-    @message = Message.find(params[:message_id]).forward
-    render 'new'
+  def sent
+    @messaages = Message.belonging_to(current_user).sent
   end
 
   def trash
-    message = Message.find params[:message_id]
-    message.send_to_trash
-    render 'close_message', layout: false
+    @messaages = Message.belonging_to(current_user).trash
   end
 
-  def destroy
-    message = Message.find params[:id]
-    message.destroy
-    get_navigation
-    render 'close_message', layout: false, locals: { action_type: 'delete' }
-  end
 
-  def cancel
-  end
-
+#  def show
+#    get_navigation
+#    @message = Message.find(params[:id])
+#    @envelope = @message.envelopes.current_envelope(current_user)
+#  end
+#
+#  def new
+#    @message = current_user.authored_messages.build
+#  end
+#
+#  def edit
+#    @message = Message.find(params[:id])
+#  end
+#
+#  def create
+#    @message = current_user.authored_messages.build(params[:message])
+#    if @message.save
+#      save_response
+#    end
+#  end
+#
+#  def update
+#    @message = Message.find(params[:id])
+#    if @message.update_attributes(params[:message])
+#      save_response
+#    end
+#  end
+#
+#  def reply
+#    @orig_msg = Message.find(params[:message_id])
+#    @message = @orig_msg.reply(params[:reply_type])
+#    render 'new'
+#  end
+#
+#  def forward
+#    @message = Message.find(params[:message_id]).forward
+#    render 'new'
+#  end
+#
+#  def trash
+#    message = Message.find params[:message_id]
+#    message.send_to_trash
+#    render 'close_message', layout: false
+#  end
+#
+#  def destroy
+#    message = Message.find params[:id]
+#    message.destroy
+#    get_navigation
+#    render 'close_message', layout: false, locals: { action_type: 'delete' }
+#  end
+#
+#  def cancel
+#  end
+#
   private
 
     def save_response

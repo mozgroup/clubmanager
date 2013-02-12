@@ -2,13 +2,14 @@
 #
 # Table name: events
 #
-#  id             :integer          not null, primary key
-#  organizer_id   :integer
-#  summary        :text
-#  description    :text
-#  starts_at_time :time
-#  starts_at_date :date
-#  ends_at_date   :date
+#  id                :integer          not null, primary key
+#  organizer_id      :integer
+#  summary           :text
+#  description       :text
+#  starts_at_time    :time
+#  starts_at_date    :date
+#  ends_at_date      :date
+#  days_of_week_mask :integer
 #
 
 require 'spec_helper'

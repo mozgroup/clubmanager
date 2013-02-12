@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130203030519) do
+ActiveRecord::Schema.define(:version => 20130212021214) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -188,6 +188,22 @@ ActiveRecord::Schema.define(:version => 20130203030519) do
   add_index "events_save", ["end_at"], :name => "index_events_on_end_at"
   add_index "events_save", ["start_at"], :name => "index_events_on_start_at"
   add_index "events_save", ["user_id"], :name => "index_events_on_user_id"
+
+  create_table "mailboxes", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "host"
+    t.string   "port"
+    t.boolean  "ssl"
+    t.string   "domain"
+    t.string   "username"
+    t.string   "password_digest"
+    t.boolean  "starttls_auto"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "mailboxes", ["user_id"], :name => "index_mailboxes_on_user_id"
 
   create_table "messages", :force => true do |t|
     t.integer  "author_id"
