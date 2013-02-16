@@ -6,6 +6,9 @@ class MessagesController < ApplicationController
   layout false, except: :index
 
   def index
+    mailbox = current_user.mailboxes[0]
+    imap = ImapReader.new(host: mailbox.host, username: mailbox.username, password: 'tad5150')
+    @folders = imap.folders
   end
 
   def inbox

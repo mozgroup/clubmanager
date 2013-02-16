@@ -17,8 +17,10 @@
 #
 
 class Mailbox < ActiveRecord::Base
+  has_secure_password
+
   belongs_to :user
-  attr_accessible :domain, :host, :name, :password_digest, :port, :ssl, :starttls_auto, :username
+  attr_accessible :user_id, :domain, :host, :name, :password, :port, :ssl, :starttls_auto, :username
 
   validates :name, presence: true
   validates :host, presence: true

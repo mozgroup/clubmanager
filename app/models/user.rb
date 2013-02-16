@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :title, :employee_number, :first_name, :last_name
-  attr_accessible :club_ids, :roles
+  attr_accessible :club_ids, :roles, :mailbox_attributes
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -88,6 +88,7 @@ class User < ActiveRecord::Base
   has_many :checklists
 
   accepts_nested_attributes_for :club_users
+  accepts_nested_attributes_for :mailboxes
 
   scope :with_role, lambda { |role| { conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
 
@@ -95,7 +96,6 @@ class User < ActiveRecord::Base
 
   def self.name_search(query)
     if query.present?
-#     User.where('LOWER(first_name) LIKE :q or LOWER(last_name) LIKE :q', q: "%#{query.downcase}%")
       User.where('first_name ilike :q or last_name ilike :q', q: "%#{query}%")
     else
       scoped

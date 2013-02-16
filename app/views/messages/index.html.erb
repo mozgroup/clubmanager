@@ -20,6 +20,14 @@
     </div>
       <div class="navigable">
         <ul class="files-list mini open-on-panel-content">
+          <% @folders.each do |folder| %>
+            <li>
+              <%= link_to '#', class: 'file-link' do %>
+                <span class="icon folder-close"></span>
+                <%= folder %>
+              <% end %>
+            </li>
+          <% end %>
           <li>
             <%= link_to inbox_messages_path, class: 'file-link' do %>
               <span class="icon folder-close"></span>

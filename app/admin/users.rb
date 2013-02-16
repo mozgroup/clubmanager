@@ -20,8 +20,6 @@ ActiveAdmin.register User do
       f.input :email
       f.input :employee_number
       f.input :title
-      f.input :password
-      f.input :password_confirmation
       f.input :clubs
       f.input :roles, as: :check_boxes, collection: User::ROLES
     end
@@ -51,5 +49,18 @@ ActiveAdmin.register User do
       row :created_at
       row :updated_at
     end
+
+    panel 'Mailboxes for this user' do
+      table_for(user.mailboxes) do
+        column("Name") { |mailbox| link_to mailbox.name, admin_mailbox_path(mailbox) }
+        column("Username") { |mailbox| mailbox.username }
+        column("Host") { |mailbox| mailbox.host }
+        column("Port") { |mailbox| mailbox.port }
+      end
+    end
+  end
+
+  sidebar 'Mailbox Actions', only: :show do
+    link_to 'Add a mailbox', new_admin_mailbox_path(user_id: user.id)
   end
 end
