@@ -17,7 +17,7 @@ class Ability
       can [:read, :create], Context
       can [:read, :create], Project
       can [:create, :read], Event
-      can [:update, :destroy], Event, user_id: user.id
+      can [:update, :destroy], Event, organizer_id: user.id
       can :search, User
       can [:read, :update, :change_password], User, id: user.id
     else
