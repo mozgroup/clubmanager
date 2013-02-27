@@ -20,7 +20,7 @@ module HomeHelper
 
     items.each do |item|
 
-      if item[:start_at].wday + 1 == dow
+      if item[:start_at].wday + 1 <= dow && item[:end_at].wday + 1 >= dow
 
         agenda_time = item[:agenda_time].blank? ? Time.zone.parse('7am') : item[:agenda_time].in_time_zone
 
