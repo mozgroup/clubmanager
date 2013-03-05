@@ -22,7 +22,7 @@ class Message < ActiveRecord::Base
 
   belongs_to :author, class_name: 'User', foreign_key: :author_id
 
-  delegate :full_name, to: :author, prefix: true
+  delegate :full_name, to: :author, prefix: true, allow_nil: true
 
   StatusSent = 'sent'
   StatusDraft = 'draft'
