@@ -22,8 +22,10 @@ ActiveAdmin.register User do
       f.input :title
       f.input :clubs
       f.input :roles, as: :check_boxes, collection: User::ROLES
+      f.input :password
+      f.input :password_confirmation
+      f.buttons
     end
-    f.buttons
   end
 
   controller do
