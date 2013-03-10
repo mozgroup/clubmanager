@@ -12,39 +12,39 @@
 
 <div class="with-padding">
 
-	<h3><%= @checklist.name %></h3>
+  <h3><%= @checklist.name %></h3>
 
-	<dl class="definition inline">
+  <dl class="definition inline">
 
-		<dt>Assigned To</dt>
-		<dd><%= @checklist.assigned_to %></dd>
+    <dt>Assigned To</dt>
+    <dd><%= @checklist.assigned_to %></dd>
 
-		<dt>Frequency</dt>
-		<dd><%= @checklist.frequency %></dd>
+    <dt>Frequency</dt>
+    <dd><%= @checklist.frequency %></dd>
 
-		<% if @checklist.frequency == Checklist::DAILY %>
-			<dt><%= pluralize(@checklist.days_of_week.size, 'Day') %></dt>
-			<dd><%= @checklist.days_of_week.join(', ') %></dd>
-		<% end %>
+    <% if @checklist.frequency == Checklist::DAILY %>
+      <dt><%= pluralize(@checklist.days_of_week.size, 'Day') %></dt>
+      <dd><%= @checklist.days_of_week.join(', ') %></dd>
+    <% end %>
 
-	</dl>
+  </dl>
 
-	<div class="columns large-margin-top">
+  <div class="columns large-margin-top">
 
-		<div class="six-columns">
+    <div class="six-columns">
 
-			<h4>Checklist Tasks</h4>
+      <h4>Checklist Tasks</h4>
 
-			<div id="checklist-items">
-				<%= render 'checklist_items', checklist: @checklist %>
-			</div>
+      <div id="checklist-items">
+        <%= render 'checklist_items', checklist: @checklist %>
+      </div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 
-	<% if can? :update, @checklist %>
-		<%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
-	<% end %>
-	<%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
+  <% if can? :update, @checklist %>
+    <%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
+  <% end %>
+  <%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
 
 </div>
