@@ -78,7 +78,11 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def complete
-    self.completes.create
+    completes.create
+  end
+
+  def undo_complete
+    completes.order('created_at desc').first.destroy
   end
 
 end

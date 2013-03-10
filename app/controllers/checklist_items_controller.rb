@@ -7,6 +7,11 @@ class ChecklistItemsController < ApplicationController
     complete_item
   end
 
+  def undo_complete
+    @checklist_item = ChecklistItem.find params[:id]
+    @checklist_item.undo_complete
+  end
+
   protected
 
   def complete_item
