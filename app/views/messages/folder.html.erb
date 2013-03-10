@@ -1,0 +1,27 @@
+<div class="white-gradient">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">From</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+
+    <tfoot>
+      <tr>
+        <td colspan="3">Footer</td>
+      </tr>
+    </tfoot>
+
+    <tbody>
+      <% @envelopes.each do |envelope| %>
+        <tr>
+          <th scope="row"><%= envelope.from[0].name %></th>
+          <td><%= envelope.subject %></td>
+          <td><%= envelope.date.to_s %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

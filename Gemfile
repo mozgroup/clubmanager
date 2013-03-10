@@ -39,3 +39,7 @@ group :test do
   gem 'capybara', '~> 2.0.2'
   gem 'launchy', '~> 2.1.2'
 end
+
+group :production do
+  gem "newrelic_rpm", "~> 3.5.8.72"
+end
