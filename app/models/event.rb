@@ -31,8 +31,8 @@ class Event < ActiveRecord::Base
   # include SysLogger
 
   scope :subscribed_to, lambda { |user| joins(:subscribers).where('event_subscriptions.user_id = ?', user.id) }
-  scope :for_month, lambda { |date| where('ends_at_date <= :e AND ends_at_date >= :b', e: date.end_of_month, b: date.beginning_of_month) }
-  scope :for_week, lambda { |date| where('ends_at_date <= :e AND ends_at_date >= :b', e: date.end_of_week(:sunday), b: date.beginning_of_week(:sunday)) }
+  scope :for_month, lambda { |date| where('(ends_at_date <= :e AND ends_at_date >= :b) OR (starts_at_date >= :b AND starts_at_date <= :e)', e: date.end_of_month, b: date.beginning_of_month) }
+  scope :for_week, lambda { |date| where('(ends_at_date <= :e AND ends_at_date >= :b) OR (starts_at_date >= :b AND starts_at_date <= :e)', e: date.end_of_week(:sunday), b: date.beginning_of_week(:sunday)) }
   scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
 
   def is_subscriber?(user)
