@@ -68,12 +68,12 @@ describe Event do
 
   describe 'for_month scope' do
     before(:each) do
-      @first_of_month = FactoryGirl.create(:event, starts_at_date: Date.today.beginning_of_month)
-      @end_of_month =  FactoryGirl.create(:event, starts_at_date: Date.today.end_of_month)
-      @next_month = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_month + 1.day))
-      @previous_month = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_month - 1.day))
-      @event.update_column('starts_at_date', Date.today)
-      @event_list = [@first_of_month, @event, @end_of_month]
+      @first_of_month = FactoryGirl.create(:event, starts_at_date: Date.today.beginning_of_month, ends_at_date: Date.today.end_of_month)
+      @end_of_month =  FactoryGirl.create(:event, starts_at_date: Date.today.end_of_month, ends_at_date: Date.today.end_of_month)
+      @next_month = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_month + 1.day), ends_at_date: (Date.today.end_of_month + 2.days))
+      @previous_month = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_month - 1.day), ends_at_date: (Date.today.beginning_of_month - 1.day))
+      @event.update_attributes(starts_at_date: Date.today, ends_at_date: Date.today)
+      @event_list = [@event, @first_of_month, @end_of_month]
       @events = Event.for_month(Date.today)
     end
 
@@ -88,11 +88,11 @@ describe Event do
 
   describe 'for_week scope' do
     before(:each) do
-      @first_of_week = FactoryGirl.create(:event, starts_at_date: Date.today.beginning_of_week(:sunday))
-      @end_of_week =  FactoryGirl.create(:event, starts_at_date: Date.today.end_of_week(:sunday))
-      @next_week = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_week(:sunday) + 1.day))
-      @previous_week = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_week(:sunday) - 1.day))
-      @event.update_column('starts_at_date', Date.today)
+      @first_of_week = FactoryGirl.create(:event, starts_at_date: Date.today.beginning_of_week(:sunday), ends_at_date: Date.today.beginning_of_week(:sunday))
+      @end_of_week =  FactoryGirl.create(:event, starts_at_date: Date.today.end_of_week(:sunday), ends_at_date: Date.today.end_of_week(:sunday))
+      @next_week = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_week(:sunday) + 1.day), ends_at_date: Date.today.end_of_week(:sunday) + 1.day)
+      @previous_week = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_week(:sunday) - 1.day), ends_at_date: Date.today.beginning_of_week(:sunday) - 1.day)
+      @event.update_attributes(starts_at_date: Date.today, ends_at_date: Date.today)
       @event_list = [@first_of_week, @event, @end_of_week]
       @events = Event.for_week(Date.today)
     end
@@ -106,23 +106,4 @@ describe Event do
     end
   end
 
-#  describe "for_week method" do
-#    before do
-#      @current_date = Time.now
-#      @event_bow = FactoryGirl.create(:event, start_at: @current_date.at_beginning_of_week(:sunday))
-#      @event_mow = FactoryGirl.create(:event, start_at: @current_date.at_beginning_of_week(:sunday) + 2.days)
-#      @event_eow = FactoryGirl.create(:event, start_at: @current_date.at_end_of_week(:sunday))
-#      FactoryGirl.create_list(:event, 3, start_at: 1.month.from_now)
-#    end
-#
-#    it "should return only this weeks events" do
-#      @events = Event.for_week(@current_date)
-#      @events.size.should == 3
-#    end
-#
-#    it "should have the same events in its result set" do
-#      @events = Event.for_week(@current_date)
-#      @events.each { |event| [@event_bow, @event_mow, @event_eow].should include(event) }
-#    end
-#  end
 end
