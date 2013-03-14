@@ -19,10 +19,15 @@ ClubManager::Application.routes.draw do
   get 'calendar', to: 'calendar#index', as: 'calendar'
   get 'tasks/context/:context_id', to: 'tasks#context', as: 'context_tasks'
   get 'tasks/project/:project_id', to: 'tasks#project', as: 'project_tasks'
-  put 'checklist_items/complete/:id', to: 'checklist_items#complete', as: 'checklist_item_complete'
-  put 'checklist_items/undo_complete/:id', to: 'checklist_items#undo_complete', as: 'checklist_item_undo_complete'
-  put 'checklist_items/sidebar_complete/:id', to: 'checklist_items#sidebar_complete', as: 'checklist_item_sidebar_complete'
 
+  resources :attachments, only: [:create, :destroy]
+  resources :checklist_items, only: [:show, :update, :edit, :destroy] do
+    member do
+      put :complete
+      put :undo_complete
+      put :sidebar_complete
+    end
+  end
   resources :tasks do
     get 'my_tasks', on: :collection
     get 'assigned', on: :collection

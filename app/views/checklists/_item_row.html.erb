@@ -1,10 +1,10 @@
 <tr id="item-row-#{item.id}">
-	<th scope="row"><%= item.name %></th>
-	<td>
-		<% unless item.is_complete? Time.now %>
-			<%= link_to 'Complete', checklist_item_complete_path(item), class: 'button', remote: true, method: :put %>
-		<% else %>
-			<strong>Completed!</strong>
-		<% end %>
-	</td>
+  <th scope="row"><%= item.name %></th>
+  <td>
+    <% unless item.is_complete? Time.now %>
+      <%= link_to 'Complete', complete_checklist_item_path(item), class: 'button', remote: true, method: :put %>
+    <% else %>
+      <strong>Completed!</strong>
+    <% end %>
+  </td>
 </tr>

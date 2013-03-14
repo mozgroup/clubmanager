@@ -10,10 +10,13 @@
 #
 
 class ChecklistItem < ActiveRecord::Base
-  attr_accessible :checklist_id, :name
+  attr_accessible :checklist_id, :name, :attachables_attributes
 
   belongs_to :checklist
-  has_many :completes, :as => :completable, :dependent => :destroy
+  has_many :completes, as: :completable, dependent: :destroy
+  has_many :attachments, as: :attachable, dependent: :destroy
+
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
   delegate :name, to: :checklist, prefix: true
 
@@ -83,6 +86,10 @@ class ChecklistItem < ActiveRecord::Base
 
   def undo_complete
     completes.order('created_at desc').first.destroy
+  end
+
+  def has_attachments?
+    ! attachments.empty?
   end
 
 end

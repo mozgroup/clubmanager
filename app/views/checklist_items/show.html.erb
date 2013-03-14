@@ -1,0 +1,53 @@
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Checklists") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+  <%= stylesheet_link_tag 'css/styles/files' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+<% end %>
+
+<div class="with-padding">
+
+  <h3><%= @checklist_item.name %></h3>
+
+  <div class="large-margin-bottom">
+    <% if @checklist_item.has_attachments? %>
+      <ul class="files-icons">
+      <% @checklist_item.attachments.each do |attachment| %>
+        <li>
+          <span class="icon <%= attachment.image %>"></span>
+          <%= link_to attachment.filename, attachment.item_url %>
+          <br />
+          <%= link_to 'Delete', attachment, method: :delete, data: { confirm: 'Are you sure you want to remove this attachment?' }, class: 'button tiny' %>
+        </li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <fieldset class="fieldset">
+    <%= form_for @checklist_item.attachments.build do |f| %>
+      <%= f.hidden_field :attachable_id %>
+      <%= f.hidden_field :attachable_type %>
+      <p class="button-height inline-medium-label">
+        <%= f.label :item, 'Attach a file:', class: 'label' %>
+        <%= f.file_field :item %>
+      </p>
+      <p class="button-height">
+        <%= f.button 'Upload File' %>
+      </p>
+    <% end %>
+  </fieldset>
+
+  <div class="large-margin-top">
+    <% if can? :update, @checklist_item %>
+      <%= link_to 'Edit This Checklist Item', edit_checklist_item_path(@checklist_item), class: 'button icon-pencil' %>
+    <% end %>
+    <%= link_to 'Back to the Checklist', @checklist_item.checklist, class: 'button icon-page-list' %>
+  </div>
+
+</div>

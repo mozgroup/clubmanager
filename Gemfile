@@ -12,6 +12,8 @@ gem "meta_search", "~> 1.1.3"
 gem 'faker', '~> 1.0.1'
 gem "state_machine", "~> 1.1.2"
 gem "cancan", "~> 1.6.8"
+gem "carrierwave", "~> 0.8.0"
+gem "fog", "~> 1.10.0"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.12.1'
