@@ -4,10 +4,12 @@
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
   <%= stylesheet_link_tag 'css/styles/files' %>
+  <%= stylesheet_link_tag 'css/styles/switches' %>
 <% end %>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'checklist_item' %>
 <% end %>
 
 <div class="with-padding">
@@ -29,19 +31,25 @@
     <% end %>
   </div>
 
-  <fieldset class="fieldset">
-    <%= form_for @checklist_item.attachments.build do |f| %>
-      <%= f.hidden_field :attachable_id %>
-      <%= f.hidden_field :attachable_type %>
-      <p class="button-height inline-medium-label">
-        <%= f.label :item, 'Attach a file:', class: 'label' %>
-        <%= f.file_field :item %>
-      </p>
-      <p class="button-height">
-        <%= f.button 'Upload File' %>
-      </p>
-    <% end %>
-  </fieldset>
+  <div id="file-upload">
+    <fieldset class="fieldset">
+      <%= form_for @checklist_item.attachments.build do |f| %>
+        <%= f.hidden_field :attachable_id %>
+        <%= f.hidden_field :attachable_type %>
+        <p class="button-height inline-medium-label">
+          <%= f.label :item, 'Attach a file:', class: 'label' %>
+          <%= f.file_field :item %>
+        </p>
+        <p class="button-height">
+          <%= link_to 'Upload File', '#', class: 'button icon-cloud-upload upload' %>
+        </p>
+      <% end %>
+    </fieldset>
+  </div>
+  <div id="file-uploading" style="display: none">
+    Uploading, please wait...
+    <span class="loader huge working"></span>
+  </div>
 
   <div class="large-margin-top">
     <% if can? :update, @checklist_item %>
