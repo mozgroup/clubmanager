@@ -101,8 +101,8 @@ describe Event do
       before(:each) do
         @first_of_week = FactoryGirl.create(:event, starts_at_date: Date.today.beginning_of_week(:sunday), ends_at_date: Date.today.beginning_of_week(:sunday))
         @end_of_week =  FactoryGirl.create(:event, starts_at_date: Date.today.end_of_week(:sunday), ends_at_date: Date.today.end_of_week(:sunday))
-        @next_week = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_week(:sunday) + 1.day), ends_at_date: Date.today.end_of_week(:sunday) + 1.day)
-        @previous_week = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_week(:sunday) - 1.day), ends_at_date: Date.today.beginning_of_week(:sunday) - 1.day)
+        @next_week = FactoryGirl.create(:event, starts_at_date: (Date.today.end_of_week(:sunday) + 1.days), ends_at_date: Date.today.end_of_week(:sunday) + 1.day)
+        @previous_week = FactoryGirl.create(:event, starts_at_date: (Date.today.beginning_of_week(:sunday) - 1.days), ends_at_date: Date.today.beginning_of_week(:sunday) - 1.day)
         @event_list = [@first_of_week, @event, @end_of_week]
         @events = Event.for_week(Date.today)
       end
