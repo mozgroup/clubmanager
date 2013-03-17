@@ -2,8 +2,9 @@
 
 FactoryGirl.define do
   factory :checklist do
-    user_id 1
-    name "MyString"
-    frequency "MyString"
+    user
+    author
+    name "A checklist"
+    frequency "daily"
   end
 end

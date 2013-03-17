@@ -2,18 +2,18 @@
 #
 # Table name: mailboxes
 #
-#  id              :integer          not null, primary key
-#  user_id         :integer
-#  name            :string(255)
-#  host            :string(255)
-#  port            :string(255)
-#  ssl             :boolean
-#  domain          :string(255)
-#  username        :string(255)
-#  password_digest :string(255)
-#  starttls_auto   :boolean
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  name          :string(255)
+#  host          :string(255)
+#  port          :string(255)
+#  ssl           :boolean
+#  domain        :string(255)
+#  username      :string(255)
+#  passcode      :string(255)
+#  starttls_auto :boolean
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require 'spec_helper'

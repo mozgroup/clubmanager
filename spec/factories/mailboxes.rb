@@ -9,7 +9,6 @@ FactoryGirl.define do
     ssl false
     domain "MyString"
     username "MyString"
-    password_digest "MyString"
     starttls_auto false
   end
 end

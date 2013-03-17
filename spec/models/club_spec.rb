@@ -23,7 +23,7 @@ describe Club do
   it { should respond_to(:name) }
   it { should respond_to(:address) }
   it { should respond_to(:region_id) }
-  
+
   it { should allow_mass_assignment_of(:name) }
   it { should allow_mass_assignment_of(:address) }
   it { should allow_mass_assignment_of(:region_id) }

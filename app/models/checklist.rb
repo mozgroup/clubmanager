@@ -10,6 +10,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  days_of_week_mask :integer
+#  checklist_item_id :integer
 #
 
 class Checklist < ActiveRecord::Base
@@ -18,9 +19,10 @@ class Checklist < ActiveRecord::Base
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
   has_many :checklist_items, order: 'id'
+  belongs_to :checklist_item
 
-  validate :name, presence: true
-  validate :frequency, presence: true
+  validates :name, presence: true
+  validates :frequency, presence: true
 
   delegate :full_name, to: :user, prefix: true, allow_nil: true
   delegate :full_name, to: :author, prefix: true
@@ -35,13 +37,10 @@ class Checklist < ActiveRecord::Base
   FREQUENCIES = [DAILY, WEEKLY, MONTHLY]
   DAYS_OF_WEEK = %w[sunday monday tuesday wednesday thursday friday saturday]
 
-  scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
-
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
 
-  def self.for_user(user_id)
-    where(user_id: user_id)
-  end
+  scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
+  scope :for_user, lambda { |user|  where(user_id: user.id) }
 
   def assigned_to
     user_full_name
@@ -59,7 +58,7 @@ class Checklist < ActiveRecord::Base
   def is_weekly?
     frequency == 'weekly'
   end
-  
+
   def is_monthly?
     frequency == 'monthly'
   end
@@ -73,21 +72,6 @@ class Checklist < ActiveRecord::Base
   end
 
   def day_of_week(day)
-    case day
-    when 'sunday'
-      0
-    when 'monday'
-      1
-    when 'tuesday'
-      2
-    when 'wednesday'
-      3
-    when 'thursday'
-      4
-    when 'friday'
-      5
-    when 'saturday'
-      6
-    end
+    DAYS_OF_WEEK.index day
   end
 end
