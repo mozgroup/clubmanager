@@ -6,7 +6,7 @@ FactoryGirl.define do
     summary { Faker::Company.catch_phrase }
     description { Faker::Lorem.paragraph }
     starts_at_time Time.now
-    starts_at_date Time.now
-    ends_at_date Time.now
+    starts_at_date Date.today
+    ends_at_date Date.today
   end
 end
