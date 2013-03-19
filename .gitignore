@@ -15,5 +15,9 @@
 /tmp
 webrat.log
 
+# Ignore the upload directory
+/public/uploads
+
 .rvmrc
 .DS_Store
+.env
