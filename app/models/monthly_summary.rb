@@ -49,7 +49,11 @@ class MonthlySummary < ActiveRecord::Base
   end
 
   def percent_complete(column)
-    cash_to_date(column) / send("#{column}_goal")
+    if send("#{column}_goal".to_sym) > 0
+      cash_to_date(column) / send("#{column}_goal")
+    else
+      0
+    end
   end
 
   def projected_cash(column)
