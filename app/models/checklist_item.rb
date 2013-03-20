@@ -15,6 +15,7 @@ class ChecklistItem < ActiveRecord::Base
   belongs_to :checklist
   has_many :completes, as: :completable, dependent: :destroy
   has_many :attachments, as: :attachable, dependent: :destroy
+  has_one :item_checklist, class_name: 'Checklist'
 
   accepts_nested_attributes_for :attachments, allow_destroy: true
 
@@ -37,7 +38,7 @@ class ChecklistItem < ActiveRecord::Base
   end
 
   def self.with_day_of_week(dow)
-    joins.(:checklist).where("checklists.days_of_week_mask & #{2**Checklist::DAYS_OF_WEEK.index(dow.to_s)} > 0}" )
+    joins(:checklist).where("checklists.days_of_week_mask & #{2**Checklist::DAYS_OF_WEEK.index(dow.to_s)} > 0" )
   end
 
   def self.daily

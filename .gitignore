@@ -17,3 +17,4 @@ webrat.log
 
 .rvmrc
 .DS_Store
+.env

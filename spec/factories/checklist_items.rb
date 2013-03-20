@@ -2,9 +2,7 @@
 
 FactoryGirl.define do
   factory :checklist_item do
-    check_list_id 1
-    name "MyString"
-    due_on "MyString"
-    complete_flg false
+    checklist
+    name "Checklist Item"
   end
 end

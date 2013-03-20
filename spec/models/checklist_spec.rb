@@ -31,10 +31,10 @@ describe Checklist do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:frequency) }
 
-  describe 'delegates' do
-    its(:user_full_name) { should_not be_blank }
-    its(:author_full_name) { should_not be_blank }
-  end
+  it { should delegate(:full_name).to(:user).with_prefix }
+  it { should delegate(:full_name).to(:author).with_prefix }
+
+  it { should accept_nested_attributes_for :checklist_items }
 
   describe 'with_day_of_week scope' do
     before do
