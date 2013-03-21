@@ -1,0 +1,49 @@
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Editing Checklist Item") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'checklist' %>
+<% end %>
+
+<div class="with-padding">
+
+<%= form_for @checklist_item do |f| %>
+
+  <div class="with-padding">
+
+    <fieldset class="fieldset fields-list">
+      <legend class="legend">Checklist Item</legend>
+
+      <div class="field-block button-height">
+        <%= f.label :name do %>
+          <b>Item Name</b>
+        <% end %>
+        <%= f.text_field :name, class: 'input' %>
+      </div>
+
+    </fieldset>
+
+      <div class="field-block button-height">
+        <%= button_tag type: 'submit', class: 'button glossy mid-margin-right' do %>
+          <span class="button-icon"><span class="icon-tick"></span></span>
+          Update
+        <% end %>
+        <%= link_to @checklist_item, class: 'button upload' do %>
+          <span class="button-icon red-gradient"><span class="icon-cross-round"></span></span>
+          Cancel
+        <% end %>
+      </div>
+
+    </fieldset>
+
+  </div>
+
+<% end %>
+
+</div>
