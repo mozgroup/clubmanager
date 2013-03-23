@@ -60,6 +60,17 @@ describe Checklist do
     it { @results.each { |result| @test_days.should include(result) } }
   end
 
+  describe 'without_parent scope' do
+    before do
+      @checklist.save
+      @checklist1 = FactoryGirl.create(:checklist_child)
+      @checklist2 = @checklist1.checklist_item.checklist
+    end
+
+    it { Checklist.without_parent.should == [@checklist, @checklist2] }
+    it { Checklist.without_parent.should_not include(@checklist1) }
+  end
+
   describe 'assigned_to method' do
     its(:assigned_to) { should == @checklist.user_full_name }
   end
