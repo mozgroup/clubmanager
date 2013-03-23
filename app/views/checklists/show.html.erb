@@ -46,7 +46,7 @@
     <%= link_to 'Edit This Checklist', edit_checklist_path(@checklist), class: 'button icon-pencil' %>
   <% end %>
   <% if @checklist.has_parent? %>
-    <%= link_to 'Back to item', checklist_item_path(@checklist), class: 'button icon-page-list' %>
+    <%= link_to 'Back to item', checklist_item_path(@checklist.checklist_item), class: 'button icon-page-list' %>
   <% else %>
     <%= link_to 'Back to the list', checklists_path, class: 'button icon-page-list' %>
   <% end %>
