@@ -14,7 +14,7 @@
 #
 
 class Checklist < ActiveRecord::Base
-  attr_accessible :user_id, :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week
+  attr_accessible :user_id, :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week, :checklist_item_id
 
   belongs_to :user
   belongs_to :author, class_name: 'User', foreign_key: :author_id
@@ -41,6 +41,7 @@ class Checklist < ActiveRecord::Base
 
   scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
   scope :for_user, lambda { |user|  where(user_id: user.id) }
+  scope :without_parent, where(checklist_item_id: nil)
 
   def assigned_to
     user_full_name
@@ -73,5 +74,9 @@ class Checklist < ActiveRecord::Base
 
   def day_of_week(day)
     DAYS_OF_WEEK.index day
+  end
+
+  def has_parent?
+    checklist_item_id
   end
 end

@@ -22,6 +22,12 @@
             <span class="icon-paperclip icon-size1"></span>
             (<%= item.attachments.size %>)
           <% end %>
+          &nbsp;
+          <% if item.has_checklist? %>
+            <span class="icon-page-list"></span>
+            (<%= item.item_checklist.checklist_items.count %>)
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

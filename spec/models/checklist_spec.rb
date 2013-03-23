@@ -133,4 +133,16 @@ describe Checklist do
       days_of_week.each { |d| @checklist.day_of_week(d).should == days_of_week.index(d) }
     end
   end
+
+  describe 'has_parent? method' do
+    before { @checklist.save }
+
+    it { should_not have_parent }
+
+    it 'should have a parent' do
+      item = FactoryGirl.create(:checklist_item)
+      @checklist.update_column(:checklist_item_id, item.id)
+      @checklist.should have_parent
+    end
+  end
 end

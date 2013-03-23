@@ -6,6 +6,7 @@ class ChecklistsController < ApplicationController
 
 
   def index
+    @checklists = Checklist.without_parent
   end
 
   def show
@@ -13,6 +14,7 @@ class ChecklistsController < ApplicationController
 
   def new
     @checklist = Checklist.new(author_id: current_user.id)
+    @checklist.checklist_item_id = params[:checklist_item_id] if params[:checklist_item_id]
   end
 
   def edit

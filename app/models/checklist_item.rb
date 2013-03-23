@@ -93,4 +93,7 @@ class ChecklistItem < ActiveRecord::Base
     ! attachments.empty?
   end
 
+  def has_checklist?
+    item_checklist
+  end
 end

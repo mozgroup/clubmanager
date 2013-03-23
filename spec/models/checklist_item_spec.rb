@@ -182,4 +182,15 @@ describe ChecklistItem do
     end
   end
 
+  describe 'has_checklist? method' do
+    before(:each) { @checklist_item.save }
+
+    it { should_not have_checklist }
+
+    it 'should have a checklist' do
+      checklist = FactoryGirl.create(:checklist, checklist_item_id: @checklist_item.id)
+      @checklist_item.should have_checklist
+    end
+  end
+
 end
