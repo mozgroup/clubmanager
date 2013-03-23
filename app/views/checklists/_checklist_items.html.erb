@@ -4,10 +4,14 @@
       <tr>
         <th scope="row"><%= link_to item.name, item %></th>
         <td>
-          <% unless item.is_complete? Time.now %>
-            <%= link_to 'Complete', complete_checklist_item_path(item), class: 'button', remote: true, method: :put %>
+          <% unless item.has_checklist? %>
+            <% unless item.is_complete? Time.now %>
+              <%= link_to 'Complete', complete_checklist_item_path(item), class: 'button', remote: true, method: :put %>
+            <% else %>
+              <span class="green margin-right"><strong>Completed!</strong></span>
+            <% end %>
           <% else %>
-            <span class="green margin-right"><strong>Completed!</strong></span>
+            <strong>Sub items</strong>
           <% end %>
         </td>
         <td>
@@ -29,6 +33,32 @@
           <% end %>
         </td>
       </tr>
+
+      <% if item.has_checklist? %>
+        <% item.item_checklist.checklist_items.each do |sub_item| %>
+          <tr>
+            <td>&nbsp;</td>
+            <th scope="row"><%= link_to sub_item.name, sub_item %></th>
+            <td>
+              <% unless sub_item.has_checklist? %>
+                <% unless sub_item.is_complete? Time.now %>
+                  <%= link_to 'Complete', complete_checklist_item_path(sub_item), class: 'button', remote: true, method: :put %>
+                <% else %>
+                  <span class="green margin-right"><strong>Completed!</strong></span>
+                <% end %>
+              <% end %>
+            </td>
+            <td>
+              <% if sub_item.is_complete? Time.now %>
+                <%= link_to 'Undo', undo_complete_checklist_item_path(sub_item), class: 'button', remote: true, method: :put %>
+              <% else %>
+                &nbsp;
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
     <% end %>
   </tbody>
 </table>
