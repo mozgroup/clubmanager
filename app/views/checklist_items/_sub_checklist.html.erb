@@ -1,0 +1,70 @@
+<% unless @checklist_item.has_checklist? %>
+  <%= link_to new_checklist_path(checklist_item_id: @checklist_item.id), class: 'button' do %>
+    <span class="button-icon blue-gradient glossy"><span class="icon-page-list"></span></span>
+    Add Checklist
+  <% end %>
+<% else %>
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th scope="col">List Name</th>
+        <th scope="col">Frequency</th>
+        <th scope="col">Assigned To</th>
+        <th scope="col">Created By</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <th scope="row"><%= link_to @checklist_item.item_checklist.name, @checklist_item.item_checklist %></th>
+        <td><%= @checklist_item.item_checklist.frequency %></td>
+        <td><%= @checklist_item.item_checklist.assigned_to %></td>
+        <td><%= @checklist_item.item_checklist.author_full_name %></td>
+        <td class="align-right low-padding">
+          <%= link_to 'Show', @checklist_item.item_checklist, class: 'button compact' %>
+          <% if can? :update, @checklist_item.item_checklist %>
+            <%= link_to 'Edit', edit_checklist_path(@checklist_item.item_checklist), class: 'button compact' %>
+            <%= link_to 'Delete', @checklist_item.item_checklist, method: :delete, class: 'button compact', data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=5>
+          <strong>Checklist Items</strong>
+        </td>
+      </tr>
+
+      <% @checklist_item.item_checklist.checklist_items.each do |item| %>
+        <tr>
+          <td>&nbsp;</td>
+          <th scope="row"><%= link_to item.name, item %></th>
+          <td>
+            <% unless item.is_complete? Time.now %>
+              <%= link_to 'Complete', complete_sub_item_checklist_item_path(item), class: 'button', remote: true, method: :put %>
+            <% else %>
+              <span class="green margin-right"><strong>Completed!</strong></span>
+            <% end %>
+          </td>
+          <td>
+            <% if item.is_complete? Time.now %>
+              <%= link_to 'Undo', undo_complete_sub_item_checklist_item_path(item), class: 'button', remote: true, method: :put %>
+            <% else %>
+              &nbsp;
+            <% end %>
+          </td>
+          <td>
+            <% if item.has_attachments? %>
+              <span class="icon-paperclip icon-size1"></span>
+              (<%= item.attachments.size %>)
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+<% end %>

@@ -10,9 +10,18 @@ class ChecklistItemsController < ApplicationController
     complete_item
   end
 
+  def complete_sub_item
+    complete_item
+    @checklist_item = @checklist_item.checklist.checklist_item
+  end
+
   def undo_complete
-    @checklist_item = ChecklistItem.find params[:id]
-    @checklist_item.undo_complete
+    undo_complete_item
+  end
+
+  def undo_complete_sub_item
+    undo_complete_item
+    @checklist_item = @checklist_item.checklist.checklist_item
   end
 
   def show
@@ -38,5 +47,10 @@ class ChecklistItemsController < ApplicationController
   def complete_item
     @checklist_item = ChecklistItem.find params[:id]
     @checklist_item.complete
+  end
+
+  def undo_complete_item
+    @checklist_item = ChecklistItem.find params[:id]
+    @checklist_item.undo_complete
   end
 end

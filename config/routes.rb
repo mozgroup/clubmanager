@@ -24,7 +24,9 @@ ClubManager::Application.routes.draw do
   resources :checklist_items, only: [:show, :update, :edit, :destroy] do
     member do
       put :complete
+      put :complete_sub_item
       put :undo_complete
+      put :undo_complete_sub_item
       put :sidebar_complete
     end
   end
