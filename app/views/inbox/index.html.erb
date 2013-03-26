@@ -1,46 +1,6 @@
 <% provide(:current_messages, " class='current'".html_safe) %>
 <% provide(:title, "Messages") %>
-<% content_for :additional_styles do %>
-  <%= stylesheet_link_tag "css/styles/form" %>
-  <%= stylesheet_link_tag "js/libs/CLEditor/jquery.cleditor" %>
-  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
-<% end %>
 
-<% content_for :template_functions do %>
-  <%= javascript_include_tag 'js/developr.content-panel' %>
-  <%= javascript_include_tag 'js/developr.scroll' %>
-  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
-  <%= javascript_include_tag 'js/libs/CLEditor/jquery.cleditor.min' %>
-  <%= javascript_include_tag 'js/developr.confirm' %>
-<% end %>
-
-<div class="content-panel">
-
-	<!-- Navigation Panel -->
-	<div class="panel-navigation silver-gradient">
-
-	    <div class="panel-control">
-	            <%= link_to "Refresh", inbox_refresh_path, class: 'button icon-undo open-on-panel-navigation' %>
-	    </div>
-
-	    <div id="message-nav" class="panel-load-target" style="560px">
-			<%= render 'navigation' %>
-		</div>
-	
-	</div>
-
-	<!-- Content panel -->
-	<div class="panel-content silver-gradient">
-		
-
-		<div id="message-panel" class="panel-load-target" style="height:600px">
-
-			<div class="panel-control align-right">
-				<%= link_to 'New message', new_message_path, class: 'button icon-star margin-left open-on-panel-content' %>
-			</div>
-
-		</div>
-
-	</div>
-
-</div>
+<iframe src="https://email.1and1.com/ox6/ox.html" sandbox="allow-scripts allow-forms allow-same-origin" seamless height='700' width='1075'>
+  <p>Your browser does not support iframes.</p>
+</iframe>
