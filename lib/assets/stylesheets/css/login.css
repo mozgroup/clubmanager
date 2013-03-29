@@ -88,7 +88,7 @@ form {
 	}
 	#login-title h1 {
 		font-size: 48px;
-		line-height: 55px;
+		line-height: 100px;
 		margin: 0;
 		color: white;
 		-webkit-text-shadow: 0 2px 7px rgba(0, 0, 0, 0.5);
@@ -98,7 +98,7 @@ form {
 		#login-title h1.login-title-image {
 			background: url(../img/login-title.png) no-repeat center center;
 			overflow: hidden;
-			height: 55px;
+			height: 100px;
 			text-align: left;
 			text-indent: -3000px;
 		}
