@@ -12,10 +12,6 @@
         <ul id="access" class="children-tooltip">
                 <li><%= link_to inbox_path, title: "Messages" do %>
                         <span class="icon-inbox"></span>
-                        <span class="count"><%= unread_count %></span>
-                    <% end %></li>
-                <li><%= link_to calendar_path, title: 'Calendar' do %>
-                        <span class="icon-calendar"></span></a>
                     <% end %></li>
                 <li><%= link_to current_user, title: 'User Settings' do %>
                     <span class="icon-gear"></span>
@@ -37,9 +33,9 @@
               <ul class="big-menu">
                 <% unless @daily_incomplete.empty? %>
                   <li class="with-right-arrow">
-                    <span>Today's Tasks</span>
+                    <span>Today's Checklist Items</span>
                     <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
-                        <li class="title-menu">Today's Tasks</li>
+                        <li class="title-menu">Today's Checklist Items</li>
                     <% @daily_incomplete.each do |task| %>
                         <li class="white-gradient">
                             <%= link_to task.checklist, title: 'Open checklist' do %>
@@ -53,9 +49,9 @@
                 <% end %>
                 <% unless @weekly_incomplete.empty? %>
                 <li class="with-right-arrow">
-                  <span>This Week's Tasks</span>
+                  <span>This Week's Checklist Items</span>
                     <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
-                      <li class="title-menu">This Week's Tasks</li>
+                      <li class="title-menu">This Week's Checklist Items</li>
                     <% @weekly_incomplete.each do |task| %>
                         <li class="white-gradient">
                             <%= link_to task.checklist, title: 'Open checklist' do %>
@@ -69,9 +65,9 @@
                 <% end %>
                 <% unless @monthly_incomplete.empty? %>
                 <li class="with-right-arrow">
-                  <span>This Month's Tasks</span>
+                  <span>This Month's Checklist Items</span>
                     <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
-                      <li class="title-menu">This Month's Tasks</li>
+                      <li class="title-menu">This Month's Checklist Items</li>
                     <% @monthly_incomplete.each do |task| %>
                         <li class="white-gradient">
                             <%= link_to task.checklist, title: 'Open checklist' do %>
@@ -89,5 +85,4 @@
         </section>
         <!-- Navigation goes here -->
         <div id="navigation-list">
-          <%= render 'shared/navigation' %>
         </div>

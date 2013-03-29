@@ -19,6 +19,7 @@ ClubManager::Application.routes.draw do
   get 'calendar', to: 'calendar#index', as: 'calendar'
   get 'tasks/context/:context_id', to: 'tasks#context', as: 'context_tasks'
   get 'tasks/project/:project_id', to: 'tasks#project', as: 'project_tasks'
+  get 'home', to: 'home#index', as: 'home'
 
   resources :attachments, only: [:create, :destroy]
   resources :checklist_items, only: [:show, :update, :edit, :destroy] do
@@ -73,7 +74,7 @@ ClubManager::Application.routes.draw do
     get 'change_password', on: :member
   end
 
-  root to: 'home#index'
+  root to: 'inbox#index'
 
 #  match '/signin', to: 'sessions#new'
 #  match '/signout', to: 'sessions#destroy', via: :delete

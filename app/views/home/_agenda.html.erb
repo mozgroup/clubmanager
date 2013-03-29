@@ -1,0 +1,28 @@
+<div class="agenda with-header auto-scroll">
+
+  <ul class="agenda-time">
+    <li class="from-7 to-8"><span>7 AM</span></li>
+    <li class="from-8 to-9"><span>8 AM</span></li>
+    <li class="from-9 to-10"><span>9 AM</span></li>
+    <li class="from-10 to-11"><span>10 AM</span></li>
+    <li class="from-11 to-12"><span>11 AM</span></li>
+    <li class="from-12 to-13 blue"><span>NOON</span></li>
+    <li class="from-13 to-14"><span>1 PM</span></li>
+    <li class="from-14 to-15"><span>2 PM</span></li>
+    <li class="from-15 to-16"><span>3 PM</span></li>
+    <li class="from-16 to-17"><span>4 PM</span></li>
+    <li class="from-17 to-18"><span>5 PM</span></li>
+    <li class="from-18 to-19"><span>6 PM</span></li>
+    <li class="from-19 to-20"><span>7 PM</span></li>
+    <li class="at-20"><span>8 PM</span></li>
+  </ul>
+
+  <div class="agenda-wrapper">
+
+    <% 7.times do |i| %>
+      <%= render partial: "agenda_day", locals: { wday: i+1, items: @agenda_items } %>
+    <% end %>
+
+  </div>
+
+</div>
