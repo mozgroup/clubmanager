@@ -16,6 +16,7 @@
 #  assignee_id  :integer
 #  started_at   :datetime
 #  claimed_at   :datetime
+#  priority     :integer
 #
 
 require 'spec_helper'
@@ -215,5 +216,14 @@ describe Task do
     end
   end
 
+  describe 'order_by_priority method' do
+    it 'returns tasks sorted in priority order' do
+      taskp1 = FactoryGirl.create(:task, priority: 1)
+      taskp5 = FactoryGirl.create(:task, priority: 5)
+      taskp3 = FactoryGirl.create(:task, priority: 3)
+
+      Task.order_by_priority.should eq([taskp1, taskp3, taskp5])
+    end
+  end
 end
 

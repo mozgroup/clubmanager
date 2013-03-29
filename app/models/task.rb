@@ -16,10 +16,11 @@
 #  assignee_id  :integer
 #  started_at   :datetime
 #  claimed_at   :datetime
+#  priority     :integer
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id
+  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id, :priority
 
   belongs_to :context
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
@@ -68,6 +69,10 @@ class Task < ActiveRecord::Base
 
   def self.for_week(date)
     where('due_at >= ? AND due_at <= ?', date.at_beginning_of_week(:sunday), date.at_end_of_week(:sunday))
+  end
+
+  def self.order_by_priority
+    order('priority ASC')
   end
 
   def context_name=(name)

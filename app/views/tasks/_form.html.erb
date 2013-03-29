@@ -6,7 +6,7 @@
   <div class="with-padding">
     <p class="button-height inline-medium-label">
       <%= f.label :context_name, class: 'label' do %>
-        Context
+        Department
       <% end %>
       <%= f.text_field :context_name, class: 'input' %>
       <small class="input-info">Required</small>
@@ -25,6 +25,13 @@
       <% end %>
       <%= f.text_field :name, class: 'input' %>
       <small class="input-info">Required</small>
+    </p>
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :priority, class: 'label' do %>
+        Priority
+      <% end %>
+      <%= f.number_field :priority, class: 'input', in: 1..50 %>
     </p>
 
     <p class="button-height inline-medium-label">
