@@ -28,3 +28,6 @@ jQuery ->
       changeYear: true
       showButtonPanel: true
     }
+
+  if $('#tablesorter').length > 0
+    $('#tablesorter').tablesorter()

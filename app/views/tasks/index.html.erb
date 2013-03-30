@@ -3,11 +3,15 @@
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/table' %>
+  <%= stylesheet_link_tag 'css/libs/DataTables/jquery.dataTables' %>
+  <%= stylesheet_link_tag 'tasks' %>
 <% end %>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'js/developr.table' %>
+  <%= javascript_include_tag 'js/libs/jquery.tablesorter.min' %>
+  <%= javascript_include_tag 'tasks' %>
 <% end %>
 
 <div class="with-padding">
@@ -18,15 +22,16 @@
     </div>
   <% end %>
 
-  <table class="table">
+  <table id="tablesorter" class="table responsive-table margin-bottom responsive-table-on">
 
     <thead>
       <tr>
         <th scope="col">Task Name</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Department</th>
         <th scope="col">Date Due</th>
         <th scope="col">Assigned To</th>
         <th scope="col">Status</th>
-        <th scope="col">Created By</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -37,10 +42,11 @@
 
         <tr>
           <th scope="row"><%= link_to task.name, task %></th>
+          <td><%= task.priority %></td>
+          <td><%= task.context_name %></td>
           <td><%= date_format(task.due_at) %></td>
           <td><%= task.assignee_full_name %></td>
           <td><%= task.state %></td>
-          <td><%= task.owner_full_name %></td>
           <td class="align-right low-padding">
             <%= link_to 'Show', task, class: 'button compact' %>
             <% if can? :update, task %>

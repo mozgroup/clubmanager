@@ -51,18 +51,23 @@
 <div class="large-margin-left large-margin-right">
   <fieldset class="fieldset">
   <p class="inline-medium-label">
-    <%= label_tag 'name', 'Task', class: 'label' %>
-    <%= @task.name %>
-  </p>
-
-  <p class="inline-medium-label">
-    <%= label_tag 'context_name', 'Context', class: 'label' %>
+    <%= label_tag 'context_name', 'Department', class: 'label' %>
     <%= @task.context_name %>
   </p>
 
   <p class="inline-medium-label">
     <%= label_tag 'project_name', 'Project', class: 'label' %>
     <%= @task.project_name %>
+  </p>
+
+  <p class="inline-medium-label">
+    <%= label_tag 'name', 'Task', class: 'label' %>
+    <%= @task.name %>
+  </p>
+
+  <p class="inline-medium-label">
+    <%= label_tag 'priority', 'Priority', class: 'label' %>
+    <%= @task.priority %>
   </p>
 
   <p class="inline-medium-label">
