@@ -84,7 +84,10 @@ class Task < ActiveRecord::Base
   end
 
   def assigned_to=(name)
-    add_assignment name unless name.blank?
+    unless name.blank?
+      add_assignment name
+      self.assign
+    end
   end
 
   def assigned_to

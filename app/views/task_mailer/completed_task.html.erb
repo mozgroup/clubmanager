@@ -1,0 +1,9 @@
+<p>
+  Hi <%= @send_to.full_name %>,
+</p>
+<p>
+  <%= @assignee.full_name %> has completed the task, <%= @task.name %>, that you assigned.
+</p>
+<p>
+  <%= link_to 'Click here', task_path(@task) %> to view the task.
+</p>
