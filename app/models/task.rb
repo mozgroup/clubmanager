@@ -67,6 +67,10 @@ class Task < ActiveRecord::Base
     where('assignee_id = ?', user_id)
   end
 
+  def self.in_process
+    where('state in (?)', %w(assigned claimed started))
+  end
+
   def self.for_week(date)
     where('due_at >= ? AND due_at <= ?', date.at_beginning_of_week(:sunday), date.at_end_of_week(:sunday))
   end

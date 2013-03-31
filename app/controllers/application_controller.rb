@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
       @daily_incomplete = ChecklistItem.daily_incomplete_for_user(current_user.id)
       @weekly_incomplete = ChecklistItem.weekly_incomplete_for_user(current_user.id)
       @monthly_incomplete = ChecklistItem.monthly_incomplete_for_user(current_user.id)
+      @working_tasks = Task.by_assigned_user(current_user.id).in_process
     end
     helper_method :get_layout_data
 

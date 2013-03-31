@@ -81,6 +81,19 @@
                 <% end %>
               </ul>
             </li>
+            <li class="with-right-arrow">
+              <span>Tasks</span>
+              <ul class="message-menu bevel-on-light-subs dark-text-bevel-subs">
+              <% @working_tasks.each do |task| %>
+                <li class="white-gradient">
+                    <%= link_to task, title: 'Open task' do %>
+                      <strong class="blue"><%= task.name %></strong><br />
+                      <%= task.name %>
+                    <% end %>
+                </li>
+              <% end %>
+              </ul>
+            </li>
           </ul>
         </section>
         <!-- Navigation goes here -->
