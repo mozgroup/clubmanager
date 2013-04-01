@@ -8,5 +8,9 @@
   The task must be completed by <%= @task.due_at.strftime('%A %B %e, %Y') %>
 </p>
 <p>
-  <%= link_to 'Click here', task_path(@task) %> to view the task.
+  <% if @task.id.nil? %>
+    <%= link_to 'Click here', tasks_path %> to view the task.
+  <% else %>
+    <%= link_to 'Click here', task_path(@task) %> to view the task.
+  <% end %>
 </p>
