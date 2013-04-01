@@ -9,8 +9,8 @@
 </p>
 <p>
   <% if @task.id.nil? %>
-    <%= link_to 'Click here', tasks_path %> to view the task.
+    <%= link_to 'Click here', tasks_url %> to view the task.
   <% else %>
-    <%= link_to 'Click here', task_path(@task) %> to view the task.
+    <%= link_to 'Click here', task_url(@task) %> to view the task.
   <% end %>
 </p>
