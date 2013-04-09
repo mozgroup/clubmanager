@@ -14,6 +14,7 @@ class Ability
       can [:read, :update], Task, assignee_id: user.id
       # Tasks
       can :manage, Task, owner_id: user.id
+      can [:update_claimed, :start, :complete], Task, assignee_id: user.id
       can [:read, :create], Context
       can [:read, :create], Project
       can [:create, :read], Event
