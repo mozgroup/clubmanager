@@ -48,7 +48,7 @@ class Checklist < ActiveRecord::Base
   end
 
   def assigned_to=(name)
-    user = User.find_by_full_name(name)
+    user = User.find_by_full_name(name) unless name.blank?
     self.user_id = user.id unless user.nil?
   end
 

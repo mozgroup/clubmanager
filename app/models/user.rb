@@ -103,7 +103,8 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_full_name(name)
-    User.find_by_first_name_and_last_name(*name.split(' ',2))
+    split_name = name.split(' ',2)
+    User.find_by_first_name_and_last_name(*split_name) unless split_name.size == 1
   end
 
   def full_name
