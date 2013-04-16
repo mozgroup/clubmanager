@@ -2,21 +2,22 @@
 #
 # Table name: tasks
 #
-#  id           :integer          not null, primary key
-#  name         :string(255)
-#  due_at       :datetime
-#  completed_at :datetime
-#  context_id   :integer
-#  project_id   :integer
-#  owner_id     :integer
-#  notes        :text
-#  state        :string(255)
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  assignee_id  :integer
-#  started_at   :datetime
-#  claimed_at   :datetime
-#  priority     :integer
+#  id            :integer          not null, primary key
+#  name          :string(255)
+#  due_at        :datetime
+#  completed_at  :datetime
+#  context_id    :integer
+#  project_id    :integer
+#  owner_id      :integer
+#  notes         :text
+#  state         :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  assignee_id   :integer
+#  started_at    :datetime
+#  claimed_at    :datetime
+#  priority      :integer
+#  department_id :integer
 #
 
 class Task < ActiveRecord::Base
@@ -26,6 +27,7 @@ class Task < ActiveRecord::Base
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
   belongs_to :assignee, class_name: 'User', foreign_key: :assignee_id
   belongs_to :project
+  belongs_to :department
 
   validates :name, presence: true
   validates :due_at, presence: true
