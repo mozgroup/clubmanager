@@ -4,12 +4,21 @@
   <%= f.hidden_field :owner_id %>
 
   <div class="with-padding">
+  <!--
     <p class="button-height inline-medium-label">
       <%= f.label :context_name, class: 'label' do %>
         Department
       <% end %>
       <%= f.text_field :context_name, class: 'input' %>
       <small class="input-info">Required</small>
+    </p>
+    -->
+
+    <p class="button-height inline-medium-label">
+      <%= f.label :department_id, class: 'label' do %>
+        Department
+      <% end %>
+      <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: true }, { class: 'select check-list' } %>
     </p>
 
     <p class="button-height inline-medium-label">
