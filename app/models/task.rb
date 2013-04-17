@@ -21,7 +21,7 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id, :priority
+  attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id, :priority, :department_id
 
   belongs_to :context
   belongs_to :owner, class_name: 'User', foreign_key: :owner_id
@@ -36,6 +36,7 @@ class Task < ActiveRecord::Base
   delegate :name, to: :project, prefix: true, allow_nil: true
   delegate :full_name, to: :assignee, prefix: true, allow_nil: true
   delegate :full_name, to: :owner, prefix: true, allow_nil: true
+  delegate :name, to: :department, prefix: true, allow_nil: true
 
   include SysLogger
 
