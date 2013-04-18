@@ -16,4 +16,6 @@ class Department < ActiveRecord::Base
 
   validates :name, presence: true
 
+  scope :by_name, order(:name)
+
 end
