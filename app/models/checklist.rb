@@ -14,6 +14,8 @@
 #
 
 class Checklist < ActiveRecord::Base
+  include PgSearch
+
   attr_accessible :user_id, :frequency, :name, :assigned_to, :author_id, :checklist_items_attributes, :days_of_week, :checklist_item_id
 
   belongs_to :user
@@ -26,6 +28,17 @@ class Checklist < ActiveRecord::Base
 
   delegate :full_name, to: :user, prefix: true, allow_nil: true
   delegate :full_name, to: :author, prefix: true
+
+  pg_search_scope :search_for,
+                  {
+                    :against => [:name,:frequency],
+                    :associated_against => {
+                      :user => [:first_name, :last_name],
+                      :author => [:first_name, :last_name],
+                      :checklist_items => :name
+                    },
+                    :using => :dmetaphone
+                  }
 
   DAILY = 'daily'
   WEEKLY = 'weekly'

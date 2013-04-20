@@ -14,13 +14,16 @@ jQuery ->
     event.preventDefault()
 
   $('form').on 'click', '.add_fields', (event) ->
-  	time = new Date().getTime()
-  	regexp = new RegExp($(@).data('id'), 'g')
-  	$(@).before($(@).data('fields').replace(regexp, time))
-  	event.preventDefault()
+    time = new Date().getTime()
+    regexp = new RegExp($(@).data('id'), 'g')
+    $(@).before($(@).data('fields').replace(regexp, time))
+    event.preventDefault()
 
   $('input[type=radio]').click (event) ->
     if $('#checklist_frequency_daily').is(':checked')
       $('#days-of-week').show()
     else
       $('#days-of-week').hide()
+
+  $('#checklist-search-btn').on 'click', (event) ->
+    $('#checklist-search').submit()

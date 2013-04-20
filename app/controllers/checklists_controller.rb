@@ -1,12 +1,16 @@
 class ChecklistsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  skip_load_resource :only => :new
+  skip_load_resource :only => [:new,:index]
   before_filter :get_layout_data
 
 
   def index
-    @checklists = Checklist.without_parent
+    unless params[:query].blank?
+      @checklists = Checklist.search_for params[:query]
+    else
+      @checklists = Checklist.without_parent
+    end
   end
 
   def show

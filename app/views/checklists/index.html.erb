@@ -3,20 +3,31 @@
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/table' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
 <% end %>
 
 <% content_for :template_functions do %>
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'js/developr.table' %>
+  <%= javascript_include_tag 'checklist' %>
 <% end %>
 
 <div class="with-padding">
 
-  <% if can? :create, Checklist %>
-    <div class="small-margin-bottom">
+  <div class="small-margin-bottom">
+    <% if can? :create, Checklist %>
       <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star' %>
+    <% end %>
+    <div class="float-right">
+      <%= form_tag checklists_path, method: :get, id: 'checklist-search' do %>
+        <span class="input">
+          <%= text_field_tag :query, params[:query], class: 'input-unstyled', placeholder: 'Looking for something?' %>
+          <%= link_to 'Search', 'javascript:void(0)', id: 'checklist-search-btn', class: 'button compact blue-gradient' %>
+        </span>
+      <% end %>
     </div>
-  <% end %>
+    <div class="clear-both"></div>
+  </div>
 
   <table class="table">
 
