@@ -21,3 +21,5 @@ webrat.log
 .rvmrc
 .DS_Store
 .env
+.ruby-gemset
+.ruby-version
