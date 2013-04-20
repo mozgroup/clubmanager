@@ -21,6 +21,8 @@
 #
 
 class Task < ActiveRecord::Base
+  include PgSearch
+
   attr_accessible :completed_at, :context_id, :due_at, :name, :notes, :owner_id, :project_id, :state, :context_name, :project_name, :assigned_to, :assignee_id, :priority, :department_id
 
   belongs_to :context
