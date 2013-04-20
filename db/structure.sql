@@ -52,6 +52,17 @@ COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: pg_search_dmetaphone(text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION pg_search_dmetaphone(text) RETURNS text
+    LANGUAGE sql IMMUTABLE STRICT
+    AS $_$
+  SELECT array_to_string(ARRAY(SELECT dmetaphone(unnest(regexp_split_to_array($1, E'\\s+')))), ' ')
+$_$;
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -704,39 +715,6 @@ ALTER SEQUENCE monthly_summaries_id_seq OWNED BY monthly_summaries.id;
 
 
 --
--- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE pg_search_documents (
-    id integer NOT NULL,
-    content text,
-    searchable_id integer,
-    searchable_type character varying(255),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE pg_search_documents_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE pg_search_documents_id_seq OWNED BY pg_search_documents.id;
-
-
---
 -- Name: projects; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1097,13 +1075,6 @@ ALTER TABLE ONLY monthly_summaries ALTER COLUMN id SET DEFAULT nextval('monthly_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY pg_search_documents ALTER COLUMN id SET DEFAULT nextval('pg_search_documents_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
@@ -1284,14 +1255,6 @@ ALTER TABLE ONLY messages
 
 ALTER TABLE ONLY monthly_summaries
     ADD CONSTRAINT monthly_summaries_pkey PRIMARY KEY (id);
-
-
---
--- Name: pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY pg_search_documents
-    ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
 
 
 --
@@ -1672,6 +1635,13 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 
 
 --
+-- Name: trgm_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX trgm_idx ON tasks USING gist (name gist_trgm_ops);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1760,4 +1730,6 @@ INSERT INTO schema_migrations (version) VALUES ('20130416013823');
 
 INSERT INTO schema_migrations (version) VALUES ('20130420011951');
 
-INSERT INTO schema_migrations (version) VALUES ('20130420013829');
+INSERT INTO schema_migrations (version) VALUES ('20130420192030');
+
+INSERT INTO schema_migrations (version) VALUES ('20130420200542');

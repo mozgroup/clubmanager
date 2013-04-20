@@ -4,6 +4,7 @@
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/table' %>
   <%= stylesheet_link_tag 'css/libs/DataTables/jquery.dataTables' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
   <%= stylesheet_link_tag 'tasks' %>
 <% end %>
 
@@ -16,11 +17,20 @@
 
 <div class="with-padding">
 
-  <% if can? :create, Task %>
-    <div class="small-margin-bottom">
-      <%= link_to 'New Task', new_task_path, class: 'button icon-star' %>
+  <div class="small-margin-bottom">
+    <% if can? :create, Task %>
+      <%= link_to 'New Task', new_task_path, class: 'button icon-star float-left' %>
+    <% end %>
+    <div class="float-right">
+      <%= form_tag tasks_path, method: :get, id: 'task-search' do %>
+        <span class="input">
+          <%= text_field_tag :query, params[:query], class: 'input-unstyled', placeholder: 'Looking for something?' %>
+          <%= link_to 'Search', 'javascript:void(0)', id: 'task-search-btn', class: 'button compact blue-gradient' %>
+        </span>
+      <% end %>
     </div>
-  <% end %>
+    <div class="clear-both"></div>
+  </div>
 
   <table id="tablesorter" class="table responsive-table margin-bottom responsive-table-on">
 

@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  skip_load_resource :only => :new
+  skip_load_resource :only => [:new, :index]
   before_filter :get_layout_data
 
   def index
+    unless params[:query].blank?
+      @tasks = Task.search_for params[:query]
+    else
+      @tasks = Task.by_name
+    end
   end
 
   def show

@@ -40,6 +40,18 @@ class Task < ActiveRecord::Base
   delegate :full_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :department, prefix: true, allow_nil: true
 
+  pg_search_scope :search_for,
+                  {
+                    :against => [:name, :notes, :state],
+                    :associated_against => {
+                      :department => :name,
+                      :owner => [:first_name, :last_name],
+                      :assignee => [:first_name, :last_name],
+                      :project => :name
+                    },
+                    :using => :dmetaphone
+                  }
+
   include SysLogger
 
   state_machine initial: :new do
@@ -58,6 +70,10 @@ class Task < ActiveRecord::Base
     event :complete do
       transition [:started] => :completed
     end
+  end
+
+  def self.by_name
+    order(:name)
   end
 
   def self.by_context(context_id)
@@ -82,6 +98,10 @@ class Task < ActiveRecord::Base
 
   def self.order_by_priority
     order('priority ASC')
+  end
+
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 
   def context_name=(name)

@@ -31,3 +31,6 @@ jQuery ->
 
   if $('#tablesorter').length > 0
     $('#tablesorter').tablesorter()
+
+  $('#task-search-btn').on 'click', (event) ->
+    $('#task-search').submit()
