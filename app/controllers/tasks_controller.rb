@@ -70,4 +70,22 @@ class TasksController < ApplicationController
     redirect_to @task
   end
 
+  def rpt_all
+    order = params[:order].blank? ? 'By Status' : params[:order].camelize
+    if params[:order] == 'department'
+      @tasks = Task.by_department
+    elsif params[:order] == 'incomplete'
+      @tasks = Task.in_process
+    else
+      @tasks = Task.by_state
+    end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = TaskPdf.new(@tasks, order)
+        send_data pdf.render, filename: "tasks_by_state", type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+
 end

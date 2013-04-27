@@ -32,15 +32,20 @@ ClubManager::Application.routes.draw do
     end
   end
   resources :tasks do
-    get 'my_tasks', on: :collection
-    get 'assigned', on: :collection
-    get 'in_progress', on: :collection
-    get 'completed', on: :collection
-    get 'assign', on: :member
-    put 'update_assigned_to', on: :member
-    put 'update_claimed', on: :member
-    put 'start', on: :member
-    put 'complete', on: :member
+    member do
+      get 'assign'
+      put 'update_assigned_to'
+      put 'update_claimed'
+      put 'start'
+      put 'complete'
+    end
+    collection do
+      get 'my_tasks'
+      get 'assigned'
+      get 'in_progress'
+      get 'completed'
+      get 'rpt_all'
+    end
   end
   resources :projects do
     get 'search', on: :collection

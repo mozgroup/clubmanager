@@ -76,6 +76,14 @@ class Task < ActiveRecord::Base
     order(:name)
   end
 
+  def self.by_state
+    order(:state)
+  end
+
+  def self.by_department
+    joins(:department).order('departments.name')
+  end
+
   def self.by_context(context_id)
     where('context_id = ?', context_id)
   end
@@ -90,6 +98,10 @@ class Task < ActiveRecord::Base
 
   def self.in_process
     where('state in (?)', %w(assigned claimed started))
+  end
+
+  def self.not_complete
+    where("state != 'new' AND state != 'completed")
   end
 
   def self.for_week(date)

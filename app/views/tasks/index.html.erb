@@ -20,6 +20,11 @@
   <div class="small-margin-bottom">
     <% if can? :create, Task %>
       <%= link_to 'New Task', new_task_path, class: 'button icon-star float-left' %>
+      <% if can? :manage, Task %>
+        <%= link_to 'Report - Tasks by status', rpt_all_tasks_path(format: 'pdf'), class: 'button' %>
+        <%= link_to 'Report - Tasks by department', rpt_all_tasks_path(format: 'pdf', order: 'department'), class: 'button' %>
+        <%= link_to 'Report - Incomplete Tasks', rpt_all_tasks_path(format: 'pdf', order: 'incomplete'), class: 'button' %>
+      <% end %>
     <% end %>
     <div class="float-right">
       <%= form_tag tasks_path, method: :get, id: 'task-search' do %>
