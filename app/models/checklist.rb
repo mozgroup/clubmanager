@@ -56,6 +56,12 @@ class Checklist < ActiveRecord::Base
   scope :for_user, lambda { |user|  where(user_id: user.id) }
   scope :without_parent, where(checklist_item_id: nil)
 
+  FREQUENCIES.each do |freq|
+    define_method "is_#{freq}?" do
+      frequency == "#{freq}"
+    end
+  end
+
   def assigned_to
     user_full_name
   end
@@ -63,18 +69,6 @@ class Checklist < ActiveRecord::Base
   def assigned_to=(name)
     user = User.find_by_full_name(name) unless name.blank?
     self.user_id = user.id unless user.nil?
-  end
-
-  def is_daily?
-    frequency == 'daily'
-  end
-
-  def is_weekly?
-    frequency == 'weekly'
-  end
-
-  def is_monthly?
-    frequency == 'monthly'
   end
 
   def days_of_week=(days)
