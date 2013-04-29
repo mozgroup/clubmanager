@@ -56,6 +56,20 @@ class Checklist < ActiveRecord::Base
   scope :for_user, lambda { |user|  where(user_id: user.id) }
   scope :without_parent, where(checklist_item_id: nil)
 
+  class << self
+    FREQUENCIES.each do |freq|
+      define_method "#{freq}_completed".to_sym do |date|
+        checklists = where(frequency: "#{freq}")
+        checklists.delete_if { |checklist| ! checklist.is_complete? date }
+      end
+
+      define_method "#{freq}_incomplete".to_sym do |date|
+        checklists = where(frequency: "#{freq}")
+        checklists.delete_if { |checklist| checklist.is_complete? date }
+      end
+    end
+  end
+
   FREQUENCIES.each do |freq|
     define_method "is_#{freq}?" do
       frequency == "#{freq}"
@@ -85,5 +99,13 @@ class Checklist < ActiveRecord::Base
 
   def has_parent?
     checklist_item_id
+  end
+
+  def is_complete?(date)
+    complete = true
+    checklist_items.each do |item|
+      complete = false unless item.is_complete? date
+    end
+    complete
   end
 end

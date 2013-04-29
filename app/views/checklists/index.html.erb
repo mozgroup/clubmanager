@@ -15,9 +15,6 @@
 <div class="with-padding">
 
   <div class="small-margin-bottom">
-    <% if can? :create, Checklist %>
-      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star' %>
-    <% end %>
     <div class="float-right">
       <%= form_tag checklists_path, method: :get, id: 'checklist-search' do %>
         <span class="input">
@@ -27,6 +24,17 @@
       <% end %>
     </div>
     <div class="clear-both"></div>
+    <% if can? :create, Checklist %>
+      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star' %>
+    <% end %>
+    <% if can? :manage, Checklist %>
+      <%= link_to 'Daily Incomplete', reports_daily_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%= link_to 'Daily Complete', reports_daily_complete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%= link_to 'Weekly Incomplete', reports_weekly_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%= link_to 'Weekly Complete', reports_weekly_complete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%= link_to 'Monthly Incomplete', reports_monthly_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%= link_to 'Monthly Complete', reports_monthly_complete_checklists_path(format: 'pdf'), class: 'button' %>
+    <% end %>
   </div>
 
   <table class="table">

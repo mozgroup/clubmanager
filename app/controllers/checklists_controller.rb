@@ -52,4 +52,47 @@ class ChecklistsController < ApplicationController
     redirect_to checklists_url
   end
 
+  def reports_daily_incomplete
+    @checklists = Checklist.daily_incomplete Date.today
+    reports_respond_to
+  end
+
+  def reports_daily_complete
+    @checklists = Checklist.daily_completed Date.today
+    reports_respond_to
+  end
+
+  def reports_weekly_incomplete
+    @checklists = Checklist.weekly_incomplete Date.today
+    reports_respond_to
+  end
+
+  def reports_weekly_complete
+    @checklists = Checklist.weekly_completed Date.today
+    reports_respond_to
+  end
+
+  def reports_monthly_incomplete
+    @checklists = Checklist.monthly_incomplete Date.today
+    reports_respond_to
+  end
+
+  def reports_monthly_complete
+    @checklists = Checklist.monthly_completed Date.today
+    reports_respond_to
+  end
+
+  private
+
+    def reports_respond_to
+      caller_method = caller[0][/`([^']*)'/, 1]
+      respond_to do |format|
+        format.html
+        format.pdf do
+          pdf = ChecklistsPdf.new(@checklists, caller_method.split(/_(.*)$/)[1].humanize)
+          send_data pdf.render, filename: "#{caller_method}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
+        end
+      end
+    end
+
 end
