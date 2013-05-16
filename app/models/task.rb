@@ -118,10 +118,11 @@ class Task < ActiveRecord::Base
     find_each { |record| record.update_pg_search_document }
   end
 
-  def self.search_assignee_and_state(assignee, status)
+  def self.search_assignee_and_state(assignee, status, department)
     tasks = Task.scoped
     tasks = tasks.where(assignee_id: assignee) unless assignee.blank?
     tasks = tasks.where(state: status) unless status.blank?
+    tasks = tasks.where(department_id: department) unless department.blank?
     tasks
   end
 
