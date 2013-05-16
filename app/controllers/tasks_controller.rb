@@ -8,7 +8,11 @@ class TasksController < ApplicationController
     unless params[:query].blank?
       @tasks = Task.search_for params[:query]
     else
-      @tasks = Task.by_name
+      unless params[:assigned_to].blank? && params[:status].blank?
+        @tasks = Task.search_assignee_and_state(params[:assigned_to], params[:status])
+      else
+        @tasks = Task.by_name
+      end
     end
   end
 

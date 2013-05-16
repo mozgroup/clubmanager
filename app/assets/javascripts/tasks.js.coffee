@@ -34,3 +34,6 @@ jQuery ->
 
   $('#task-search-btn').on 'click', (event) ->
     $('#task-search').submit()
+
+  $('#task-filter-btn').on 'click', (event) ->
+    $('#task-filter').submit()

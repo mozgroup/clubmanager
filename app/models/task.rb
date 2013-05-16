@@ -40,6 +40,8 @@ class Task < ActiveRecord::Base
   delegate :full_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :department, prefix: true, allow_nil: true
 
+  STATES = %w(new assigned claimed started completed)
+
   pg_search_scope :search_for,
                   {
                     :against => [:name, :notes, :state],
@@ -114,6 +116,13 @@ class Task < ActiveRecord::Base
 
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
+  end
+
+  def self.search_assignee_and_state(assignee, status)
+    tasks = Task.scoped
+    tasks = tasks.where(assignee_id: assignee) unless assignee.blank?
+    tasks = tasks.where(state: status) unless status.blank?
+    tasks
   end
 
   def context_name=(name)

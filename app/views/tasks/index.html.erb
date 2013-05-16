@@ -26,6 +26,9 @@
         <%= link_to 'Report - Incomplete Tasks', rpt_all_tasks_path(format: 'pdf', order: 'incomplete'), class: 'button' %>
       <% end %>
     <% end %>
+  </div>
+
+  <div class="table-header blue-gradient button-height">
     <div class="float-right">
       <%= form_tag tasks_path, method: :get, id: 'task-search' do %>
         <span class="input">
@@ -34,10 +37,17 @@
         </span>
       <% end %>
     </div>
-    <div class="clear-both"></div>
+
+    <%= form_tag tasks_path, method: :get, id: 'task-filter' do %>
+      <%= label_tag :assigned_to %>
+      <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+      <%= label_tag :status %>
+      <%= select_tag :status, options_for_select(Task::STATES, params[:status]), class: 'select', include_blank: true %>
+      <%= link_to 'Go', 'javascript:void(0)', id: 'task-filter-btn', class: 'button' %>
+    <% end %>
   </div>
 
-  <table id="tablesorter" class="table responsive-table margin-bottom responsive-table-on">
+  <table id="tablesorter" class="table">
 
     <thead>
       <tr>
