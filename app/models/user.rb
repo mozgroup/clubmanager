@@ -150,4 +150,10 @@ class User < ActiveRecord::Base
     !managed_departments.empty?
   end
 
+  def manages
+    if department_manager?
+      sql = "SELECT * FROM users WHERE department_id IN (SELECT id FROM departments WHERE manager_id = #{self.id});"
+      User.find_by_sql sql
+    end
+  end
 end
