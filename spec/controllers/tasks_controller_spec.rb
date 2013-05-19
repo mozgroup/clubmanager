@@ -30,7 +30,7 @@ describe TasksController do
     end
 
     it "should display all of the users tasks" do
-      assigns(:tasks).size.should eq(2)
+      assigns(:tasks).size.should eq(3)
     end
   end
 
