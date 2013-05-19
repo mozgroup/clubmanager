@@ -79,7 +79,11 @@
       <%= f.label :assigned_to, class: 'label' do %>
         Assigned To
       <% end %>
-      <%= f.text_field :assigned_to, class: 'input' %>
+      <% if current_user.is_manager? %>
+        <%= f.collection_select :assignee_id, current_user.manages, :id, :full_name, { prompt: true }, { class: 'select' } %>
+      <% elsif current_user.is_admin? %>
+        <%= f.collection_select :assignee_id, User.all(order: :last_name), :id, :full_name, { prompt: true }, { class: 'select' } %>
+      <% end %>
       <button class="button glossy mid-margin-right" type="submit">
         <span class="button-icon"><span class="icon-tick"></span></span>
         Update
