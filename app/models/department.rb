@@ -20,5 +20,6 @@ class Department < ActiveRecord::Base
   validates :name, presence: true
 
   scope :by_name, order(:name)
+  scope :for_manager, lambda { |manager| where(manager_id: manager.id) }
 
 end

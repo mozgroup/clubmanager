@@ -18,7 +18,11 @@
       <%= f.label :department_id, class: 'label' do %>
         Department
       <% end %>
-      <%= f.collection_select :department_id, Department.by_name, :id, :name, { prompt: true }, { class: 'select check-list' } %>
+      <% if current_user.is_manager? %>
+        <%= f.collection_select :department_id, Department.for_manager(current_user).by_name, :id, :name, {}, { class: 'select check-list' } %>
+      <% elsif current_user.is_admin? %>
+        <%= f.collection_select :department_id, Department.by_name, :id, :name, { prompt: true }, { class: 'select check-list' } %>
+      <% end %>
     </p>
 
     <p class="button-height inline-medium-label">
