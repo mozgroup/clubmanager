@@ -21,6 +21,7 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  roles_mask             :integer
+#  department_id          :integer
 #
 
 class User < ActiveRecord::Base
@@ -34,7 +35,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :title, :employee_number, :first_name, :last_name
-  attr_accessible :club_ids, :roles, :mailbox_attributes
+  attr_accessible :club_ids, :roles, :mailbox_attributes, :department_id
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -84,15 +85,17 @@ class User < ActiveRecord::Base
   has_many :events, through: :subscriptions
   has_many :organized_events, class_name: 'Event', foreign_key: 'organizer_id'
   has_many :mailboxes
-
   has_many :checklists
+  belongs_to :department
+  has_many :managed_departments, class_name: 'Department', foreign_key: 'manager_id'
 
   accepts_nested_attributes_for :club_users
   accepts_nested_attributes_for :mailboxes
 
-  scope :with_role, lambda { |role| { conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
-
   ROLES = %w[admin owner manager associate]
+
+  scope :with_role, lambda { |role| { conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
+  scope :managers, { conditions: "roles_mask & #{2**ROLES.index('manager')} > 0"}
 
   def self.name_search(query)
     if query.present?
@@ -137,15 +140,14 @@ class User < ActiveRecord::Base
     roles.include? role
   end
 
-  def is_admin?
-    has_role? 'admin'
+  ROLES.each do |role|
+    define_method "is_#{role}?".to_sym do
+      has_role? "#{role}"
+    end
   end
 
-  def is_owner?
-    has_role? 'owner'
+  def department_manager?
+    !managed_departments.empty?
   end
 
-  def is_manager?
-    has_role? 'manager'
-  end
 end

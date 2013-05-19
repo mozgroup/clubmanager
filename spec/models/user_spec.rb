@@ -21,6 +21,7 @@
 #  first_name             :string(255)
 #  last_name              :string(255)
 #  roles_mask             :integer
+#  department_id          :integer
 #
 
 require 'spec_helper'
@@ -45,6 +46,8 @@ describe User do
   it { should have_many(:contexts) }
   it { should have_many(:tasks) }
   it { should have_many(:mailboxes) }
+  it { should belong_to(:department) }
+  it { should have_many(:managed_departments) }
 
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
@@ -222,26 +225,20 @@ describe User do
     it { should have_many(:events).through(:subscriptions) }
     it { should have_many(:organized_events) }
 
-#    describe "events_for extension" do
-#
-#      let!(:user) { FactoryGirl.create(:user) }
-#      let!(:current_date) { Time.parse('20121115') }
-#      let!(:prev_month) { FactoryGirl.create(:event, organizer: user, start_at: current_date - 1.month, end_at: current_date - 1.month) }
-#      let!(:next_month) { FactoryGirl.create(:event, organizer: user, start_at: current_date + 1.month, end_at: current_date + 1.month) }
-#      let!(:event1) { FactoryGirl.create(:event, organizer: user, start_at: current_date.at_beginning_of_month, end_at: current_date.at_beginning_of_month) }
-#      let!(:event2) { FactoryGirl.create(:event, organizer: user, start_at: current_date - 1.days, end_at: current_date - 1.days) }
-#      let!(:event3) { FactoryGirl.create(:event, organizer: user, start_at: current_date + 1.days, end_at: current_date + 1.days) }
-#      let!(:event4) { FactoryGirl.create(:event, organizer: user, start_at: current_date.at_end_of_month, end_at: current_date.at_end_of_month) }
-#
-#      it "should return only the current months events" do
-#        Event.all.each { |event| event.users << user }
-#
-#        events =  user.events.for_month(current_date)
-#        events.size.should eq(4)
-#        events.each do |event|
-#          [event1, event2, event3, event4].should include(event)
-#        end
-#      end
-#    end
+  end
+
+  describe ".department_manager?" do
+    before do
+      @user = User.create(@attr)
+    end
+
+    subject { @user }
+
+    it { should_not be_a_department_manager }
+
+    describe 'assigned as a department manager' do
+      before { @department = FactoryGirl.create(:department, manager: @user) }
+      it { should be_a_department_manager }
+    end
   end
 end

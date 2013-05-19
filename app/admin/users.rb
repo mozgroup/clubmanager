@@ -2,7 +2,7 @@ ActiveAdmin.register User do
   index do
     column :full_name
     column :email
-    column :current_sign_in_at
+    column :department
     column :last_sign_in_at
     column :sign_in_count
     default_actions
@@ -20,6 +20,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :employee_number
       f.input :title
+      f.input :department
       f.input :clubs
       f.input :roles, as: :check_boxes, collection: User::ROLES
       f.input :password

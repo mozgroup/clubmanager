@@ -430,7 +430,8 @@ CREATE TABLE departments (
     name character varying(255),
     description text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    manager_id integer
 );
 
 
@@ -922,7 +923,8 @@ CREATE TABLE users (
     title character varying(255),
     first_name character varying(255),
     last_name character varying(255),
-    roles_mask integer
+    roles_mask integer,
+    department_id integer
 );
 
 
@@ -1733,3 +1735,7 @@ INSERT INTO schema_migrations (version) VALUES ('20130420011951');
 INSERT INTO schema_migrations (version) VALUES ('20130420192030');
 
 INSERT INTO schema_migrations (version) VALUES ('20130420200542');
+
+INSERT INTO schema_migrations (version) VALUES ('20130519183441');
+
+INSERT INTO schema_migrations (version) VALUES ('20130519183924');

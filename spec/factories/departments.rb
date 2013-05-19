@@ -2,6 +2,7 @@
 
 FactoryGirl.define do
   factory :department do
+    manager
     name "MyString"
     description "MyText"
   end
