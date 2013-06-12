@@ -55,6 +55,7 @@ ClubManager::Application.routes.draw do
       get 'in_progress'
       get 'completed'
       get 'rpt_all'
+      get 'reports'
     end
   end
   resources :projects do

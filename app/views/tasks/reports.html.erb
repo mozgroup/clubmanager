@@ -1,0 +1,59 @@
+<% provide(:current_tasks, " class='current'".html_safe) %>
+<% provide(:title, "Task Reporting") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/libs/glDatePicker/developr' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'js/developr.input' %>
+  <%= javascript_include_tag 'js/libs/glDatePicker/glDatePicker.min' %>
+  <%= javascript_include_tag 'tasks' %>
+<% end %>
+
+<div class="with-padding">
+
+  <%= form_tag reports_tasks_path(format: 'pdf'), method: :get do %>
+
+    <div class="with-padding">
+
+      <fieldset class="fieldset">
+        <p class="button-height inline-label">
+          <%= label_tag :department_id, 'Department', class: 'label' %>
+          <%= select_tag :department_id, options_from_collection_for_select(Department.all, "id", "name", params[:department_id]), class: 'select', include_blank: true %>
+        </p>
+        <p class="button-height inline-label">
+          <%= label_tag :assigned_to, 'Assigned To', class: 'label' %>
+          <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+        </p>
+        <p class="button-height inline-label">
+          <%= label_tag :status, 'Status', class: 'label' %>
+          <%= select_tag :status, options_for_select(Task::STATES, params[:status]), class: 'select', include_blank: true %>
+        </p>
+        <p class="button-height inline-label">
+          <%= label_tag :begin_date, 'Begin Date', class: 'label' %>
+          <span class="input">
+            <span class="icon-calendar"></span>
+            <%= text_field_tag :begin_date, params[:begin_date], class: 'input-unstyled datepicker' %>
+          </span>
+        </p>
+        <p class="button-height inline-label">
+          <%= label_tag :end_date, 'End Date', class: 'label' %>
+          <span class="input">
+            <span class="icon-calendar"></span>
+            <%= text_field_tag :end_date, params[:end_date], class: 'input-unstyled datepicker' %>
+          </span>
+        </p>
+        <p class="button-height inline-label">
+          <%= submit_tag 'Run Report', class: 'button' %>
+        </p>
+      </fieldset>
+
+    </div>
+
+  <% end %>
+
+</div>

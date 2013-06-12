@@ -126,6 +126,16 @@ class Task < ActiveRecord::Base
     tasks
   end
 
+  def self.search_by_params(params)
+    tasks = Task.scoped
+    tasks = tasks.where(department_id: params[:department_id]) unless params[:department_id].blank?
+    tasks = tasks.where(assignee_id: params[:assigned_to]) unless params[:assigned_to].blank?
+    tasks = tasks.where(state: params[:status]) unless params[:status].blank?
+    tasks = tasks.where('due_at >= ?', params[:begin_date]) unless params[:begin_date].blank?
+    tasks = tasks.where('due_at <= ?', params[:end_date]) unless params[:end_date].blank?
+    tasks
+  end
+
   def context_name=(name)
     add_context({ name: name, owner_id: self.owner_id })
   end

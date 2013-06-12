@@ -92,4 +92,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def reports
+    @tasks = Task.search_by_params params
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = TaskPdf.new(@tasks, 'Tasks')
+        send_data pdf.render, filename: "tasks_by_state", type: "application/pdf", disposition: "inline"
+      end
+    end
+  end
+
 end
