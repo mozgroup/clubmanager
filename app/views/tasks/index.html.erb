@@ -44,7 +44,7 @@
 
     <%= form_tag tasks_path, method: :get, id: 'task-filter' do %>
       <%= label_tag :assigned_to %>
-      <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+      <%= select_tag :assigned_to, options_from_collection_for_select(User.all(order: :first_name), "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
       <%= label_tag :status %>
       <%= select_tag :status, options_for_select(Task::STATES, params[:status]), class: 'select', include_blank: true %>
       <%= label_tag :department %>

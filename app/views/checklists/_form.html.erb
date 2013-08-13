@@ -17,7 +17,7 @@
         <%= f.label :assigned_to, class: 'label' do %>
           Assigned To
         <% end %>
-        <%= f.text_field :assigned_to, class: 'input' %>
+        <%= f.collection_select :assigned_to, User.all(order: :first_name), :full_name, :full_name, { prompt: true }, { class: 'select' } %>
         <small class="input-info">Required</small>
       </p>
 
