@@ -82,15 +82,35 @@ class ChecklistsController < ApplicationController
     reports_respond_to
   end
 
+  def reports
+    @report_type = params[:report_type]
+    @checklists = Checklist.where(user_id: "#{params[:assigned_to]}") if params[:assigned_to]
+    @checklists ||= Checklist.all
+    if params[:report_type] == "daily_incomplete"
+      @checklists = @checklists.daily_incomplete(Date.today)
+    elsif params[:report_type] == "daily_complete"
+      @checklists = @checklists.daily_completed Date.today
+    elsif params[:report_type] == "weekly_incomplete"
+      @checklists = @checklists.weekly_incomplete Date.today
+    elsif params[:report_type] == "weekly_complete"
+      @checklists = @checklists.weekly_completed Date.today
+    elsif params[:report_type] == "monthly_incomplete"
+      @checklists = @checklists.monthly_incomplete Date.today
+    elsif params[:report_type] == "monthly_complete"
+      @checklists = @checklists.monthly_completed Date.today
+    end
+    reports_respond_to
+  end
+
   private
 
     def reports_respond_to
-      caller_method = caller[0][/`([^']*)'/, 1]
+      #caller_method = caller[0][/`([^']*)'/, 1]
       respond_to do |format|
         format.html
         format.pdf do
-          pdf = ChecklistsPdf.new(@checklists, caller_method.split(/_(.*)$/)[1].humanize)
-          send_data pdf.render, filename: "#{caller_method}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
+          pdf = ChecklistsPdf.new(@checklists, @report_type.humanize)
+          send_data pdf.render, filename: "#{@report_type}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
         end
       end
     end

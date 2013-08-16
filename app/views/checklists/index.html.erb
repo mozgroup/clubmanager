@@ -28,12 +28,19 @@
       <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star' %>
     <% end %>
     <% if can? :manage, Checklist %>
-      <%= link_to 'Daily Incomplete', reports_daily_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
-      <%= link_to 'Daily Complete', reports_daily_complete_checklists_path(format: 'pdf'), class: 'button' %>
-      <%= link_to 'Weekly Incomplete', reports_weekly_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
-      <%= link_to 'Weekly Complete', reports_weekly_complete_checklists_path(format: 'pdf'), class: 'button' %>
-      <%= link_to 'Monthly Incomplete', reports_monthly_incomplete_checklists_path(format: 'pdf'), class: 'button' %>
-      <%= link_to 'Monthly Complete', reports_monthly_complete_checklists_path(format: 'pdf'), class: 'button' %>
+      <%#= form_tag reports_checklists_path(format: 'pdf'), method: :get do %>
+      <%= form_tag reports_checklists_path(format: 'pdf'), method: :get, id: 'checklist-filter' do %>
+      <select name="report_type" id="report_type" class="select">
+        <option value="daily_incomplete">Daily Incomplete</option>
+        <option value="daily_complete">Daily Complete</option>
+        <option value="weekly_incomplete">Weekly Incomplete</option>
+        <option value="weekly_complete">Weekly Complete</option>
+        <option value="monthly_incomplete">Monthly Incomplete</option>
+        <option value="monthly_complete">Monthly Complete</option>
+      </select>
+      <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+        <%= link_to 'Go', 'javascript:void(0)', id: 'checklist-filter-btn', class: 'button' %>
+      <% end %>
     <% end %>
   </div>
 

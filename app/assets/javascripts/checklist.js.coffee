@@ -27,3 +27,6 @@ jQuery ->
 
   $('#checklist-search-btn').on 'click', (event) ->
     $('#checklist-search').submit()
+
+  $('#checklist-filter-btn').on 'click', (event) ->
+    $('#checklist-filter').submit()
