@@ -24,6 +24,7 @@ ClubManager::Application.routes.draw do
   resources :attachments, only: [:create, :destroy]
   resources :checklists do
     collection do
+      get 'reports'
       get 'reports_daily_incomplete'
       get 'reports_daily_complete'
       get 'reports_weekly_incomplete'
