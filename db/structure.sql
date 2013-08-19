@@ -610,7 +610,7 @@ CREATE TABLE mailboxes (
     ssl boolean,
     domain character varying(255),
     username character varying(255),
-    passcode character varying(255),
+    password_digest character varying(255),
     starttls_auto boolean,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

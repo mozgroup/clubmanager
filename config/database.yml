@@ -1,17 +1,17 @@
 development:
   adapter: postgresql
   encoding: utf8
-  database: club_manager_development
+  database: clubmanager
   pool: 5
-  username:
-  password:
+  username: postgres
+  password: passwordpa
   host: localhost
 
 test:
   adapter: postgresql
   encoding: utf8
-  database: club_manager_test
+  database: clubmanager
   pool: 5
-  username:
-  password:
+  username: postgres
+  password: passwordpa
   host: localhost

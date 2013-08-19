@@ -17,7 +17,7 @@
         <%= f.label :assigned_to, class: 'label' do %>
           Assigned To
         <% end %>
-        <%= f.select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+        <%= f.collection_select :assigned_to, User.all(order: :first_name), :full_name, :full_name, { prompt: true }, { class: 'select' } %>
         <%#= f.text_field :assigned_to, class: 'input' %>
         <small class="input-info">Required</small>
       </p>
