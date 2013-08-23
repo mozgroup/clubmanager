@@ -14,14 +14,7 @@
 
 <div class="with-padding">
 
-<div class="small-margin-bottom">
-    <% if can? :create, Checklist %>
-      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star ' %>
-    <% end %>
-</div>
-
-
-<div class="table-header blue-gradient button-height">
+  <div class="small-margin-bottom">
     <div class="float-right">
       <%= form_tag checklists_path, method: :get, id: 'checklist-search' do %>
         <span class="input">
@@ -30,7 +23,10 @@
         </span>
       <% end %>
     </div>
-
+    <div class="clear-both"></div>
+    <% if can? :create, Checklist %>
+      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star ' %>
+    <% end %>
     <% if can? :manage, Checklist %>
       <%#= form_tag reports_checklists_path(format: 'pdf'), method: :get do %>
       <%= form_tag reports_checklists_path(format: 'pdf'), method: :get, id: 'checklist-filter' do %>
@@ -47,7 +43,6 @@
       <% end %>
     <% end %>
   </div>
-
 
   <table class="table">
 
