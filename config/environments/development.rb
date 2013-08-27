@@ -36,7 +36,8 @@ ClubManager::Application.configure do
   config.assets.debug = true
 
   # ActionMailer config
-  config.action_mailer.default_url_options = { :host => ENV["url_host"] }
+  #config.action_mailer.default_url_options = { :host => ENV["url_host"] }
+  config.action_mailer.default_url_options = { :host => 'localhost' }
   config.action_mailer.delivery_method = :smtp
   # change to false to prevent email from being sent during development
   config.action_mailer.perform_deliveries = true
