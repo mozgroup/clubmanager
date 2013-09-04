@@ -1,0 +1,19 @@
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Editing Checklist") %>
+
+<% content_for :additional_styles do %>
+  <%= stylesheet_link_tag 'css/styles/form' %>
+  <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
+<% end %>
+
+<% content_for :template_functions do %>
+  <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
+  <%= javascript_include_tag 'js/developr.input' %>
+  <%= javascript_include_tag 'checklist' %>
+<% end %>
+
+<div class="with-padding">
+
+  <%= render 'form' %>
+
+</div>

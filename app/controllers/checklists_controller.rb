@@ -51,7 +51,20 @@ class ChecklistsController < ApplicationController
     flash[:notice] = 'Checklist was deleted.'
     redirect_to checklists_url
   end
-
+  
+  def duplicate
+    old_checklist = Checklist.find(params[:id])
+    
+    @checklist = Checklist.create(name: "Copy of " + old_checklist.name, frequency: old_checklist.frequency, author_id: old_checklist.author_id, user_id: old_checklist.user_id, days_of_week_mask: old_checklist.days_of_week_mask)
+    
+    old_checklist.checklist_items.each do |item|
+    	@checklist.checklist_items.create(checklist_id: @checklist.id ,name: item.name)
+    end
+    
+    flash[:notice] = 'Checklist was duplicated.'
+    redirect_to checklists_url
+  end
+  
   def reports_daily_incomplete
     @checklists = Checklist.daily_incomplete Date.today
     reports_respond_to
