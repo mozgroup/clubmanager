@@ -30,6 +30,5 @@ describe ChecklistsController do
     it "routes to #destroy" do
       delete("/checklists/1").should route_to("checklists#destroy", :id => "1")
     end
-
   end
 end

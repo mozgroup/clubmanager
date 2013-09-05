@@ -20,7 +20,7 @@ ClubManager::Application.routes.draw do
   get 'tasks/context/:context_id', to: 'tasks#context', as: 'context_tasks'
   get 'tasks/project/:project_id', to: 'tasks#project', as: 'project_tasks'
   get 'home', to: 'home#index', as: 'home'
-
+  
   resources :attachments, only: [:create, :destroy]
   resources :checklists do
     collection do
@@ -32,6 +32,7 @@ ClubManager::Application.routes.draw do
       get 'reports_monthly_incomplete'
       get 'reports_monthly_complete'
     end
+    get :duplicate, :on => :member
   end
   resources :checklist_items, only: [:show, :update, :edit, :destroy] do
     member do
