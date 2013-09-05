@@ -7,21 +7,14 @@
 <% end %>
 
 <% content_for :template_functions do %>
-  <!--%= javascript_include_tag 'application' %-->
+  <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'js/developr.table' %>
   <%= javascript_include_tag 'checklist' %>
 <% end %>
 
 <div class="with-padding">
 
-<div class="small-margin-bottom">
-    <% if can? :create, Checklist %>
-      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star ' %>
-    <% end %>
-</div>
-
-
-<div class="table-header blue-gradient button-height">
+  <div class="small-margin-bottom">
     <div class="float-right">
       <%= form_tag checklists_path, method: :get, id: 'checklist-search' do %>
         <span class="input">
@@ -30,7 +23,10 @@
         </span>
       <% end %>
     </div>
-
+    <div class="clear-both"></div>
+    <% if can? :create, Checklist %>
+      <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star ' %>
+    <% end %>
     <% if can? :manage, Checklist %>
       <%#= form_tag reports_checklists_path(format: 'pdf'), method: :get do %>
       <%= form_tag reports_checklists_path(format: 'pdf'), method: :get, id: 'checklist-filter' do %>
@@ -47,7 +43,6 @@
       <% end %>
     <% end %>
   </div>
-
 
   <table class="table">
 
@@ -76,7 +71,6 @@
               <% if can? :update, checklist %>
                 <%= link_to 'Edit', edit_checklist_path(checklist), class: 'button compact' %>
                 <%= link_to 'Delete', checklist, method: :delete, class: 'button compact', data: { confirm: 'Are you sure?' } %>
-                <%= link_to 'Copy', duplicate_checklist_path(checklist), class: 'button compact', data: { confirm: 'Are you sure?' } %>
               <% end %>
             </td>
           </tr>

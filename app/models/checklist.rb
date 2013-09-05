@@ -51,7 +51,7 @@ class Checklist < ActiveRecord::Base
   DAYS_OF_WEEK = %w[sunday monday tuesday wednesday thursday friday saturday]
 
   accepts_nested_attributes_for :checklist_items, allow_destroy: true
-
+  attr_accessible :days_of_week_mask	
   scope :with_day_of_week, lambda { |dow| { conditions: "days_of_week_mask & #{2**DAYS_OF_WEEK.index(dow.to_s)} > 0"} }
   scope :for_user, lambda { |user|  where(user_id: user.id) }
   scope :without_parent, where(checklist_item_id: nil)
@@ -107,5 +107,10 @@ class Checklist < ActiveRecord::Base
       complete = false unless item.is_complete? date
     end
     complete
+  end
+  
+  #def self.duplicate(checklist_id)
+  def self.duplicate
+  	#@checklist = Checklist.find(params[:id])
   end
 end
