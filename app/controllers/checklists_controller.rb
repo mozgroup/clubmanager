@@ -10,6 +10,13 @@ class ChecklistsController < ApplicationController
       @checklists = Checklist.search_for params[:query]
     else
       @checklists = Checklist.without_parent
+      
+      unless params[:assigned_to].blank? && params[:report_type].blank? 
+        @checklists = Checklist.search_assignee_and_type(params[:assigned_to], params[:report_type])
+      else
+        @checklists = Checklist.by_name
+      end
+      
     end
   end
 
@@ -96,36 +103,63 @@ class ChecklistsController < ApplicationController
   end
 
   def reports
-    @report_type = params[:report_type]
-    @checklists = Checklist.where(user_id: "#{params[:assigned_to]}") if params[:assigned_to]
-    @checklists ||= Checklist.all
-    if params[:report_type] == "daily_incomplete"
-      @checklists = @checklists.daily_incomplete(Date.today)
-    elsif params[:report_type] == "daily_complete"
-      @checklists = @checklists.daily_completed Date.today
-    elsif params[:report_type] == "weekly_incomplete"
-      @checklists = @checklists.weekly_incomplete Date.today
-    elsif params[:report_type] == "weekly_complete"
-      @checklists = @checklists.weekly_completed Date.today
-    elsif params[:report_type] == "monthly_incomplete"
-      @checklists = @checklists.monthly_incomplete Date.today
-    elsif params[:report_type] == "monthly_complete"
-      @checklists = @checklists.monthly_completed Date.today
-    end
+  	# for top search bar.
+	# @report_type = params[:report_type]
+# 	@checklists = Checklist.where(user_id: "#{params[:assigned_to]}") if params[:assigned_to]
+# 	@checklists ||= Checklist.all
+# 	if params[:report_type] == "daily_incomplete"
+# 	  @checklists = @checklists.daily_incomplete(Date.today)
+# 	elsif params[:report_type] == "daily_complete"
+# 	  @checklists = @checklists.daily_completed Date.today
+# 	elsif params[:report_type] == "weekly_incomplete"
+# 	  @checklists = @checklists.weekly_incomplete Date.today
+# 	elsif params[:report_type] == "weekly_complete"
+# 	  @checklists = @checklists.weekly_completed Date.today
+# 	elsif params[:report_type] == "monthly_incomplete"
+# 	  @checklists = @checklists.monthly_incomplete Date.today
+# 	elsif params[:report_type] == "monthly_complete"
+# 	  @checklists = @checklists.monthly_completed Date.today
+# 	else # added by daniel
+# 	  @checklists = @checklists.daily_completed Date.today # added by daniel
+# 	end
+
+	@checklists = Checklist.search_by_params params
+    
     reports_respond_to
   end
 
   private
+  
+  def download_csv
+  	respond_to do |format|
+		format.html
+		format.csv { send_data Checklist.as_csv }
+	end
+	
+	
+  end
 
     def reports_respond_to
-      #caller_method = caller[0][/`([^']*)'/, 1]
-      respond_to do |format|
-        format.html
-        format.pdf do
-          pdf = ChecklistsPdf.new(@checklists, @report_type.humanize)
-          send_data pdf.render, filename: "#{@report_type}_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
-        end
-      end
+    
+		if params[:csv] == "1"
+			checklist_csv = CSV.generate do |csv|
+				csv << ["List Name", "Frequency", "Assigned To", "Created By"]
+
+				@checklists.each do |checklist|
+					csv << [checklist.name, checklist.frequency, checklist.user_full_name, checklist.author_full_name]
+				end
+			end
+			send_data(checklist_csv, :type => 'text/csv', :filename => "checklist_#{Time.now.strftime('%Y%m%d_%H%M')}.csv")
+		else	
+			respond_to do |format|
+				format.html
+				format.pdf do
+					pdf = ChecklistsPdf.new(@checklists, 'Checklists' )
+
+					send_data pdf.render, filename: "checklist_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
+				end
+			end
+		end
     end
 
 end

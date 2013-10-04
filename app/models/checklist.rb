@@ -109,8 +109,57 @@ class Checklist < ActiveRecord::Base
     complete
   end
   
-  #def self.duplicate(checklist_id)
   def self.duplicate
   	#@checklist = Checklist.find(params[:id])
   end
+  
+  def self.by_name
+    order(:name)
+  end
+  
+ def self.search_assignee_and_type(assignee, report_type)
+    checklists = Checklist.scoped
+    
+    checklists = where(user_id: assignee) unless assignee.blank?
+    
+    if report_type == "daily_incomplete"
+ 	  checklists = checklists.daily_incomplete Date.today
+ 	elsif report_type == "daily_complete"
+ 	  checklists = checklists.daily_completed Date.today
+ 	elsif report_type == "weekly_incomplete"
+ 	  checklists = checklists.weekly_incomplete Date.today
+ 	elsif report_type == "weekly_complete"
+ 	  checklists = checklists.weekly_completed Date.today
+ 	elsif report_type == "monthly_incomplete"
+ 	  checklists = checklists.monthly_incomplete Date.today
+ 	elsif report_type == "monthly_complete"
+ 	  checklists = checklists.monthly_completed Date.today
+ 	end
+    
+    checklists
+  end
+  
+  def self.search_by_params(params)
+  
+    checklists = Checklist.scoped
+    
+    checklists = where(user_id: params[:assigned_to]) unless params[:assigned_to].blank?
+    
+    if params[:report_type] == "daily_incomplete"
+ 	  checklists = checklists.daily_incomplete Date.today
+ 	elsif params[:report_type] == "daily_complete"
+ 	  checklists = checklists.daily_completed Date.today
+ 	elsif params[:report_type] == "weekly_incomplete"
+ 	  checklists = checklists.weekly_incomplete Date.today
+ 	elsif params[:report_type] == "weekly_complete"
+ 	  checklists = checklists.weekly_completed Date.today
+ 	elsif params[:report_type] == "monthly_incomplete"
+ 	  checklists = checklists.monthly_incomplete Date.today
+ 	elsif params[:report_type] == "monthly_complete"
+ 	  checklists = checklists.monthly_completed Date.today
+ 	end
+    
+    checklists
+  end
+  
 end

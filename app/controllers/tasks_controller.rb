@@ -94,13 +94,25 @@ class TasksController < ApplicationController
 
   def reports
     @tasks = Task.search_by_params params
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = TaskPdf.new(@tasks, 'Tasks')
-        send_data pdf.render, filename: "tasks_by_state", type: "application/pdf", disposition: "inline"
-      end
-    end
+    
+    if params[:csv] == "1"
+			task_csv = CSV.generate do |csv|
+				csv << ["Name", "Department", "Due Date", "Status", "Assigned To", "Created By"]
+
+				@tasks.each do |task|
+					csv << [task.name, task.department_name, task.due_at.strftime('%m/%d/%Y'), task.state, task.assignee_full_name, task.owner.full_name]
+				end
+			end
+			send_data(task_csv, :type => 'text/csv', :filename => "task_#{Time.now.strftime('%Y%m%d_%H%M')}.csv")
+		else
+			respond_to do |format|
+				format.html
+				format.pdf do
+					pdf = TaskPdf.new(@tasks, 'Tasks')
+					send_data pdf.render, filename: "tasks_by_state", type: "application/pdf", disposition: "inline"
+				end
+			end
+		end
   end
 
 end

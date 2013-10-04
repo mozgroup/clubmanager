@@ -18,6 +18,12 @@
     <% if can? :create, Checklist %>
       <%= link_to 'New Checklist', new_checklist_path, class: 'button icon-star ' %>
     <% end %>
+    <% if can? :manage, Task %>
+        <%= link_to reports_checklists_path, class: 'button mid-margin-left' do %>
+          <span class="button-icon blue-gradient"><span class="icon-printer"></span></span>
+          Reports
+        <% end %>
+      <% end %>
 </div>
 
 
@@ -33,7 +39,8 @@
 
     <% if can? :manage, Checklist %>
       <%#= form_tag reports_checklists_path(format: 'pdf'), method: :get do %>
-      <%= form_tag reports_checklists_path(format: 'pdf'), method: :get, id: 'checklist-filter' do %>
+      <%#= form_tag reports_checklists_path(format: 'pdf'), method: :get, id: 'checklist-filter' do %>
+      <%= form_tag checklists_path, method: :get, id: 'checklist-filter' do %>
       <select name="report_type" id="report_type" class="select">
         <option value="daily_incomplete">Daily Incomplete</option>
         <option value="daily_complete">Daily Complete</option>

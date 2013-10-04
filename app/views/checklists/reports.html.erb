@@ -1,5 +1,5 @@
-<% provide(:current_tasks, " class='current'".html_safe) %>
-<% provide(:title, "Task Reporting") %>
+<% provide(:current_check_list, " class='current'".html_safe) %>
+<% provide(:title, "Checklists Reporting") %>
 
 <% content_for :additional_styles do %>
   <%= stylesheet_link_tag 'css/styles/jquery-ui-1.9.2.custom.min' %>
@@ -11,39 +11,49 @@
   <%= javascript_include_tag 'js/jquery-ui-1.9.2.custom.min' %>
   <%= javascript_include_tag 'js/developr.input' %>
   <%= javascript_include_tag 'js/libs/glDatePicker/glDatePicker.min' %>
-  <%= javascript_include_tag 'tasks' %>
+  <%= javascript_include_tag 'checklist' %>
 <% end %>
-
 <script>
 function downloadCSV() {
 
-	var department_id = $('#department_id').val();
+	var report_type = $('#report_type').val();
 	var assigned_to = $('#assigned_to').val();
-	var status = $('#status').val();
-	var begin_date = $('#begin_date').val();
-	var end_date = $('#end_date').val();
 	
-	document.location.href = '<%=reports_tasks_path(format: "csv")%>?department_id='+department_id+'&assigned_to='+assigned_to+'&status='+status+'&begin_date='+begin_date+'&end_date='+end_date+'&csv=1';
+	document.location.href = '<%=reports_checklists_path(format: "csv")%>?report_type='+report_type+'&assigned_to='+assigned_to+'&csv=1';
 
 }
 </script>
-
 <div class="with-padding">
 
-  <%= form_tag reports_tasks_path(format: 'pdf'), method: :get do %>
+  <%= form_tag reports_checklists_path(format: 'pdf'), method: :get do %>
 
     <div class="with-padding">
 
       <fieldset class="fieldset">
-        <p class="button-height inline-label">
+      	<p class="button-height inline-label">
+          <%= label_tag :report_type, 'Report Type', class: 'label' %>
+          <select name="report_type" id="report_type" class="select">
+			<option value="daily_incomplete">Daily Incomplete</option>
+			<option value="daily_complete">Daily Complete</option>
+			<option value="weekly_incomplete">Weekly Incomplete</option>
+			<option value="weekly_complete">Weekly Complete</option>
+			<option value="monthly_incomplete">Monthly Incomplete</option>
+			<option value="monthly_complete">Monthly Complete</option>
+		  </select>
+        </p>
+      
+        <!--p class="button-height inline-label">
           <%= label_tag :department_id, 'Department', class: 'label' %>
           <%= select_tag :department_id, options_from_collection_for_select(Department.all, "id", "name", params[:department_id]), class: 'select', include_blank: true %>
-        </p>
+        </p-->
         <p class="button-height inline-label">
           <%= label_tag :assigned_to, 'Assigned To', class: 'label' %>
           <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
         </p>
-        <p class="button-height inline-label">
+        
+        
+        
+        <!--p class="button-height inline-label">
           <%= label_tag :status, 'Status', class: 'label' %>
           <%= select_tag :status, options_for_select(Task::STATES, params[:status]), class: 'select', include_blank: true %>
         </p>
@@ -60,7 +70,7 @@ function downloadCSV() {
             <span class="icon-calendar"></span>
             <%= text_field_tag :end_date, params[:end_date], class: 'input-unstyled datepicker' %>
           </span>
-        </p>
+        </p-->
         <p class="button-height inline-label">
           <input type="hidden" id="csv" name="csv" value="0">
           <%= submit_tag 'Run Report', class: 'button' %>
