@@ -40,7 +40,7 @@ class Task < ActiveRecord::Base
   delegate :full_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :department, prefix: true, allow_nil: true
 
-  STATES = %w(new assigned claimed started completed)
+  STATES = %w(assigned claimed completed new started)
 
   pg_search_scope :search_for,
                   {
