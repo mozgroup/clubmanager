@@ -49,7 +49,7 @@
         <option value="monthly_incomplete">Monthly Incomplete</option>
         <option value="monthly_complete">Monthly Complete</option>
       </select>
-      <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
+      <%= select_tag :assigned_to, options_from_collection_for_select(User.by_first_name, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
         <%= link_to 'Go', 'javascript:void(0)', id: 'checklist-filter-btn', class: 'button' %>
       <% end %>
     <% end %>

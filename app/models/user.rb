@@ -94,6 +94,7 @@ class User < ActiveRecord::Base
 
   ROLES = %w[admin owner manager associate]
 
+  scope :by_first_name, order(:first_name)
   scope :with_role, lambda { |role| { conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
   scope :managers, { conditions: "roles_mask & #{2**ROLES.index('manager')} > 0"}
 
