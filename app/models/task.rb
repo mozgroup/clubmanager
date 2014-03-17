@@ -40,7 +40,7 @@ class Task < ActiveRecord::Base
   delegate :full_name, to: :owner, prefix: true, allow_nil: true
   delegate :name, to: :department, prefix: true, allow_nil: true
 
-  STATES = %w(assigned claimed completed new started)
+  STATES = %w(assigned claimed completed new overdue started)
 
   pg_search_scope :search_for,
                   {
@@ -121,7 +121,11 @@ class Task < ActiveRecord::Base
   def self.search_assignee_and_state(assignee, status, department)
     tasks = Task.scoped
     tasks = tasks.where(assignee_id: assignee) unless assignee.blank?
-    tasks = tasks.where(state: status) unless status.blank?
+    if !status.blank? && status == 'overdue'
+      tasks = tasks.where('state != ? and due_at < ?', 'completed', Time.now)
+    elsif !status.blank?
+      tasks = tasks.where(state: status)
+    end
     tasks = tasks.where(department_id: department) unless department.blank?
     tasks
   end
@@ -130,7 +134,11 @@ class Task < ActiveRecord::Base
     tasks = Task.scoped
     tasks = tasks.where(department_id: params[:department_id]) unless params[:department_id].blank?
     tasks = tasks.where(assignee_id: params[:assigned_to]) unless params[:assigned_to].blank?
-    tasks = tasks.where(state: params[:status]) unless params[:status].blank?
+    if !params[:status].blank? && params[:status] == 'overdue'
+      tasks = tasks.where('state != ? and due_at < ?', 'completed', Time.now)
+    elsif !params[:status].blank?
+      tasks = tasks.where(state: params[:status])
+    end
     tasks = tasks.where('due_at >= ?', params[:begin_date]) unless params[:begin_date].blank?
     tasks = tasks.where('due_at <= ?', params[:end_date]) unless params[:end_date].blank?
     tasks
