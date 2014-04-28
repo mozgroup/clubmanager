@@ -20,10 +20,22 @@ class ChecklistsPdf < Prawn::Document
     end
   end
 
-  def line_item_rows
+  def line_item_rows2
     [["List Name", "Frequency", "Assigned To", "Created By"]] +
     @checklists.map do |checklist|
       [checklist.name, checklist.frequency, checklist.user_full_name, checklist.author_full_name]
     end
+  end
+
+  def line_item_rows
+    array = [["List Name", "Item", "Frequency", "Assigned To", "Created By"]]
+    @checklists.each{|hash|
+      checklist = hash['checklist']
+      array << [checklist.name, '', checklist.frequency, checklist.user_full_name, checklist.author_full_name]
+      hash['items'].each{|item|
+        array << ['', item.name, '', '', '']
+      }
+    }
+    array
   end
 end

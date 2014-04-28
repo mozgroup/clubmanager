@@ -73,7 +73,7 @@ class ChecklistsController < ApplicationController
   end
   
   def reports_daily_incomplete
-    @checklists = Checklist.daily_incomplete Date.today
+    @checklists = Checklist.daily_incomplete_items Date.today
     reports_respond_to
   end
 

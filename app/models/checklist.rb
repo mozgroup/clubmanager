@@ -76,6 +76,23 @@ class Checklist < ActiveRecord::Base
     end
   end
 
+  def self.daily_incomplete_items(date)
+    checklists = []
+    checklists = self.daily_incomplete date
+    checklists.each{|checklist|
+      item_hash = {}
+      item_hash['checklist'] = checklist
+      item_hash['items'] = []
+      checklist.checklist_items.each{|item|
+        unless item.is_complete? date
+          item_hash['items'] << item
+        end
+      }
+      checklists << item_hash
+    }
+    checklists
+  end
+
   def assigned_to
     user_full_name
   end
