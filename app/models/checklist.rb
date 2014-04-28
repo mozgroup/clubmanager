@@ -77,7 +77,7 @@ class Checklist < ActiveRecord::Base
   end
 
   def self.daily_incomplete_items(date)
-    checklists = []
+    array = []
     checklists = self.daily_incomplete date
     checklists.each{|checklist|
       item_hash = {}
@@ -88,9 +88,9 @@ class Checklist < ActiveRecord::Base
           item_hash['items'] << item
         end
       }
-      checklists << item_hash
+      array << item_hash
     }
-    checklists
+    array
   end
 
   def assigned_to
