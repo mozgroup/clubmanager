@@ -163,7 +163,7 @@ class Checklist < ActiveRecord::Base
     checklists = where(user_id: params[:assigned_to]) unless params[:assigned_to].blank?
     
     if params[:report_type] == "daily_incomplete"
- 	  checklists = checklists.daily_incomplete Date.today
+ 	  checklists = checklists.daily_incomplete_items Date.today
  	elsif params[:report_type] == "daily_complete"
  	  checklists = checklists.daily_completed Date.today
  	elsif params[:report_type] == "weekly_incomplete"
