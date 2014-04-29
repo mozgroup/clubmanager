@@ -100,16 +100,15 @@ class Checklist < ActiveRecord::Base
     self.collect_items(self.monthly_completed(date), date)
   end
 
-  def self.collect_items(checklists, date)
+  def self.collect_items(checklists, date, is_complete)
     array = []
     checklists.each{|checklist|
       item_hash = {}
       item_hash['checklist'] = checklist
       item_hash['items'] = []
       checklist.checklist_items.each{|item|
-        unless item.is_complete? date
-          item_hash['items'] << item
-        end
+        item_hash['items'] << item if is_complete && item.is_complete? date
+        item_hash['items'] << item if !is_complete && !item.is_complete? date
       }
       array << item_hash
     }
