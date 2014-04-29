@@ -77,27 +77,27 @@ class Checklist < ActiveRecord::Base
   end
 
   def self.daily_incomplete_items(date)
-    self.collect_items(self.daily_incomplete(date), date)
+    self.collect_items(self.daily_incomplete(date), date, false)
   end
 
   def self.daily_completed_items(date)
-    self.collect_items(self.daily_completed(date), date)
+    self.collect_items(self.daily_completed(date), date, true)
   end
 
   def self.weekly_incomplete_items(date)
-    self.collect_items(self.weekly_incomplete(date), date)
+    self.collect_items(self.weekly_incomplete(date), date, false)
   end
 
   def self.weekly_completed_items(date)
-    self.collect_items(self.weekly_completed(date), date)
+    self.collect_items(self.weekly_completed(date), date, true)
   end
 
   def self.monthly_incomplete_items(date)
-    self.collect_items(self.monthly_incomplete(date), date)
+    self.collect_items(self.monthly_incomplete(date), date, false)
   end
 
   def self.monthly_completed_items(date)
-    self.collect_items(self.monthly_completed(date), date)
+    self.collect_items(self.monthly_completed(date), date, true)
   end
 
   def self.collect_items(checklists, date, is_complete)
