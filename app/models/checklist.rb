@@ -77,8 +77,31 @@ class Checklist < ActiveRecord::Base
   end
 
   def self.daily_incomplete_items(date)
+    self.collect_items(self.daily_incomplete(date), date)
+  end
+
+  def self.daily_complete_items(date)
+    self.collect_items(self.daily_complete(date), date)
+  end
+
+  def self.weekly_incomplete_items(date)
+    self.collect_items(self.weekly_incomplete(date), date)
+  end
+
+  def self.weekly_complete_items(date)
+    self.collect_items(self.weekly_complete(date), date)
+  end
+
+  def self.monthly_incomplete_items(date)
+    self.collect_items(self.monthly_incomplete_items(date), date)
+  end
+
+  def self.monthly_complete_items(date)
+    self.collect_items(self.monthly_complete_items(date), date)
+  end
+
+  def self.collect_items(checklists, date)
     array = []
-    checklists = self.daily_incomplete date
     checklists.each{|checklist|
       item_hash = {}
       item_hash['checklist'] = checklist
@@ -165,15 +188,15 @@ class Checklist < ActiveRecord::Base
     if params[:report_type] == "daily_incomplete"
  	  checklists = checklists.daily_incomplete_items Date.today
  	elsif params[:report_type] == "daily_complete"
- 	  checklists = checklists.daily_completed Date.today
+ 	  checklists = checklists.daily_completed_items Date.today
  	elsif params[:report_type] == "weekly_incomplete"
- 	  checklists = checklists.weekly_incomplete Date.today
+ 	  checklists = checklists.weekly_incomplete_items Date.today
  	elsif params[:report_type] == "weekly_complete"
- 	  checklists = checklists.weekly_completed Date.today
+ 	  checklists = checklists.weekly_completed_items Date.today
  	elsif params[:report_type] == "monthly_incomplete"
- 	  checklists = checklists.monthly_incomplete Date.today
+ 	  checklists = checklists.monthly_incomplete_items Date.today
  	elsif params[:report_type] == "monthly_complete"
- 	  checklists = checklists.monthly_completed Date.today
+ 	  checklists = checklists.monthly_completed_items Date.today
  	end
     
     checklists

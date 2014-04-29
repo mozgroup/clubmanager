@@ -78,27 +78,27 @@ class ChecklistsController < ApplicationController
   end
 
   def reports_daily_complete
-    @checklists = Checklist.daily_completed Date.today
+    @checklists = Checklist.daily_completed_items Date.today
     reports_respond_to
   end
 
   def reports_weekly_incomplete
-    @checklists = Checklist.weekly_incomplete Date.today
+    @checklists = Checklist.weekly_incomplete_items Date.today
     reports_respond_to
   end
 
   def reports_weekly_complete
-    @checklists = Checklist.weekly_completed Date.today
+    @checklists = Checklist.weekly_completed_items Date.today
     reports_respond_to
   end
 
   def reports_monthly_incomplete
-    @checklists = Checklist.monthly_incomplete Date.today
+    @checklists = Checklist.monthly_incomplete_items Date.today
     reports_respond_to
   end
 
   def reports_monthly_complete
-    @checklists = Checklist.monthly_completed Date.today
+    @checklists = Checklist.monthly_completed_items Date.today
     reports_respond_to
   end
 
