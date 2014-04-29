@@ -107,8 +107,8 @@ class Checklist < ActiveRecord::Base
       item_hash['checklist'] = checklist
       item_hash['items'] = []
       checklist.checklist_items.each{|item|
-        item_hash['items'] << item if is_complete && item.is_complete? date
-        item_hash['items'] << item if !is_complete && !item.is_complete? date
+        item_hash['items'] << item if is_complete && (item.is_complete? date)
+        item_hash['items'] << item if !is_complete && (!item.is_complete? date)
       }
       array << item_hash
     }
