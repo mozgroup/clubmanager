@@ -51,7 +51,13 @@ function downloadCSV() {
           <%= select_tag :assigned_to, options_from_collection_for_select(User.all, "id", "full_name", params[:assigned_to]), class: 'select', include_blank: true %>
         </p>
         
-        
+    <p class="button-height inline-label">
+      <%= label_tag :report_date, 'Report Date', class: 'label' %>
+      <span class="input">
+        <span class="icon-calendar"></span>
+        <%= text_field_tag :report_date, params[:report_date], class: 'input-unstyled datepicker' %>
+      </span>
+    </p> 
         
         <!--p class="button-height inline-label">
           <%= label_tag :status, 'Status', class: 'label' %>

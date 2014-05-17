@@ -124,7 +124,7 @@ class ChecklistsController < ApplicationController
 # 	end
 
 	@checklists = Checklist.search_by_params params
-    
+        @report_date = " #{params[:report_date]}"
     reports_respond_to
   end
 
@@ -154,7 +154,7 @@ class ChecklistsController < ApplicationController
 			respond_to do |format|
 				format.html
 				format.pdf do
-					pdf = ChecklistsPdf.new(@checklists, 'Checklists' )
+					pdf = ChecklistsPdf.new(@checklists, "Checklists #{@report_date.blank? ? Date.today : @report_date}")
 
 					send_data pdf.render, filename: "checklist_#{Time.now.strftime('%Y%m%d_%H%M')}.pdf", disposition: 'inline'
 				end

@@ -183,19 +183,25 @@ class Checklist < ActiveRecord::Base
     checklists = Checklist.scoped
     
     checklists = where(user_id: params[:assigned_to]) unless params[:assigned_to].blank?
-    
+
+    if params[:report_date]
+      date = Date.today
+    else
+      date = Date.strptime(params[:report_date], "%Y-%m-%d")
+    end
+ 
     if params[:report_type] == "daily_incomplete"
- 	  checklists = checklists.daily_incomplete_items Date.today
+ 	  checklists = checklists.daily_incomplete_items date
  	elsif params[:report_type] == "daily_complete"
- 	  checklists = checklists.daily_completed_items Date.today
+ 	  checklists = checklists.daily_completed_items date
  	elsif params[:report_type] == "weekly_incomplete"
- 	  checklists = checklists.weekly_incomplete_items Date.today
+ 	  checklists = checklists.weekly_incomplete_items date
  	elsif params[:report_type] == "weekly_complete"
- 	  checklists = checklists.weekly_completed_items Date.today
+ 	  checklists = checklists.weekly_completed_items date
  	elsif params[:report_type] == "monthly_incomplete"
- 	  checklists = checklists.monthly_incomplete_items Date.today
+ 	  checklists = checklists.monthly_incomplete_items date
  	elsif params[:report_type] == "monthly_complete"
- 	  checklists = checklists.monthly_completed_items Date.today
+ 	  checklists = checklists.monthly_completed_items date
  	end
     
     checklists

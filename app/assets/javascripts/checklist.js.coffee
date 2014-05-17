@@ -30,3 +30,11 @@ jQuery ->
 
   $('#checklist-filter-btn').on 'click', (event) ->
     $('#checklist-filter').submit()
+
+  if $(".datepicker").length > 0
+    $(".datepicker").datepicker {
+      dateFormat: 'yy-mm-dd'
+      changeMonth: true
+      changeYear: true
+      showButtonPanel: true
+    }
