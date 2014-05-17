@@ -184,7 +184,7 @@ class Checklist < ActiveRecord::Base
     
     checklists = where(user_id: params[:assigned_to]) unless params[:assigned_to].blank?
 
-    if params[:report_date]
+    if params[:report_date].blank?
       date = Date.today
     else
       date = Date.strptime(params[:report_date], "%Y-%m-%d")
