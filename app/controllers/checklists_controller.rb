@@ -145,7 +145,8 @@ class ChecklistsController < ApplicationController
 			checklist_csv = CSV.generate do |csv|
 				csv << ["List Name", "Frequency", "Assigned To", "Created By"]
 
-				@checklists.each do |checklist|
+				@checklists.each do |hash|
+					checklist = hash['checklist']
 					csv << [checklist.name, checklist.frequency, checklist.user_full_name, checklist.author_full_name]
 				end
 			end
