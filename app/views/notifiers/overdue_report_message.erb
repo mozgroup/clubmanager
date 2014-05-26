@@ -1,0 +1,18 @@
+<b>Overdue Tasks:</b>
+<hr />
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Owner</th>
+    <th>Assignee</th>
+    <th>Due</th>
+  </tr>
+  <% @tasks.each{|task| %>
+  <tr>
+    <td><%= task.name %></td>
+    <td><%= task.owner %></td>
+    <td><%= task.assigned_to %></td>
+    <td><%= task.due_at %></td>
+  </tr>
+  <% } %>
+</table>
