@@ -41,7 +41,7 @@ class TaskMailer < ActionMailer::Base
 
   def overdue_report(tasks)
     @tasks = tasks
-    @send_to = 'workflow.forwarding@gmail.com'
+    @send_to = 'workflow.forwarding@gmail.com, ericam@bigalsfamilyfitness.com, franka@bigalsfamilyfitness.com'
     @subject = "Overdue Tasks Report"
 
     mail(to: @send_to, subject: "[ClubManager] #{@subject}")
