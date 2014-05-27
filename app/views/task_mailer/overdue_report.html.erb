@@ -12,7 +12,7 @@
     <td><%= task.name %></td>
     <td><%= task.owner.full_name %></td>
     <td><%= task.assigned_to %></td>
-    <td><%= task.due_at %></td>
+    <td><%= date_format(task.due_at) %></td>
   </tr>
   <% } %>
 </table>

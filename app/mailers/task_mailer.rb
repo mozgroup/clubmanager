@@ -1,4 +1,6 @@
 class TaskMailer < ActionMailer::Base
+  add_template_helper(TasksHelper)
+  
   default from: "no-reply@myclubmanager.net"
 
   def assigned_task(task)
