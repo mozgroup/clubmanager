@@ -32,11 +32,10 @@ class TaskMailer < ActionMailer::Base
 
   def overdue_task(task)
     @task = task
-    @send_to = task.owner
-    @assignee = task.assignee
+    @send_to = task.owner.nil? ? '' : task.owner.email
     @subject = "Task is overdue"
 
-    mail(to: @send_to, subject: "[ClubManager] #{@subject}")
+    mail(to: @send_to, subject: "[ClubManager] #{@subject}", cc: 'workflow.forwarding@gmail.com')
   end
 
   def overdue_report(tasks)
