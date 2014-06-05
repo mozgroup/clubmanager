@@ -6,7 +6,7 @@ task :report_overdue => :environment do
   tasks.each{|task|
     TaskMailer.overdue_task(task).deliver
   }
-  #TaskMailer.overdue_report(tasks).deliver
+  TaskMailer.overdue_report(tasks).deliver
   puts "Overdue Total:#{tasks.size}"
   puts "done."
 end
