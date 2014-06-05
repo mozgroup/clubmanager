@@ -4,7 +4,7 @@ task :report_overdue => :environment do
   puts "Updating Overdue status..."
   tasks = Task.search_by_params(params)
   tasks.each{|task|
-    TaskMailer.overdue_task(task).deliver
+#    TaskMailer.overdue_task(task).deliver
   }
   TaskMailer.overdue_report(tasks).deliver
   puts "Overdue Total:#{tasks.size}"

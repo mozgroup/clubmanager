@@ -188,6 +188,10 @@ class Task < ActiveRecord::Base
     self.complete
   end
 
+  def print_due_at(format='%A %B %-d, %Y')
+    self.due_at.strftime(format) unless self.due_at.blank?
+  end
+
   def method_missing(method, *args)
     if method.to_s == "add_context" || method.to_s == "add_project"
       class_name = method.slice(/_(.+)/,1)
