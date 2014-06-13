@@ -30,19 +30,10 @@ class TaskMailer < ActionMailer::Base
     mail(to: @send_to.email, subject: "[ClubManager] #{@subject}")
   end
 
-  def overdue_task(task)
-    @task = task
-    @send_to = task.owner.nil? ? '' : task.owner.email
-    @subject = "Task is overdue"
-
-    mail(to: @send_to, subject: "[ClubManager] #{@subject}", cc: 'workflow.forwarding@gmail.com')
-  end
-
-  def overdue_report(tasks)
+  def overdue_report(send_to, subject, tasks)
     @tasks = tasks
-#    @send_to = 'workflow.forwarding@gmail.com, ericam@bigalsfamilyfitness.com, franka@bigalsfamilyfitness.com'
-    @send_to = 'workflow.forwarding@gmail.com'
-    @subject = "Overdue Tasks Report"
+    @send_to = send_to
+    @subject = subject
 
     task_csv = CSV.generate do |csv|
       csv << ["Task", "Owner", "Assignee", "Due"]
@@ -55,6 +46,6 @@ class TaskMailer < ActionMailer::Base
     end
 
     attachments['overdue_tasks.csv'] = task_csv
-    mail(to: @send_to, subject: "[ClubManager] #{@subject}")
+    mail(to: @send_to, subject: "[ClubManager] #{@subject}", cc: 'workflow.forwarding@gmail.com')
   end
 end
